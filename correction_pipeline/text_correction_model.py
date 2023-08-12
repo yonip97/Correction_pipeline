@@ -1,5 +1,4 @@
-
-from llms import LLM_model
+from correction_pipeline.llms import LLM_model
 
 
 class Text_correction_model(LLM_model):

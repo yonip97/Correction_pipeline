@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader
 from argparse import ArgumentParser
 from pipeline import Correction_pipline
-from question_generator import Question_generator_prompt_based, Question_generator_model_based
+from correction_pipeline.question_generator import Question_generator_prompt_based, Question_generator_model_based
 from correction_pipeline.question_answering import Question_answering_model_based, Question_answering_model_prompt_based
 from correction_pipeline.filter_models import Base_filter, Strategy_based_filter_model
 from disagreement_model import Disagreement_model_nli_based

@@ -1,6 +1,6 @@
 import openai
 import tiktoken
-from utils import collate_fn
+from correction_pipeline.utils import collate_fn
 from torch.utils.data import DataLoader
 
 
