@@ -1,8 +1,5 @@
-import torch
-
-from correction_pipeline.text_correction_model import Text_correction_model
-from correction_pipeline.run_pipeline import create_correction_pipeline
-from transformers import AutoTokenizer, AutoModel, T5ForConditionalGeneration, T5Tokenizer
+from text_correction_model import Text_correction_model
+from transformers import AutoTokenizer, AutoModel
 from data.utils import TRUE_dataset, true_topics, Dataset_no_labels
 from torch.utils.data import DataLoader
 from torch.optim import Adam
