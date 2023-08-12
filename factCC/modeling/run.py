@@ -28,7 +28,7 @@ import numpy as np
 import torch
 
 from model import BertPointer
-from utils import (compute_metrics, convert_examples_to_features, output_modes, processors)
+from correction_pipeline.utils import (compute_metrics, convert_examples_to_features, output_modes, processors)
 
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler, TensorDataset)
 from torch.utils.data.distributed import DistributedSampler
