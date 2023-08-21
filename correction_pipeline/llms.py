@@ -47,7 +47,6 @@ class LLM_model():
             prompt = ''
         self.prompt = prompt
         self.model = model
-
     def get_chatgpt_response(self, input, max_length, **kwargs):
         try:
             message = [{

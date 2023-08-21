@@ -6,16 +6,25 @@ from correction_pipeline.utils import iter_list
 
 
 class Question_answering_model_based():
-    def __init__(self,unanswerable_response='UNANSWERABLE', device='cpu',batch_size = 16):
-        # self.qa_tokenizer = AutoTokenizer.from_pretrained("ktrapeznikov/albert-xlarge-v2-squad-v2")
-        # self.qa_model = AutoModelForQuestionAnswering.from_pretrained("ktrapeznikov/albert-xlarge-v2-squad-v2")
-        self.qa_tokenizer = AutoTokenizer.from_pretrained("mrm8488/longformer-base-4096-finetuned-squadv2")
-        self.qa_model = AutoModelForQuestionAnswering.from_pretrained(
-            "mrm8488/longformer-base-4096-finetuned-squadv2").to(device)
+    def __init__(self, model_name='albert', device='cpu', batch_size=16):
+        self.model_name = model_name
+        if model_name == 'albert':
+            self.qa_tokenizer = AutoTokenizer.from_pretrained("ktrapeznikov/albert-xlarge-v2-squad-v2")
+            self.qa_model = AutoModelForQuestionAnswering.from_pretrained("ktrapeznikov/albert-xlarge-v2-squad-v2").to(
+                device)
+            self.max_length = 512
+        elif model_name == 'longformer':
+            self.qa_tokenizer = AutoTokenizer.from_pretrained("mrm8488/longformer-base-4096-finetuned-squadv2")
+            self.qa_model = AutoModelForQuestionAnswering.from_pretrained(
+                "mrm8488/longformer-base-4096-finetuned-squadv2").to(device)
+            self.max_length = 4096
         # what will the model return when it believes no answer exists
-        self.unanswerable_model_response = 'UNANSWERABLE'
+        self.unanswerable_response = 'UNANSWERABLE'
         # what the pipeline expects
-        self.unanswerable_response = unanswerable_response
+        if model_name == 'albert':
+            self.unanswerable_model_response = '[CLS]'
+        elif model_name == 'longformer':
+            self.unanswerable_model_response = 'UNANSWERABLE'
         self.device = device
         self.batch_size = batch_size
 
@@ -26,11 +35,13 @@ class Question_answering_model_based():
     def get_answers(self, questions, text):  # Code taken from https://huggingface.co/transformers/task_summary.html
         answers = []
         with torch.no_grad():
-            text += self.unanswerable_model_response
-            for batch_questions in iter_list(questions,self.batch_size):
+            if self.model_name == 'longformer':
+                text += self.unanswerable_model_response
+            for batch_questions in iter_list(questions, self.batch_size):
 
-                texts = [text]*len(batch_questions)
-                encoding = self.qa_tokenizer(batch_questions, texts, return_tensors="pt",padding = True).to(self.device)
+                texts = [text] * len(batch_questions)
+                encoding = self.qa_tokenizer(batch_questions, texts, return_tensors="pt", padding=True,
+                                             max_length=self.max_length, truncation=True).to(self.device)
                 input_ids = encoding["input_ids"]
 
                 # default is local attention everywhere
@@ -40,10 +51,12 @@ class Question_answering_model_based():
                 output = self.qa_model(input_ids, attention_mask=attention_mask)
                 start_scores = output.start_logits
                 end_scores = output.end_logits
-                starts = torch.argmax(start_scores,dim=1)
-                ends = torch.argmax(end_scores,dim=1)
+                starts = torch.argmax(start_scores, dim=1)
+                ends = torch.argmax(end_scores, dim=1)
                 for i in range(len(batch_questions)):
-                    answer = self.qa_tokenizer.decode(input_ids[i][starts[i]:ends[i]+1])
+                    answer = self.qa_tokenizer.decode(input_ids[i][starts[i]:ends[i] + 1])
+                    if answer == self.unanswerable_model_response:
+                        answer = self.unanswerable_response
                     answers.append(answer)
                 # for i in range(len(batch_questions)):
                 #     all_tokens = self.qa_tokenizer.convert_ids_to_tokens(input_ids[i].tolist())

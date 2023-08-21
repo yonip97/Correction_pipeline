@@ -1,22 +1,29 @@
+import os
+import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Get the parent directory (main_directory) and add it to the Python path
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 from torch.utils.data import DataLoader
 from argparse import ArgumentParser
-from pipeline import Correction_pipline
+from correction_pipeline.pipeline import Correction_pipline
 from correction_pipeline.question_generator import Question_generator_prompt_based, Question_generator_model_based
 from correction_pipeline.question_answering import Question_answering_model_based, Question_answering_model_prompt_based
 from correction_pipeline.filter_models import Base_filter, Strategy_based_filter_model
-from disagreement_model import Disagreement_model_nli_based
+from correction_pipeline.disagreement_model import Disagreement_model_nli_based
 from correction_pipeline.revision_models import Dummie_revision, LLM_prompt_based_revision_model
-from utils import collate_fn
-from data.utils import TRUE_dataset,true_topics
+from correction_pipeline.llms import Cost_estimator
+from correction_pipeline.utils import collate_fn
+from data.utils import TRUE_dataset, true_topics
+from time import time
 
 QG_MODELS = {'prompt_based': Question_generator_prompt_based, 'model_based': Question_generator_model_based}
 QA_MODELS = {'prompt_based': Question_answering_model_prompt_based, 'model_based': Question_answering_model_based}
 FILTER_MODELS = {'dummy': Base_filter, 'strategy_based': Strategy_based_filter_model}
 DISAGREEMENT_MODELS = {'nli_based': Disagreement_model_nli_based}
 REVISIONS_MODELS = {'dummy': Dummie_revision, 'prompt_based': LLM_prompt_based_revision_model}
-
-
-
 
 
 def arguments_for_question_generation(args):
@@ -39,7 +46,8 @@ def arguments_for_question_answering(args):
     args.add_argument('-qa_model', default='model_based', type=str)
     args.add_argument('-qa_batch_size', default=16, type=int)
     args.add_argument('-qa_prompt_path', default='', type=str)
-    args.add_argument('-unanswerable_response', default='UNANSWERABLE', type=str)
+    #args.add_argument('-unanswerable_response', default='UNANSWERABLE', type=str)
+    args.add_argument('-model_name', default='albert', type=str)
     return args
 
 
@@ -48,6 +56,8 @@ def arguments_for_filtering(args):
     args.add_argument('-unanswerable', action='store_true')
     args.add_argument('-yes_or_no', action='store_true')
     args.add_argument('-multiple_repetitions', action='store_true')
+    args.add_argument('-meaningless_answer', action='store_true')
+    args.add_argument('-unanswerable_response', default='UNANSWERABLE', type=str)
     return args
 
 
@@ -80,7 +90,6 @@ def parser_args():
     return args
 
 
-
 def create_correction_pipeline(args):
     qg_kwargs = {}
     qa_kwargs = {}
@@ -97,7 +106,7 @@ def create_correction_pipeline(args):
     else:
         raise ValueError("No such QA model exists!")
     if args.qa_model == 'model_based':
-        qa_model = QA_MODELS[args.qa_model](unanswerable_response=args.unanswerable_response,
+        qa_model = QA_MODELS[args.qa_model](model_name=args.model_name,
                                             batch_size=args.qa_batch_size, device=args.device)
     elif args.qa_model == 'prompt_based':
         qa_model = QA_MODELS[args.qa_model](prompt_path=args.qa_prompt_path, model=args.LLM_model, API_KEY=args.api_key)
@@ -108,7 +117,8 @@ def create_correction_pipeline(args):
         filter_model = FILTER_MODELS[args.filter_model](unanswerable_response=args.unanswerable_response,
                                                         unanswerable=args.unanswerable,
                                                         multiple_repetitions=args.multiple_repetitions,
-                                                        yes_or_no_questions=args.yes_or_no)
+                                                        yes_or_no_questions=args.yes_or_no,
+                                                        meaningless_answer=args.meaningless_answer)
     elif args.filter_model == 'dummy':
         filter_model = FILTER_MODELS[args.filter_model]()
     else:
@@ -124,15 +134,15 @@ def create_correction_pipeline(args):
         revision_model = REVISIONS_MODELS[args.revision_model]()
     elif args.revison_model == 'prompt_based':
         revision_model = REVISIONS_MODELS[args.revison_model](prompt_path=args.revision_prompt_path,
-                                                              model=args.LLM_model,API_KEY=args.api_key)
+                                                              model=args.LLM_model, API_KEY=args.api_key)
         revision_kwargs['max_length'] = args.revision_max_length
     else:
         raise ValueError("No such revision model exists!")
     pipeline = Correction_pipline(qg_model=qg_model, qa_model=qa_model, filter_model=filter_model,
                                   disagreement_model=disagreement_model,
                                   revision_model=revision_model)
-    kwargs = {'qg_kwargs':qg_kwargs,'qa_kwargs':qa_kwargs,'revision_kwargs':revision_kwargs}
-    return pipeline,kwargs
+    kwargs = {'qg_kwargs': qg_kwargs, 'qa_kwargs': qa_kwargs, 'revision_kwargs': revision_kwargs}
+    return pipeline, kwargs
 
 
 def main():
@@ -141,31 +151,55 @@ def main():
     datasets_names = true_topics(['summarization'])
     dataset.filter_to_datasets(datasets_names)
     dataloader = DataLoader(dataset, collate_fn=collate_fn, batch_size=1)
-    correction_pipeline,kwargs = create_correction_pipeline(args)
-    #counter = 0
-    #s = time.time()
-    #cost_estimator = Cost_estimator(model='gpt-4', input_price=0.03 , output_price=0.06)
-    #estimation = cost_estimator.estimate_dataset(
-    #    'revise the generated text to be factually consistent with the original text, while making as little changes in the generated text as possible:',dataset)
-    #print(estimation)
-    lengths = {}
-    for x in dataloader:
-        datasets, original_texts, generated_texts, labels = x
-        if datasets[0] not in lengths.keys():
-            lengths[datasets[0]] = []
-        lengths[datasets[0]].append(len(generated_texts[0].split(' ')))
-        # if counter == 32:
-        #     print('ss')
-        # revised_text = pipeline.apply(original_texts[0], generated_texts[0])
-        # counter += 1
-        # print(counter)
-        # if counter >= 100:
-        #     print(time.time() - s)
-        #     break
-    import matplotlib.pyplot as plt
-    for k,x in lengths.items():
-        plt.title(k)
-        plt.hist(x)
-        plt.show()
+    correction_pipeline, kwargs = create_correction_pipeline(args)
+    start = time()
+    inconsistent_stats = {'cost': 0, 'revisions': 0, 'amount': 0}
+    consistent_stats = {'cost': 0, 'revisions': 0, 'amount': 0}
+    prev_cost = 0
+    prev_revisions = 0
+    f = open('output.txt', 'w')
+    for i, x in enumerate(dataloader):
+        dataset, original_text, generated_text, label = x
+        correction_pipeline.apply(original_text[0], generated_text[0], **kwargs)
+        if label[0] == 1:
+            consistent_stats['amount'] += 1
+            consistent_stats['cost'] += correction_pipeline.revision_model.cost - prev_cost
+            consistent_stats['revisions'] += correction_pipeline.revision_model.revisions_number - prev_revisions
+        else:
+            inconsistent_stats['amount'] += 1
+            inconsistent_stats['cost'] += correction_pipeline.revision_model.cost - prev_cost
+            inconsistent_stats['revisions'] += correction_pipeline.revision_model.revisions_number - prev_revisions
+        prev_cost = correction_pipeline.revision_model.cost
+        prev_revisions = correction_pipeline.revision_model.revisions_number
+
+        if i % 100 == 0:
+            f.write(f"Number of sample {i}\n")
+            f.write(f"{i} examples took {time() - start} seconds\n")
+            f.write(
+                f"There were {consistent_stats['amount']} samples and {consistent_stats['revisions']} revisions done at {consistent_stats['cost']:.6f} dollars for consistent examples\n")
+            f.write(
+                f"There were {inconsistent_stats['amount']} samples and {inconsistent_stats['revisions']} revisions done at {inconsistent_stats['cost']:.6f} dollars for inconsistent examples\n")
+            f.flush()
+            print(f"Number of sample {i}")
+            print(f"{i} examples took {time() - start} seconds")
+            print(
+                f"There were {consistent_stats['amount']} samples and {consistent_stats['revisions']} revisions done at {consistent_stats['cost']:.6f} dollars for consistent examples")
+            print(
+                f"There were {inconsistent_stats['amount']} samples and {inconsistent_stats['revisions']} revisions done at {inconsistent_stats['cost']:.6f} dollars for inconsistent examples")
+
+    print(f"{len(dataset)} examples took {time() - start} seconds")
+    print(
+        f"There were {consistent_stats['amount']} samples and {consistent_stats['revisions']} revisions done at {consistent_stats['cost']:.6f} dollars for consistent examples")
+    print(
+        f"There were {inconsistent_stats['amount']} samples and {inconsistent_stats['revisions']} revisions done at {inconsistent_stats['cost']:.6f} dollars for inconsistent examples")
+    f.write(f"{len(dataset)} examples took {time() - start} seconds\n")
+    f.write(
+        f"There were {consistent_stats['amount']} samples and {consistent_stats['revisions']} revisions done at {consistent_stats['cost']:.6f} dollars for consistent examples\n")
+    f.write(
+        f"There were {inconsistent_stats['amount']} samples and {inconsistent_stats['revisions']} revisions done at {inconsistent_stats['cost']:.6f} dollars for inconsistent examples\n")
+    f.flush()
+    f.close()
+
+
 if __name__ == "__main__":
     main()

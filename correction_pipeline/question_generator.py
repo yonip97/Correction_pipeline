@@ -2,8 +2,8 @@
 import torch
 from transformers import AutoModelWithLMHead, AutoTokenizer
 import spacy
-from llms import LLM_model
-from utils import iter_list
+from correction_pipeline.llms import LLM_model
+from correction_pipeline.utils import iter_list
 
 
 class Question_generator_model_based():
@@ -34,7 +34,7 @@ class Question_generator_model_based():
         elif self.method == 'sample':
             return self.get_questions_sample(answer, text, **kwargs)
 
-    def get_question_greedy(self, answers, text, max_length=128):
+    def get_question_greedy(self, answers, text, max_length=128,**kwargs):
         with torch.no_grad():
             input_texts = []
             for answer in answers:
@@ -52,7 +52,7 @@ class Question_generator_model_based():
                 final_questions.append(q)
         return final_questions
 
-    def get_questions_beam(self, answers, text, max_length=128, beam_size=5, num_return=5):
+    def get_questions_beam(self, answers, text, max_length=128, beam_size=5, num_return=5,**kwargs):
         with torch.no_grad():
             all_questions = []
             input_texts = []
@@ -69,7 +69,7 @@ class Question_generator_model_based():
                 all_questions.append(beam_output.replace("question: ", "", 1).strip())
             return all_questions
 
-    def get_questions_sample(self, answers, text, max_length=128, top_k=50, top_p=0.95, num_return=5):
+    def get_questions_sample(self, answers, text, max_length=128, top_k=50, top_p=0.95, num_return=5,**kwargs):
         all_questions = []
         input_texts = []
         for answer in answers:

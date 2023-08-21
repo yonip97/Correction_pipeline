@@ -11,6 +11,8 @@ class Correction_pipline():
         questions = self.generate_questions(generated_text, qg_kwargs)
         answers_based_on_generated_text = self.generate_answers(generated_text, questions,qa_kwargs)
         questions, answers_based_on_generated_text = self.filter_questions(questions, answers_based_on_generated_text)
+        if len(questions) == 0:
+            return original_text,[]
         answers_based_on_original_text = self.generate_answers(original_text, questions,qa_kwargs)
         questions_with_disagreements, answers_based_on_generated_text_with_disagreements, answers_based_on_original_text_with_disagreements = self.find_disagreements(
             questions, answers_based_on_generated_text, answers_based_on_original_text)

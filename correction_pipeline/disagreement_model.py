@@ -8,7 +8,7 @@ from bert_score import score
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from allennlp.predictors.predictor import Predictor
-from utils import iter_list
+from correction_pipeline.utils import iter_list
 
 
 class Disagreement_model_nli_based():
@@ -32,7 +32,7 @@ class Disagreement_model_nli_based():
         # This means that if the result was contradiction,
         # strong disagreement was detected, and therefore the result is disagreement
         for i in range(len(questions)):
-            if nli_scores[i][2] >= self.cutoff:
+            if nli_scores[i][0] <= self.cutoff:
                 indexes.append(i)
         return indexes
 
@@ -71,7 +71,7 @@ class Disagreement_model_nli_based():
                     hypothesis = questions[i] + ' ' + preds[i] + '.'
                     model_input.append((premise, hypothesis))
                 tokenized_input_seq_pair = self.tokenizer.batch_encode_plus(model_input,
-                                                                            return_token_type_ids=True, padding=True)
+                                                                            return_token_type_ids=True, padding=True,max_length=512,truncation=True)
 
                 input_ids = torch.Tensor(tokenized_input_seq_pair['input_ids']).long()
                 token_type_ids = torch.Tensor(tokenized_input_seq_pair['token_type_ids']).long()
