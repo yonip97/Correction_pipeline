@@ -21,7 +21,7 @@ from typing import Any, Dict
 import zipfile
 
 #from absl import app
-from datasets import load_dataset
+from factuality_datasets import load_dataset
 import pandas as pd
 import requests
 

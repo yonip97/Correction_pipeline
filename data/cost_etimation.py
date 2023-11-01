@@ -1,7 +1,7 @@
 import openai
 import tiktoken
-from correction_pipeline.utils import collate_fn
 from torch.utils.data import DataLoader
+
 
 class Cost_estimator():
     def __init__(self, model, input_price, output_price):
@@ -28,14 +28,24 @@ class Cost_estimator():
         return len(output_encoding)
 
     def estimate_dataset(self, prompt, dataset):
-        dataloader = DataLoader(dataset, collate_fn=collate_fn, batch_size=1)
+        # dataloader = DataLoader(dataset, collate_fn=collate_fn, batch_size=1)
         total_cost = 0
-        for x in dataloader:
-            _, original_text, generated_text, label = x
-            original_text, generated_text, label = original_text[0], generated_text[0], label[0]
+        total_input = 0
+        total_output = 0
+        for i in range(len(dataset)):
+            x = dataset[i]
+            _, original_text, generated_text, label = x['dataset'], x['premise'], x['hypothesis'], x['label']
+            # original_text, generated_text, label = original_text[0], generated_text[0], label[0]
             model_input = prompt
             model_input += 'original_text: ' + '\n' + original_text + '\n'
-            model_input += "generated_text: " + '\n' + generated_text + '\n'
-            model_input += 'revised_text: ' + '\n'
-            total_cost += self.estimate_cost(model_input, generated_text)
-        return total_cost
+            model_input += "summary: " + '\n' + generated_text + '\n'
+            model_input += 'revised summary: ' + '\n'
+            item_cost, item_input_len, item_output_len = self.estimate_cost(model_input, generated_text)
+            total_cost += item_cost
+            total_input += item_input_len
+            total_output += item_output_len
+        return total_cost, total_input, total_output
+# from data.factuality_datasets import TRUE_dataset
+# dataset = TRUE_dataset('data/true_data',['summarization'])
+# estimator = Cost_estimator('gpt-4',0.03,0.06)
+# print(estimator.estimate_dataset('This is a test prompt',dataset))

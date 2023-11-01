@@ -2,6 +2,11 @@ from pathlib import Path
 from torch.utils.data import Dataset
 import os
 import pandas as pd
+import json
+from datasets import load_dataset
+from tqdm import tqdm
+from torch.utils.data import Subset
+import numpy as np
 
 
 def true_topics(topic_list):
@@ -53,7 +58,7 @@ class TRUE_dataset(Dataset):
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        return row['dataset'], row['grounding'], row['generated_text'], row['label']
+        return {'premise':  row['grounding'], 'hypothesis':  row['generated_text'], 'label': row['label']}
 
     def filter_to_datasets(self, datasets_list):
         """
@@ -73,4 +78,120 @@ class Dataset_no_labels(Dataset):
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        return row['grounding']
+        return {"dataset":None,'premise':  row['grounding'], 'hypothesis': row['generated_text'], 'label': None}
+
+class FactCC_dataset(Dataset):
+    def __init__(self, path_to_factcc_data):
+        self.label_map ={"INCORRECT": '0', "CORRECT": '1'}
+        cnn = load_dataset("cnn_dailymail", version="3.0.0", split='test')
+        # path_to_data = path_to_factcc_data +'/' +split + '/data-dev.jsonl'
+        # path = "/data/home/yehonatan-pe/Correction_pipeline/factCC/data/unpaired_annotated_data/test/data-dev.jsonl"
+        with open(path_to_factcc_data + "validation/data-dev.jsonl", 'r') as f:
+            data = [json.loads(line) for line in f]
+        with open(path_to_factcc_data + "test/data-dev.jsonl", 'r') as f:
+            data += [json.loads(line) for line in f]
+        self.data = self.pair(cnn, data)
+
+    def pair(self, cnn, factcc_data):
+        data = []
+        cnn_dict = {example['id']: example['article'] for example in tqdm(cnn)}
+        for row in tqdm(factcc_data):
+            id = row['id'].split('/')[-1]
+            id = id.replace('cnn-test-', '')
+            article = cnn_dict[id]
+            summary = row['claim']
+            label = self.label_map[row['label']]
+            data.append((article, summary, label))
+        return pd.DataFrame.from_records(data, columns=['article', 'summary', 'label'])
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, item):
+        premise = self.data.loc[item]['article']
+        hypothesis = self.data.loc[item]['summary']
+        label = self.data.loc[item]['label']
+        return {'dataset':"fact_cc",'premise': premise, 'hypothesis': hypothesis, 'label': label}
+
+
+class TrueTeacher_anli_dataset(Dataset):
+    def __init__(self, tokenizer, true_teacher_samples=1e5, seed=42):
+        self.anli_r1 = load_dataset('anli', split='train_r1')
+        self.anli_r2 = load_dataset('anli', split='train_r2')
+        self.anli_r3 = load_dataset('anli', split='train_r3')
+        true_teacher = load_dataset('google/trueteacher', split='train')
+        sampled_idx = []
+        idx_left_for_label = {'0': true_teacher_samples // 2, '1': true_teacher_samples // 2}
+        idx = np.array(range(len(true_teacher)))
+        np.random.seed(seed)
+        np.random.shuffle(idx)
+        for index in tqdm(idx):
+            index = int(index)
+            if idx_left_for_label[true_teacher[index]['label']] > 0:
+                sampled_idx.append(index)
+                idx_left_for_label[true_teacher[index]['label']] -= 1
+            if sum(idx_left_for_label.values()) == 0:
+                break
+        self.true_teacher = Subset(true_teacher, sampled_idx)
+        cnn_dailymail_data = load_dataset("cnn_dailymail", version="3.0.0", split='train')
+        self.cnn_dailymail_articles_by_id = {example['id']: example['article'] for example in tqdm(cnn_dailymail_data)}
+        lengths_array = [len(self.anli_r1), len(self.anli_r2), len(self.anli_r3), len(self.true_teacher)]
+        self.start_indexes = []
+        for i in range(len(lengths_array)):
+            self.start_indexes.append(sum(lengths_array[:i + 1]))
+        self.anli_map = {0: '1', 1: '0', 2: '0'}
+        self.tokenizer = tokenizer
+
+    def __len__(self):
+        return sum([len(self.anli_r1), len(self.anli_r2), len(self.anli_r3), len(self.true_teacher)])
+
+    def __getitem__(self, item):
+        if item < self.start_indexes[0]:
+            dataset = 'anli_r1'
+            row = self.anli_r1[item]
+            premise = row['premise']
+            hypothesis = row['hypothesis']
+            label = self.anli_map[row['label']]
+        elif item < self.start_indexes[1]:
+            dataset = 'anli_r2'
+            row = self.anli_r2[item - self.start_indexes[0]]
+            premise = row['premise']
+            hypothesis = row['hypothesis']
+            label = self.anli_map[row['label']]
+        elif item < self.start_indexes[2]:
+            dataset = 'anli_r3'
+            row = self.anli_r3[item - self.start_indexes[1]]
+            premise = row['premise']
+            hypothesis = row['hypothesis']
+            label = self.anli_map[row['label']]
+        else:
+            dataset = 'true_teacher'
+            row = self.true_teacher[item - self.start_indexes[2]]
+            premise = self.cnn_dailymail_articles_by_id[row['cnndm_id']]
+            hypothesis = row['summary']
+            label = row['label']
+        return {'dataset':dataset,'premise': premise, 'hypothesis': hypothesis, 'label': label}
+
+class BERTS2S_TConvS2S_xsum_trained_dataset(Dataset):
+    """
+    This dataset contains x summaries and is proof of concept for summary revision
+    The dataset contains all the summaries annotated for factuality from the MNBM dataset
+    Those 2 models are the most recent one trained, and they were trained on xsum alone.
+    Because xsum has much more factuality inconsistent summaries, this means those model will
+    have much more factual consistency mistakes, but will be coherent and we will be able to revise them
+    """
+
+    def __init__(self, path='/data/home/yehonatan-pe/Correction_pipeline/data/true_data/mnbm_download.csv'):
+        df = pd.read_csv(path, index_col=0)
+        df = df[df['model'].isin(['BERTS2S', 'TConvS2S'])]
+        self.data = df
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, item):
+        row = self.data.iloc[item]
+        return {"dataset": "frank", "premise": row['grounding'], "hypothesis": row['generated_text'],
+                "label": row['label'],'model':row['model']}
+
+

@@ -6,8 +6,9 @@ from tqdm import tqdm
 import torch
 from torch.utils.data import TensorDataset
 from pytorch_transformers import BertForSequenceClassification, BertTokenizer
-from correction_pipeline.run_pipeline import TRUE_dataset, true_topics
-from factCC.utils import _truncate_seq_pair,InputExample,InputFeatures
+from data.factuality_datasets import TRUE_dataset
+from factCC.factcc_utils import _truncate_seq_pair, InputExample, InputFeatures
+import os
 
 
 class Factcc_clasifier():
@@ -253,8 +254,8 @@ def main():
     device = 'cuda'
     classifier = Factcc_clasifier(checkpoint_path=checkpoint, model_name=model_name, device=device)
 
-    x = TRUE_dataset('data')
-    x.filter_to_datasets(true_topics(['summarization']))
+    x = TRUE_dataset('data', ['summarization'])
+    # x.filter_to_datasets(true_topics(['summarization']))
     data = x.df
     texts = data['grounding']
     summaries = data['generated_text']
@@ -266,4 +267,5 @@ def main():
     print(np.mean(labels == preds))
 
 
-main()
+if __name__ == 'main':
+    main()

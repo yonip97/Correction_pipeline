@@ -7,7 +7,7 @@ def word_wise_f1_score(predicted_text, target_text):
     if predicted_text == '':
         return 0
     gold_toks = clean_text(target_text).split()
-    pred_toks = clean_text(target_text).split()
+    pred_toks = clean_text(predicted_text).split()
     common = Counter(gold_toks) & Counter(pred_toks)
     num_same = sum(common.values())
     if num_same == 0:
@@ -53,5 +53,5 @@ class Rouge():
     def __init__(self):
         self.rouge = evaluate.load('rouge')
 
-    def __call__(self, predicted_text, target_text):
-        return self.rouge.compute(predicted_text, target_text)
+    def __call__(self, predicted_texts: list, target_texts: list):
+        return self.rouge.compute(predictions=predicted_texts, references=target_texts, use_aggregator=False)
