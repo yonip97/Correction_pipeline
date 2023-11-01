@@ -11,6 +11,9 @@ def true_topics(topic_list):
     fact_verification_datasets = ['fever_dev_download', 'vitc_dev_download']
     paraphrasing_datasets = ['paws_download']
     datasets = []
+    if 'all' in topic_list:
+        datasets = summarization_datasets + dialogue_datasets + fact_verification_datasets + paraphrasing_datasets
+        return datasets
     if 'summarization' in topic_list:
         datasets += summarization_datasets
     if 'dialogue' in topic_list:
@@ -21,10 +24,14 @@ def true_topics(topic_list):
         datasets += paraphrasing_datasets
     return datasets
 
+
 class TRUE_dataset(Dataset):
-    def __init__(self, dir_path):
+    def __init__(self, dir_path, topics='all'):
         self.dir_path = dir_path
+        self.datasets = true_topics(topics)
         self.df = self.load_file_to_pandas()
+        self.filter_to_datasets(self.datasets)
+
 
     def load_file_to_pandas(self):
         root_folder = Path(__file__).parents[1]
@@ -55,9 +62,12 @@ class TRUE_dataset(Dataset):
         :return: None
         """
         self.df = self.df[self.df['dataset'].isin(datasets_list)]
+
+
 class Dataset_no_labels(Dataset):
-    def __init__(self,df):
+    def __init__(self, df):
         self.df = df
+
     def __len__(self):
         return len(self.df)
 

@@ -5,8 +5,6 @@ def add_prompts(text, prompt):
     return prompt + text
 
 
-def load_factuality_classifier(args):
-    pass
 
 class Regular_dataset(Dataset):
     def __init__(self, texts, labels):
