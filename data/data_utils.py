@@ -5,14 +5,14 @@
 #     labels = [x[3] for x in batch]
 #     return datasets, original_texts, generated_text, labels
 
-def evaluation_collate_fn(batch):
+def collate_fn(batch):
     datasets = [x['dataset'] for x in batch]
     premises = [sample_dict['premise'] for sample_dict in batch]
     hypotheses = [sample_dict['hypothesis'] for sample_dict in batch]
     labels = [int(sample_dict['label']) for sample_dict in batch]
     return datasets, premises, hypotheses, labels
 
-def collate_fn(batch, tokenizer, max_length):
+def tokeinized_collate_fn(batch, tokenizer, max_length):
     hypotheses = [f"hypothesis: {sample_dict['hypothesis']}" for sample_dict in batch]
     premises = [f"premise: {sample_dict['premise']}" for sample_dict in batch]
     encoding = tokenizer(text=premises, text_pair=hypotheses, max_length=max_length, truncation='only_first',

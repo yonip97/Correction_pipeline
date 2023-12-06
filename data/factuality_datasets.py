@@ -8,6 +8,17 @@ from tqdm import tqdm
 from torch.utils.data import Subset
 import numpy as np
 
+def chose_dataset(dataset_name):
+    if dataset_name == 'True':
+        return TRUE_dataset("data/true_data", ['summarization'])
+    elif dataset_name == 'BERTS2S_TConvS2S_xsum_trained':
+        return BERTS2S_TConvS2S_xsum_trained_dataset()
+    elif dataset_name == 'True_filtered_for_recent':
+        dataset = TRUE_dataset("data/true_data", ['summarization'])
+        dataset.filter_to_recent()
+        return dataset
+    else:
+        raise ValueError("Dataset name not found")
 
 def true_topics(topic_list):
     summarization_datasets = ['frank_valid_download', 'summeval_download', 'mnbm_download', 'qags_cnndm_download',
@@ -50,7 +61,7 @@ class TRUE_dataset(Dataset):
             df['dataset'] = file.split('.')[0]
             dfs.append(df)
         df = pd.concat(dfs).reset_index(drop=True)
-        df = df[['dataset', 'grounding', 'generated_text', 'label']]
+        df = df[['model','dataset', 'grounding', 'generated_text', 'label']]
         return df
 
     def __len__(self):
@@ -58,8 +69,10 @@ class TRUE_dataset(Dataset):
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        return {'premise':  row['grounding'], 'hypothesis':  row['generated_text'], 'label': row['label']}
+        #return {"dataset":row['dataset'],'premise':  row['grounding'], 'hypothesis':  row['generated_text'], 'label': row['label']}
 
+        return {"dataset": row['dataset'], 'text': row['grounding'], 'summary': row['generated_text'],
+                'label': row['label']}
     def filter_to_datasets(self, datasets_list):
         """
         Changes what datasets are stored in the Dataset object
@@ -67,7 +80,13 @@ class TRUE_dataset(Dataset):
         :return: None
         """
         self.df = self.df[self.df['dataset'].isin(datasets_list)]
-
+    def filter_to_recent(self):
+        mnbm_models = ['BERTS2S']
+        summeval_models = ['SENECA','T5','NeuralTD',  'BertSum-abs', 'GPT-2', 'UniLM', 'BART', 'PEGASUS']
+        frank_models = ['bert_sum','bart','BERTS2S']
+        models = mnbm_models + summeval_models + frank_models
+        models = set(models)
+        self.df = self.df[self.df['model'].isin(models)]
 
 class Dataset_no_labels(Dataset):
     def __init__(self, df):
@@ -78,8 +97,8 @@ class Dataset_no_labels(Dataset):
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        return {"dataset":None,'premise':  row['grounding'], 'hypothesis': row['generated_text'], 'label': None}
-
+        #return {"dataset":None,'premise':  row['grounding'], 'hypothesis': row['generated_text'], 'label': None}
+        return {"dataset": None, 'text': row['grounding'], 'summary': row['generated_text'], 'label': None}
 class FactCC_dataset(Dataset):
     def __init__(self, path_to_factcc_data):
         self.label_map ={"INCORRECT": '0', "CORRECT": '1'}
@@ -111,8 +130,8 @@ class FactCC_dataset(Dataset):
         premise = self.data.loc[item]['article']
         hypothesis = self.data.loc[item]['summary']
         label = self.data.loc[item]['label']
-        return {'dataset':"fact_cc",'premise': premise, 'hypothesis': hypothesis, 'label': label}
-
+        #return {'dataset':"fact_cc",'premise': premise, 'hypothesis': hypothesis, 'label': label}
+        return {'dataset':"fact_cc",'text': premise, 'summary': hypothesis, 'label': label}
 
 class TrueTeacher_anli_dataset(Dataset):
     def __init__(self, tokenizer, true_teacher_samples=1e5, seed=42):
@@ -171,6 +190,7 @@ class TrueTeacher_anli_dataset(Dataset):
             hypothesis = row['summary']
             label = row['label']
         return {'dataset':dataset,'premise': premise, 'hypothesis': hypothesis, 'label': label}
+        #return {'dataset': dataset, 'text': premise, 'summary': hypothesis, 'label': label}
 
 class BERTS2S_TConvS2S_xsum_trained_dataset(Dataset):
     """
@@ -181,7 +201,7 @@ class BERTS2S_TConvS2S_xsum_trained_dataset(Dataset):
     have much more factual consistency mistakes, but will be coherent and we will be able to revise them
     """
 
-    def __init__(self, path='/data/home/yehonatan-pe/Correction_pipeline/data/true_data/mnbm_download.csv'):
+    def __init__(self, path='data/true_data/mnbm_download.csv'):
         df = pd.read_csv(path, index_col=0)
         df = df[df['model'].isin(['BERTS2S', 'TConvS2S'])]
         self.data = df
@@ -191,7 +211,8 @@ class BERTS2S_TConvS2S_xsum_trained_dataset(Dataset):
 
     def __getitem__(self, item):
         row = self.data.iloc[item]
-        return {"dataset": "frank", "premise": row['grounding'], "hypothesis": row['generated_text'],
-                "label": row['label'],'model':row['model']}
+        # return {"dataset": "frank", "premise": row['grounding'], "hypothesis": row['generated_text'],
+        #         "label": row['label'],'model':row['model']}
+        return {"dataset": "frank", "text": row['grounding'], "summary": row['generated_text'],"label": row['label']}
 
 

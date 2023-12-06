@@ -55,3 +55,20 @@ class Rouge():
 
     def __call__(self, predicted_texts: list, target_texts: list):
         return self.rouge.compute(predictions=predicted_texts, references=target_texts, use_aggregator=False)
+
+
+def add_similarity_metrics_scores(df, col1, col2):
+    rouge_metric = Rouge()
+    rouge_results = rouge_metric(df[col1].tolist(), df[col2].tolist())
+    df['rouge1'] = rouge_results['rouge1']
+    df['rouge2'] = rouge_results['rouge2']
+    df['rougeL'] = rouge_results['rougeL']
+    df['rougeLsum'] = rouge_results['rougeLsum']
+    df['preserve_lev'] = df.apply(lambda x: preserve_lev(x['summary'], x['revised_summary']), axis=1)
+    f1_scores = []
+    for i, row in df.iterrows():
+        summary = row['summary']
+        revised_summary = row['revised_summary']
+        f1_scores.append(word_wise_f1_score(revised_summary, summary))
+    df['f1_score'] = f1_scores
+    return df

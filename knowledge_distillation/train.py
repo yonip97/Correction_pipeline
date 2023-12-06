@@ -52,11 +52,6 @@ def collate_fn(batch, tokenizer, max_length, prefix=''):
             'labels': labels['input_ids']}
 
 
-class EvalLoopOutput(NamedTuple):
-    predictions: Union[np.ndarray, Tuple[np.ndarray]]
-    label_ids: Optional[Union[np.ndarray, Tuple[np.ndarray]]]
-    metrics: Optional[Dict[str, float]]
-    num_samples: Optional[int]
 
 
 class T5_Trainer(Seq2SeqTrainer):
@@ -87,19 +82,6 @@ class T5_Trainer(Seq2SeqTrainer):
         return (loss, torch.argmax(logits[0], dim=-1), labels)
 
 
-class Rouge():
-    def __init__(self):
-        self.rouge = evaluate.load('rouge')
-
-    def compute_metrics(self, pred, tokenizer):
-        pred.predictions[pred.predictions == -100] = tokenizer.pad_token_id
-        pred.label_ids[pred.label_ids == -100] = tokenizer.pad_token_id
-        labels = tokenizer.batch_decode(pred.label_ids, skip_special_tokens=True)
-        predictions = tokenizer.batch_decode(pred.predictions, skip_special_tokens=True)
-        results = self.rouge.compute(predictions=predictions,
-                                     references=labels)
-        return results
-
 
 def main():
     os.environ["WANDB_DISABLED"] = "true"
@@ -123,7 +105,7 @@ def main():
                                     metric_for_best_model='rougeL', no_cuda=False)
     max_length_train = 512
     max_length_eval = 2048
-    evaluation_metric = Rouge()
+#    evaluation_metric = Rouge()
     trainer = T5_Trainer(model=model, tokenizer=tokenizer, args=args, train_dataset=train_dataset,
                          eval_dataset=eval_dataset,
                          compute_metrics=lambda p: evaluation_metric.compute_metrics(p, tokenizer),

@@ -109,9 +109,3 @@ class Question_generator_prompt_based(LLM_model):
         return questions
 
 
-# model = Question_generator_prompt_based(prompt='Ask as many questions as possible about the following text',
-#                                         API_KEY="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",max_tokens = 500)
-# questions = model(
-#     "The European Court of Justice has ruled that overflow pipes at the Burry Inlet in Wales, designed to prevent flooding, violated clean water laws in a protected conservation area. The UK will have to pay legal costs for the case, which uncovered multiple breaches related to wastewater management in England and Gibraltar. Aging Victorian sewers, originally engineered to handle both sewage and rainwater, are struggling to cope with increased pressure from new housing developments and climate change-induced storms. Welsh Water is investing in a £113m project called RainScape to reduce spills by implementing green spaces and water capture channels. The court found that the UK had acted too late to comply with EU clean water laws, leading to water quality deterioration in the Loughor Estuary.")
-# for q in questions:
-#     print(q)

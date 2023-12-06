@@ -4,7 +4,6 @@ from correction_pipeline.utils import collate_fn
 from torch.utils.data import DataLoader
 
 
-
 class Cost_estimator():
     def __init__(self, model, input_price, output_price):
         """
@@ -17,9 +16,17 @@ class Cost_estimator():
         self.output_price = output_price
 
     def estimate_cost(self, text, output_estimation):
+        input_len = self.estimate_input(text)
+        estimated_output_len = self.estimate_output(output_estimation)
+        return estimated_output_len / 1000 * self.input_price + input_len / 1000 * self.output_price, input_len, estimated_output_len
+
+    def estimate_input(self, text):
         input_encoding = self.encoding.encode(text)
+        return len(input_encoding)
+
+    def estimate_output(self, output_estimation):
         output_encoding = self.encoding.encode(output_estimation)
-        return len(input_encoding) / 1000 * self.input_price + len(output_encoding) / 1000 * self.output_price
+        return len(output_encoding)
 
     def estimate_dataset(self, prompt, dataset):
         dataloader = DataLoader(dataset, collate_fn=collate_fn, batch_size=1)
@@ -35,8 +42,6 @@ class Cost_estimator():
         return total_cost
 
 
-
-
 class LLM_model():
     def __init__(self, prompt_path=None, model='chatgpt-turbo-3.5', API_KEY=None, **kwargs):
         openai.api_key = API_KEY
@@ -47,6 +52,7 @@ class LLM_model():
             prompt = ''
         self.prompt = prompt
         self.model = model
+
     def get_chatgpt_response(self, input, max_length, **kwargs):
         try:
             message = [{
@@ -54,7 +60,7 @@ class LLM_model():
                 "content": input,
             }]
             response = openai.ChatCompletion.create(
-                model=self.model,
+                engine=self.model,
                 messages=message,
                 temperature=0,
                 max_tokens=max_length

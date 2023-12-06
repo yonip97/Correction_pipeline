@@ -3,10 +3,10 @@ import os
 os.chdir('../')
 
 import pandas as pd
-from factCC.inference import Factcc_clasifier
+from factCC.inference import Factcc_classifier
 from q_squared.inference import Q_squared_classifier
 from TrueTeacher.inference import TrueTeacher
-from text_correction import Text_correction_model
+from LLMS import Text_correction_model
 from data.factuality_datasets import TRUE_dataset, Dataset_no_labels
 from torch.utils.data import DataLoader
 from torch.optim import Adam
@@ -53,7 +53,7 @@ def load_model(args):
 
 def load_factuality_classifier(args):
     if args.factuality_classifier == 'factCC':
-        factuality_classifier = Factcc_clasifier(checkpoint_path=args.path_to_factcc_checkpoint, device=args.device)
+        factuality_classifier = Factcc_classifier(checkpoint_path=args.path_to_factcc_checkpoint, device=args.device)
     elif args.factuality_classifier == 'q_squared':
         factuality_classifier = Q_squared_classifier(device=args.device, similarity_metric=args.similarity_metric,
                                                      threshold=args.threshold)
@@ -147,7 +147,7 @@ class Trainer():
             self.writer.writerow(('text', 'summary', 'factuality score'))
 
     def check_factuality(self, original_texts, texts_outputs):
-        factuality_scores = self.factuality_classifier.apply(original_texts, texts_outputs)
+        factuality_scores = self.factuality_classifier.score(original_texts, texts_outputs)
         return factuality_scores
 
     def get_model_scores_and_output_texts(self, model_inputs):

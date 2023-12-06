@@ -1,5 +1,4 @@
 import numpy as np
-
 from sklearn.metrics import roc_auc_score, balanced_accuracy_score, f1_score
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -8,23 +7,33 @@ from torch.utils.data import TensorDataset
 from pytorch_transformers import BertForSequenceClassification, BertTokenizer
 from data.factuality_datasets import TRUE_dataset
 from factCC.factcc_utils import _truncate_seq_pair, InputExample, InputFeatures
-import os
+from scipy.special import softmax
 
 
-class Factcc_clasifier():
-    def __init__(self, checkpoint_path, model_name='bert-base-uncased', device='cpu'):
-        self.tokenizer = BertTokenizer.from_pretrained(model_name)
+class Factcc_classifier():
+    def __init__(self, checkpoint_path, backbone_model_name='bert-base-uncased', device='cpu', batch_size=8):
+        self.tokenizer = BertTokenizer.from_pretrained(backbone_model_name)
         self.model = BertForSequenceClassification.from_pretrained(checkpoint_path).to(device)
         self.device = device
+        self.batch_size = batch_size
+        self.model.eval()
 
-    def classify(self, texts, summaries, eval_batch_size=8, max_length=512):
+    def classify(self, texts, summaries, max_length=512):
+        preds = self.score(texts, summaries, max_length=max_length)
+        final_classification = np.argmax(preds, axis=1)
+        return final_classification.tolist()
+
+    def classify_single(self, text, summary, max_length=512):
+        preds = self.score([text], [summary], max_length=max_length)
+        final_classification = np.argmax(preds, axis=1)
+        return final_classification[0]
+
+    def score(self, texts, summaries, max_length=512):
         eval_dataset = self.load_and_cache_examples_new(texts, summaries, max_length=max_length)
-        eval_dataloader = DataLoader(eval_dataset, batch_size=eval_batch_size)
+        eval_dataloader = DataLoader(eval_dataset, batch_size=self.batch_size)
 
         preds = None
-
-        for batch in tqdm(eval_dataloader, desc="Evaluating"):
-            self.model.eval()
+        for batch in tqdm(eval_dataloader):
             batch = tuple(t.to(self.device) for t in batch)
 
             with torch.no_grad():
@@ -39,11 +48,14 @@ class Factcc_clasifier():
                 preds = logits.detach().cpu().numpy()
             else:
                 preds = np.append(preds, logits.detach().cpu().numpy(), axis=0)
-
-        final_classification = np.argmax(preds, axis=1)
         # The labels of the model are consistent/inconsistent and this transforms them to inconsistent/consistent
-        final_classification = [1 - x for x in final_classification]
-        return final_classification
+        preds[:, [1, 0]] = preds[:, [0, 1]]
+        preds = softmax(preds, axis=1)
+        return preds[:,1].tolist()
+
+    def score_single(self, text, summary, max_length=512):
+        preds = self.score([text], [summary], max_length=max_length)
+        return preds[0]
 
     def convert_examples_to_features(self, examples, max_seq_length,
                                      cls_token_at_end=False,
@@ -252,7 +264,7 @@ def main():
     model_name = 'bert-base-uncased'
     checkpoint = "/data/home/yehonatan-pe/Correction_pipeline/factCC/checkpoints/factcc-checkpoint"
     device = 'cuda'
-    classifier = Factcc_clasifier(checkpoint_path=checkpoint, model_name=model_name, device=device)
+    classifier = Factcc_classifier(checkpoint_path=checkpoint, backbone_model_name=model_name, device=device)
 
     x = TRUE_dataset('data', ['summarization'])
     # x.filter_to_datasets(true_topics(['summarization']))
@@ -266,6 +278,5 @@ def main():
     print(f1_score(labels, preds, average='micro'))
     print(np.mean(labels == preds))
 
-
-if __name__ == 'main':
-    main()
+# if __name__ == 'main':
+#     main()

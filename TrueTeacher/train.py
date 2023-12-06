@@ -1,8 +1,8 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
+# sys.path.append(os.path.dirname(os.getcwd()))
+# os.chdir('../')
 
 from datasets import load_dataset
 from torch.utils.data import DataLoader, Dataset, Subset
@@ -15,10 +15,9 @@ import numpy as np
 from transformers import T5ForConditionalGeneration, T5Tokenizer, Seq2SeqTrainingArguments, Seq2SeqTrainer
 from scipy.special import softmax
 from datetime import datetime
-from data.data_utils import evaluation_collate_fn
-from data.factuality_datasets import FactCC_dataset, TrueTeacher_anli_dataset,TRUE_dataset
 from data.data_utils import collate_fn
-
+from data.factuality_datasets import FactCC_dataset, TrueTeacher_anli_dataset, TRUE_dataset
+from data.data_utils import tokeinized_collate_fn
 
 
 class T5_Trainer(Seq2SeqTrainer):
@@ -29,13 +28,11 @@ class T5_Trainer(Seq2SeqTrainer):
 
     def get_train_dataloader(self) -> DataLoader:
         return DataLoader(self.train_dataset, batch_size=self.args.train_batch_size, shuffle=True,
-                          collate_fn=lambda x: collate_fn(x, self.tokenizer, self.max_length_train), pin_memory=False)
+                          collate_fn=lambda x: tokeinized_collate_fn(x, self.tokenizer, self.max_length_train), pin_memory=False)
 
     def get_eval_dataloader(self, eval_dataset=None) -> DataLoader:
         return DataLoader(self.eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
-                          collate_fn=lambda x: collate_fn(x, self.tokenizer, self.max_length_eval), pin_memory=False)
-
-
+                          collate_fn=lambda x: tokeinized_collate_fn(x, self.tokenizer, self.max_length_eval), pin_memory=False)
 
 
 def compute_metrics(p, tokenizer, model):
@@ -88,15 +85,8 @@ def main():
     trainer.train()
 
 
-def evaluate(dataloader, model,tokenizer,device = 'cpu'):
+def evaluate(dataloader, model, tokenizer, device='cpu'):
     model.to(device)
-    # if model is None and tokenizer is None:
-    #     model = T5ForConditionalGeneration.from_pretrained(checkpoint_path).to(device)
-    #     tokenizer = T5Tokenizer.from_pretrained("google/t5-base")
-    # elif model is None or tokenizer is not None:
-    #     pass
-    # else:
-    #     raise ValueError("Either both model and tokenizer should be None or both should be not None")
     with torch.no_grad():
         model.eval()
         probs_list = []
@@ -124,7 +114,6 @@ def evaluate(dataloader, model,tokenizer,device = 'cpu'):
             labels += batch_labels
         results_dict = {}
         for dataset_name in per_dataset_labels_and_probs:
-
             print(dataset_name)
             roc_auc = roc_auc_score(per_dataset_labels_and_probs[dataset_name]['labels'],
                                     per_dataset_labels_and_probs[dataset_name]['probs'])
@@ -147,7 +136,8 @@ def evaluate(dataloader, model,tokenizer,device = 'cpu'):
         results_dict['total'] = {'roc auc': roc_auc, 'accuracy': accuracy}
         print("Roc Auc Score: ", roc_auc)
         print("Accuracy: ", accuracy)
-        return df,results_dict
+        model.train()
+        return df, results_dict
 
 
 if __name__ == '__main__':
@@ -166,17 +156,22 @@ if __name__ == '__main__':
     #                          index=['TrueTeacher results', 'My results', 'Anli'])
     # full_data['mean'] = full_data.mean(axis=1)
     # full_data.to_csv('results.csv')
-    #main()
-    #dataset = TRUE_dataset("data/true_data", ['summarization'])
-    dataset = FactCC_dataset('factCC/data/unpaired_annotated_data/')
-    # dataset_2 = TRUE_dataset("data/true_data", ['summarization'])
+    # main()
+
+    # dataset = TRUE_dataset("data/true_data", ['summarization'])
+    # dataset = FactCC_dataset('factCC/data/unpaired_annotated_data/')
+    dataset = TRUE_dataset("data/true_data", ['summarization'])
+    for checkpoint in ['TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000',
+                       'TrueTeacher/results/run name_2023-09-05 13:23:47/checkpoint-4000',
+                       'TrueTeacher/results/run name_2023-09-01 16:06:11/checkpoint-13000']:
     # dataset_3 = TrueTeacher_anli_dataset(tokenizer=T5Tokenizer.from_pretrained("t5-base"), true_teacher_samples=1e5, seed=1)
-    dataloader = DataLoader(dataset, batch_size=8, shuffle=True, collate_fn=evaluation_collate_fn)
-    model_path = '/data/home/yehonatan-pe/Correction_pipeline/TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000'
-    model = T5ForConditionalGeneration.from_pretrained(model_path)
-    tokenizer = T5Tokenizer.from_pretrained("t5-base")
-    device = 'cuda'
+        dataloader = DataLoader(dataset, batch_size=8, shuffle=True, collate_fn=collate_fn)
+    #model_path = '/data/home/yehonatan-pe/Correction_pipeline/TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000'
+        model = T5ForConditionalGeneration.from_pretrained(checkpoint)
+        tokenizer = T5Tokenizer.from_pretrained("t5-base")
+        device = 'cuda'
 
-
-    df,_=   evaluate(dataloader,model,tokenizer,device)
-    print(df)
+        df, _ = evaluate(dataloader, model, tokenizer, device)
+        print(df)
+        print(df['roc auc'].mean())
+    print("-------------------------------------------------------------------------------------------------------------------")

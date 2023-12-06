@@ -1,11 +1,6 @@
 import os
 import sys
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Get the parent directory (main_directory) and add it to the Python path
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
 from torch.utils.data import DataLoader
 from argparse import ArgumentParser
 from correction_pipeline.pipeline import Correction_pipline
@@ -16,7 +11,7 @@ from correction_pipeline.disagreement_model import Disagreement_model_nli_based
 from correction_pipeline.revision_models import Dummie_revision, LLM_prompt_based_revision_model
 from correction_pipeline.llms import Cost_estimator
 from correction_pipeline.utils import collate_fn
-from data.utils import TRUE_dataset, true_topics
+from data.factuality_datasets import TRUE_dataset, true_topics
 from time import time
 
 QG_MODELS = {'prompt_based': Question_generator_prompt_based, 'model_based': Question_generator_model_based}
@@ -46,7 +41,7 @@ def arguments_for_question_answering(args):
     args.add_argument('-qa_model', default='model_based', type=str)
     args.add_argument('-qa_batch_size', default=16, type=int)
     args.add_argument('-qa_prompt_path', default='', type=str)
-    #args.add_argument('-unanswerable_response', default='UNANSWERABLE', type=str)
+    # args.add_argument('-unanswerable_response', default='UNANSWERABLE', type=str)
     args.add_argument('-model_name', default='albert', type=str)
     return args
 
@@ -147,9 +142,9 @@ def create_correction_pipeline(args):
 
 def main():
     args = parser_args()
-    dataset = TRUE_dataset(args.TRUE_dir_path)
-    datasets_names = true_topics(['summarization'])
-    dataset.filter_to_datasets(datasets_names)
+    dataset = TRUE_dataset(args.TRUE_dir_path, ['summarization'])
+    # datasets_names = true_topics(['summarization'])
+    # dataset.filter_to_datasets(datasets_names)
     dataloader = DataLoader(dataset, collate_fn=collate_fn, batch_size=1)
     correction_pipeline, kwargs = create_correction_pipeline(args)
     start = time()

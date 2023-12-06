@@ -1,3 +1,5 @@
+import os
+
 import math
 
 from transformers import AutoModelWithLMHead, AutoTokenizer, AutoModelForQuestionAnswering
@@ -9,6 +11,7 @@ from tqdm import tqdm
 from general.utils import clean_text
 from general.metrics import word_wise_f1_score
 from allennlp.predictors.predictor import Predictor
+from tqdm import tqdm
 
 INVALID_QUESTION = -1
 NO_ANS = '[CLS]'
@@ -158,9 +161,11 @@ class Question_answerer():
 
 class Entailment_model():
     def __init__(self):
+        path = os.getcwd()
         self.predictor = Predictor.from_path(
             "https://storage.googleapis.com/allennlp-public-models/snli_roberta-2020.06.09.tar.gz",
             predictor_name="textual_entailment")
+        os.chdir(path)
         self.NO_Q = -1
         self.ENTAILMENT_SCORE = 1
         self.CONTRADICTION_SCORE = 0
@@ -183,113 +188,138 @@ class Entailment_model():
 
 
 class Q_squared_classifier():
-    def __init__(self, device='cpu', similarity_metric='f1', threshold=0.5):
+    def __init__(self, device='cpu', similarity_metric='f1', threshold=0.5, remove_personal=True):
         self.qg = Question_generation(device=device)
         self.qa = Question_answerer(device=device)
         self.similarity_metric = similarity_metric
         if self.similarity_metric == 'nli':
             self.nli_model = Entailment_model()
         self.threshold = threshold
+        self.remove_personal = remove_personal
 
-    def classify(self, response, knowledge, remove_personal):
+    def classify(self, texts, summaries):
+        scores = self.score(texts, summaries)
+        return [1 if s > self.threshold else 0 for s in scores]
+    def classify_single(self,text,summary):
+        return self.score_single(text,summary) > self.threshold
 
-        candidates = self.qg.get_answer_candidates(response)
-        # if gen_method == 'greedy':
-        questions = self.qg.get_question_greedy(candidates, response)
-        # elif gen_method == 'beam':
-        #     questions = self.qg.get_questions_beam(candidates, response)
-        # else:
-        #     questions = self.qg.get_questions_sample(candidates, response)
+    def score(self, texts, summaries):
+        scores = []
+        for i in range(len(summaries)):
+            summary = summaries[i]
+            text = texts[i]
+            score = self.score_single(text=text, summary=summary)
+            scores.append(score)
+        return scores
 
-        # response_answers = [self.qa.get_answer(q, response) for q in questions]
-        if remove_personal:
+    def score_single(self, text, summary):
+        candidates = self.qg.get_answer_candidates(summary)
+        questions = self.qg.get_question_greedy(candidates, summary)
+        if self.remove_personal:
             idx = [i for i in range(len(questions)) if self.qg.non_personal(questions[i])]
             candidates = [candidates[i] for i in idx]
             questions = [questions[i] for i in idx]
-        response_answers = self.qa.get_answers(questions, response, batch_size=8)
+        response_answers = self.qa.get_answers(questions, summary, batch_size=8)
         valid_questions_idx = [i for i, (cand, pred_ans) in enumerate(zip(candidates, response_answers)) if
                                self.qg.filter_questions(cand, pred_ans) == 'VALID']
         valid_questions = [questions[i] for i in valid_questions_idx]
         valid_candidates = [candidates[i] for i in valid_questions_idx]
         # valid_knowledge_answers = [self.qa.get_answer(q, knowledge) for q in valid_questions]
-        valid_knowledge_answers = self.qa.get_answers(valid_questions, knowledge, batch_size=8)
-        scores = [self.nli_model.get_e2e_nli_score(cand, knowledge_ans) if knowledge_ans != NO_ANS else 0 for
-                  cand, knowledge_ans in zip(valid_candidates, valid_knowledge_answers)]
+        valid_knowledge_answers = self.qa.get_answers(valid_questions, text, batch_size=8)
+        if self.similarity_metric == 'nli':
+            scores = [self.nli_model.get_e2e_nli_score(cand, knowledge_ans) if knowledge_ans != NO_ANS else 0 for
+                      cand, knowledge_ans in zip(valid_candidates, valid_knowledge_answers)]
+        elif self.similarity_metric == 'f1':
+            scores = [word_wise_f1_score(cand, knowledge_ans) if knowledge_ans != NO_ANS else 0 for
+                      cand, knowledge_ans in zip(valid_candidates, valid_knowledge_answers)]
+        return np.mean(scores)
 
-        return np.mean(scores) >= self.threshold
-
-    def questions_score(self, questions, candidates, response, knowledge):
-        pred_answers_response = self.qa.get_answers(questions, response)
-        valid_questions_idx = [i for i, (pred_answer, cand) in enumerate(zip(pred_answers_response, candidates)) if
-                               self.qg.filter_questions(cand, pred_answer) == 'VALID']
-        filtered_questions = [questions[i] for i in valid_questions_idx]
-        filtered_candidates = [candidates[i] for i in valid_questions_idx]
-        # filtered_pred_answers_response = [pred_answers_response[i] for i in pred_answers_response]
-        filtered_pred_answers_knowledge = self.qa.get_answers(questions, knowledge)
-        scores = []
-        answers = []
-        # start = time.time()
-        for cand, knowledge_answer in zip(filtered_candidates, filtered_pred_answers_knowledge):
-            if knowledge_answer != NO_ANS:
-                if self.similarity_metric == 'f1':
-                    scores.append(word_wise_f1_score(cand, knowledge_answer))
-                    answers.append(knowledge_answer)
-                    # return f1_score(cand, knowledge_ans), knowledge_ans
-                elif self.similarity_metric == 'nli':
-                    scores.append(self.nli_model.get_e2e_nli_score(cand, knowledge_answer))
-                    answers.append(knowledge_answer)
-                    # return self.nli_model.get_e2e_nli_score(cand, knowledge_ans), knowledge_ans
-            else:
-                scores.append(0)
-                answers.append(NO_ANS)
-        # print(f"Just scoring time no filter {time.time()-start} seconds")
-        return scores, answers, filtered_questions, filtered_candidates
-
-    def single_question_score(self, question, cand, response, knowledge):
-        pred_ans = self.qa.get_answer(question, response)
-
-        if self.qg.filter_questions(cand, pred_ans) == 'VALID':
-            knowledge_ans = self.qa.get_answer(question, knowledge)
-            if knowledge_ans != NO_ANS:
-                if self.similarity_metric == 'f1':
-                    return word_wise_f1_score(cand, knowledge_ans), knowledge_ans
-                elif self.similarity_metric == 'nli':
-                    return self.nli_model.get_e2e_nli_score(cand, knowledge_ans), knowledge_ans
-            else:
-                return 0, NO_ANS
-        else:
-            return INVALID_QUESTION, INVALID_QUESTION
+    # def questions_score(self, questions, candidates, response, knowledge):
+    #     pred_answers_response = self.qa.get_answers(questions, response,)
+    #     valid_questions_idx = [i for i, (pred_answer, cand) in enumerate(zip(pred_answers_response, candidates)) if
+    #                            self.qg.filter_questions(cand, pred_answer) == 'VALID']
+    #     filtered_questions = [questions[i] for i in valid_questions_idx]
+    #     filtered_candidates = [candidates[i] for i in valid_questions_idx]
+    #     # filtered_pred_answers_response = [pred_answers_response[i] for i in pred_answers_response]
+    #     filtered_pred_answers_knowledge = self.qa.get_answers(questions, knowledge)
+    #     scores = []
+    #     answers = []
+    #     # start = time.time()
+    #     for cand, knowledge_answer in zip(filtered_candidates, filtered_pred_answers_knowledge):
+    #         if knowledge_answer != NO_ANS:
+    #             if self.similarity_metric == 'f1':
+    #                 scores.append(word_wise_f1_score(cand, knowledge_answer))
+    #                 answers.append(knowledge_answer)
+    #                 # return f1_score(cand, knowledge_ans), knowledge_ans
+    #             elif self.similarity_metric == 'nli':
+    #                 scores.append(self.nli_model.get_e2e_nli_score(cand, knowledge_answer))
+    #                 answers.append(knowledge_answer)
+    #                 # return self.nli_model.get_e2e_nli_score(cand, knowledge_ans), knowledge_ans
+    #         else:
+    #             scores.append(0)
+    #             answers.append(NO_ANS)
+    #     # print(f"Just scoring time no filter {time.time()-start} seconds")
+    #     return scores, answers, filtered_questions, filtered_candidates
+    #
+    # def single_question_score(self, question, cand, response, knowledge):
+    #     pred_ans = self.qa.get_answer(question, response)
+    #
+    #     if self.qg.filter_questions(cand, pred_ans) == 'VALID':
+    #         knowledge_ans = self.qa.get_answer(question, knowledge)
+    #         if knowledge_ans != NO_ANS:
+    #             if self.similarity_metric == 'f1':
+    #                 return word_wise_f1_score(cand, knowledge_ans), knowledge_ans
+    #             elif self.similarity_metric == 'nli':
+    #                 return self.nli_model.get_e2e_nli_score(cand, knowledge_ans), knowledge_ans
+    #         else:
+    #             return 0, NO_ANS
+    #     else:
+    #         return INVALID_QUESTION, INVALID_QUESTION
 
 
-def calc_scores(texts, summaries, remove_personal, device, similarity_metric='nli'):
-    q_scores = []
-
+def calc_scores(texts, summaries, device, similarity_metric='nli'):
+    nli_q_scores = []
+    f1_q_scores = []
     classifier = Q_squared_classifier(device=device, similarity_metric=similarity_metric)
     counter = 0
-    for text, summary in tqdm(zip(texts, summaries)):
-        res = \
-            classifier.classify(summary, text, remove_personal)
-
-        q_scores.append(res)
+    for i in tqdm(range(len(texts))):
+        text = texts[i]
+        summary = summaries[i]
+        nli_score, f1_score = \
+            classifier.score([summary], [text])
+        nli_q_scores.append(nli_score)
+        f1_q_scores.append(f1_score)
         counter += 1
-        print(counter)
         if counter > 100:
             break
-    print(q_scores)
-    valid_scores = [s for s in q_scores if s != -1]
-    print("total with at least 1 valid question:", len(valid_scores))
-    print("score:", np.mean(valid_scores))
 
-    return valid_scores
+    # for text, summary in tqdm(zip(texts, summaries)):
+    #     res = \
+    #         classifier.classify(summary, text, remove_personal)
+    #     q_scores.append(res)
+
+    # valid_scores = [s for s in q_scores if s != -1]
+    # valid_scores = []
+    # for s in q_scores:
+    #     if s == False:
+    #         valid_scores.append(0)
+    #     elif s == True:
+    #         valid_scores.append(1)
+    #     else:
+    #         valid_scores.append(None)
+    # print("total with at least 1 valid question:", len(valid_scores))
+    # print("score:", np.mean(valid_scores))
+
+    return nli_q_scores, f1_q_scores
 
 
 def main():
     device = 'cuda'
     similarity_metric = 'nli'
-    df = pd.read_csv('/data/home/yehonatan-pe/Correction_pipeline/data/summeval_download.csv')
+    df = pd.read_csv('/data/home/yehonatan-pe/Correction_pipeline/data/true_data/summeval_download.csv')
     texts = df['grounding'].tolist()
     summaries = df['generated_text'].tolist()
-    x = calc_scores(texts=texts, summaries=summaries, remove_personal=True, device=device,
+    x = calc_scores(texts=texts, summaries=summaries, device=device,
                     similarity_metric=similarity_metric)
     print(np.mean(x))
     # x = TRUE_dataset('data')
@@ -299,6 +329,6 @@ def main():
     # summaries = data['generated_text']
     # labels = data['label']
 
-
-if __name__ == '__main__':
-    main()
+#
+# if __name__ == '__main__':
+#     main()
