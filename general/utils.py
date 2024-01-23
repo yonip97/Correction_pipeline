@@ -5,7 +5,24 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
+from torch.utils.data import Dataset
+import os
 
+def get_latest_directory(path):
+    # Get all directories in the given path
+    all_dirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+
+    if not all_dirs:
+        print("No directories found.")
+        return
+
+    # Get the creation time of each directory
+    dir_creation_times = {d: os.path.getctime(os.path.join(path, d)) for d in all_dirs}
+
+    # Find the directory with the latest creation time
+    latest_directory = max(dir_creation_times, key=dir_creation_times.get)
+
+    return os.path.join(path, latest_directory)
 
 def clean_text(text):
     text = text.lower()
@@ -19,7 +36,28 @@ def iter_list(list_, batch_size):
     for i in range(num_of_batches):
         yield list_[i * batch_size:(i + 1) * batch_size]
 
+class RevisionDataset(Dataset):
+    def __init__(self, texts, summaries, revised_summaries):
+        self.texts = texts
+        self.summaries = summaries
+        self.revised_summaries = revised_summaries
 
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item],
+                'revised_summary': self.revised_summaries[item]}
+class SummarizationDataset(Dataset):
+    def __init__(self, texts, summaries):
+        self.texts = texts
+        self.summaries = summaries
+
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item]}
 def plot_confusion_matrix(df, col1, col2, classes, title,
                           normalize=False,
                           cmap='gray_r',

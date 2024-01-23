@@ -17,7 +17,7 @@ class Cost_estimator():
     def estimate_cost(self, text, output_estimation):
         input_len = self.estimate_input(text)
         estimated_output_len = self.estimate_output(output_estimation)
-        return estimated_output_len / 1000 * self.input_price + input_len / 1000 * self.output_price, input_len, estimated_output_len
+        return input_len / 1000 * self.input_price + estimated_output_len / 1000 * self.output_price, input_len, estimated_output_len
 
     def estimate_input(self, text):
         input_encoding = self.encoding.encode(text)
@@ -74,27 +74,27 @@ class Cost_estimator():
             total_output += item_output_len
         return total_cost, total_input, total_output
 
-
-from datasets import load_dataset
-from data.factuality_datasets import TRUE_dataset
-dataset = load_dataset('xsum', split='train')
-print(len(dataset))
-# dataset = TRUE_dataset('data/true_data',['summarization'])
-# docs = dataset.df['grounding'].tolist()
-# summaries = dataset.df['generated_text'].tolist()
-docs = [dataset[i]['document'] for i in range(len(dataset))]
-summaries = [dataset[i]['summary'] for i in range(len(dataset))]
-estimator = Cost_estimator('gpt-4', 0.03, 0.06)
-cost, input_len, output_len = estimator.estimate_for_revision(
-    prompt='Please revise the following summary to make it factually consistent with the document. Output only the corrected summary and nothing more.',
-    texts=docs, summaries=summaries)
-print(cost)
-cost, input_len, output_len = estimator.estimate_for_classification(prompt='Please classify if the summary is factually consistent with the document.',
-                                                                    texts=docs, summaries=summaries)
-print(cost)
-cost, input_len, output_len = estimator.estimate_for_summarization(prompt='Please summarize the following document.',
-                                                                    texts=docs, summaries=summaries)
-print(cost)
+#
+# from datasets import load_dataset
+# from data.factuality_datasets import TRUE_dataset
+# dataset = load_dataset('xsum', split='train')
+# print(len(dataset))
+# # dataset = TRUE_dataset('data/true_data',['summarization'])
+# # docs = dataset.df['grounding'].tolist()
+# # summaries = dataset.df['generated_text'].tolist()
+# docs = [dataset[i]['document'] for i in range(len(dataset))]
+# summaries = [dataset[i]['summary'] for i in range(len(dataset))]
+# estimator = Cost_estimator('gpt-4', 0.03, 0.06)
+# cost, input_len, output_len = estimator.estimate_for_revision(
+#     prompt='Please revise the following summary to make it factually consistent with the document. Output only the corrected summary and nothing more.',
+#     texts=docs, summaries=summaries)
+# print(cost)
+# cost, input_len, output_len = estimator.estimate_for_classification(prompt='Please classify if the summary is factually consistent with the document.',
+#                                                                     texts=docs, summaries=summaries)
+# print(cost)
+# cost, input_len, output_len = estimator.estimate_for_summarization(prompt='Please summarize the following document.',
+#                                                                     texts=docs, summaries=summaries)
+# print(cost)
 # from data.factuality_datasets import TRUE_dataset
 # dataset = TRUE_dataset('data/true_data',['summarization'])
 # estimator = Cost_estimator('gpt-4',0.03,0.06)

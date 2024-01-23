@@ -1,16 +1,8 @@
-# import os
-# import sys
-#
-# sys.path.append(os.path.dirname(os.getcwd()))
-# os.chdir('../')
-
+import numpy as np
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 from general.utils import iter_list
-from data.factuality_datasets import TRUE_dataset
 from tqdm import tqdm
-from torch import nn
-from accelerate import load_checkpoint_and_dispatch
 
 
 class TrueTeacher():
@@ -24,12 +16,13 @@ class TrueTeacher():
         if self.device == 'auto':
             self.model = T5ForConditionalGeneration.from_pretrained(model_path, device_map='auto',
                                                                     torch_dtype=torch_dtype).eval()
-            self.input_device = 'cpu'
+            self.input_device = 'cuda'
         else:
             self.input_device = self.device
             self.model = T5ForConditionalGeneration.from_pretrained(model_path,
                                                                     torch_dtype=torch_dtype).to(self.device).eval()
         self.return_none = return_none
+        self.number_of_errors = 0
 
     def classify(self, texts, summaries):
         pairs = []
@@ -58,6 +51,8 @@ class TrueTeacher():
                         # Free up memory (adjust as needed)
                         torch.cuda.empty_cache()
                         results += [None] * len(batch)
+                        self.number_of_errors += 1
+                        print(f'Number of errors: {self.number_of_errors}')
                     else:
                         raise e
 
@@ -67,12 +62,17 @@ class TrueTeacher():
         return self.classify([summary], [text])[0]
 
     def score(self, texts, summaries):
+        counter = 0
         pairs = []
         results = []
+        out_of_memory_indexes = []
         for summary, original_text in zip(summaries, texts):
             pairs.append(f'premise: {original_text} hypothesis: {summary}')
+        indexes = [i for i in range(len(pairs))]
         with torch.no_grad():
-            for batch in tqdm(iter_list(pairs, self.batch_size)):
+            # for batch in tqdm(iter_list(pairs, self.batch_size)):
+            for batch_indexes in tqdm(iter_list(indexes, self.batch_size)):
+                batch = [pairs[i] for i in batch_indexes]
                 try:
                     model_input = self.tokenizer(batch, return_tensors='pt', truncation=True,
                                                  max_length=self.max_length,
@@ -81,42 +81,41 @@ class TrueTeacher():
                         self.input_device)
                     outputs = self.model(**model_input, decoder_input_ids=decoder_input_ids)
                     logits = torch.softmax(outputs.logits.float(), dim=-1)
-                    torch.cuda.empty_cache()
+                    # torch.cuda.empty_cache()
                     batch_factuality_score = logits.detach().cpu()[:, 0, self.one_token]
                     results += batch_factuality_score.tolist()
+                    counter += 1
+                    if counter % 100 == 0:
+                        print(np.mean([r for r in results if r is not None]))
                 except RuntimeError as e:
                     if "out of memory" in str(e) and self.return_none:
                         print("Out of memory. Trying to free up some GPU memory.")
                         # Free up memory (adjust as needed)
                         torch.cuda.empty_cache()
                         results += [None] * len(batch)
+                        out_of_memory_indexes += batch_indexes
                     else:
                         raise e
+        #self.model = self.model.module.to('cpu')
+            # print("processing out of memory examples on cpu")
+            # out_of_memory_results = []
+            # for i in tqdm(out_of_memory_indexes):
+            #     batch = [pairs[i]]
+            #     model_input = self.tokenizer(batch, return_tensors='pt', truncation=True,
+            #                                  max_length=self.max_length,
+            #                                  padding=True).to('cpu')
+            #     decoder_input_ids = torch.tensor([[self.tokenizer.pad_token_id] * len(batch)]).reshape((-1, 1)).to(
+            #         'cpu')
+            #     outputs = self.model(**model_input, decoder_input_ids=decoder_input_ids)
+            #     logits = torch.softmax(outputs.logits.float(), dim=-1)
+            #     # torch.cuda.empty_cache()
+            #     batch_factuality_score = logits.detach().cpu()[:, 0, self.one_token]
+            #     out_of_memory_results += batch_factuality_score
+            # for i in range(len(results)):
+            #     if i in out_of_memory_indexes:
+            #         item_index = out_of_memory_indexes.index(i)
+            #         results[i] = out_of_memory_results[item_index]
         return results
 
     def score_single(self, text, summary):
         return self.score([summary], [text])[0]
-
-
-def main():
-    device = 'cuda'
-    model_path = '/data/home/yehonatan-pe/Correction_pipeline/TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000'
-    # model_path = 'google/t5_11b_trueteacher_and_anli'
-    # tokenizer_name = 'google/t5_11b_trueteacher_and_anli'
-    tokenizer_name = 't5-base'
-    model = TrueTeacher(model_path=model_path, tokenizer_name=tokenizer_name, device=device, batch_size=8,
-                        max_length=2048)
-    dataset = TRUE_dataset("data/true_data", ['summarization'])
-    texts = dataset.df['grounding'].tolist()
-    summaries = dataset.df['generated_text'].tolist()
-    labels = dataset.df['label'].tolist()
-    predictions = model.classify(summaries, texts)
-    dataset['predictions'] = predictions
-    accuracy = sum([1 if predictions[i] == labels[i] else 0 for i in range(len(labels))]) / len(labels)
-    print(accuracy)
-    # print(roc_auc_score(labels, predictions))
-
-
-if __name__ == '__main__':
-    pass
-    # main()

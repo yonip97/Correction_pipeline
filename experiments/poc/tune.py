@@ -10,14 +10,14 @@ import pandas as pd
 from datetime import datetime
 import torch
 from transformers import Seq2SeqTrainingArguments, T5ForConditionalGeneration, T5Tokenizer
-from general.t5_trainer import T5_Trainer, revise
-from experiments.poc.poc_utils import SummarizationDataset, collate_fn, compute_metrics, load_xsum_ood
+from general.t5_trainer import T5_Trainer, t5_revise
+from experiments.poc.poc_utils import  collate_fn, compute_metrics, load_xsum_ood
 from Seahorse_metrics.metrics import Seahorse_metrics
 import evaluate
 import optuna
 import ast
 
-
+from general.utils import RevisionDataset
 def tune_using_all(trial, texts, summaries, revised_summaries, model_name):
     try:
         lr = trial.suggest_float("lr", 1e-5, 1e-3, log=True)
@@ -33,8 +33,8 @@ def tune_using_all(trial, texts, summaries, revised_summaries, model_name):
                                                                 np.array(revised_summaries)[train_indices].tolist()
         val_texts, val_summaries, val_revised_summaries = np.array(texts)[val_indices].tolist(), np.array(summaries)[
             val_indices].tolist(), np.array(revised_summaries)[val_indices].tolist()
-        train_dataset = SummarizationDataset(train_texts, train_summaries, train_revised_summaries)
-        val_dataset = SummarizationDataset(val_texts, val_summaries, val_revised_summaries)
+        train_dataset = RevisionDataset(train_texts, train_summaries, train_revised_summaries)
+        val_dataset = RevisionDataset(val_texts, val_summaries, val_revised_summaries)
         ood_test_texts, ood_test_summaries = load_xsum_ood(only_low_score=True)
 
         run_name = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
@@ -49,7 +49,7 @@ def tune_using_all(trial, texts, summaries, revised_summaries, model_name):
             gradient_accumulation_steps=gradient_accumulation_steps,
             learning_rate=lr, num_train_epochs=epochs, evaluation_strategy='no', save_strategy='no',
             eval_accumulation_steps=30, weight_decay=weight_decay,
-            metric_for_best_model='rougeL', no_cuda=False)
+            metric_for_best_model='rougeL', no_cuda=False,predict_with_generate=True)
         max_length_train = 512
         trainer = T5_Trainer(collate_fn=collate_fn, model=model, tokenizer=tokenizer, args=train_args,
                              train_dataset=train_dataset,
@@ -60,16 +60,16 @@ def tune_using_all(trial, texts, summaries, revised_summaries, model_name):
         del trainer
         torch.cuda.empty_cache()
 
-        train_predictions = revise(np.array(texts)[train_indices].tolist(), np.array(summaries)[train_indices].tolist(),
-                                   model,
-                                   tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        val_predictions = revise(np.array(texts)[val_indices].tolist(),
-                                 np.array(summaries)[val_indices].tolist(),
-                                 model, tokenizer, device='cuda:1', batch_size=8, max_length=128)
+        train_predictions = t5_revise(np.array(texts)[train_indices].tolist(), np.array(summaries)[train_indices].tolist(),
+                                      model,
+                                      tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        val_predictions = t5_revise(np.array(texts)[val_indices].tolist(),
+                                    np.array(summaries)[val_indices].tolist(),
+                                    model, tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
 
-        ood_test_predictions = revise(ood_test_texts, ood_test_summaries, model, tokenizer, device='cuda:1',
-                                      batch_size=8,
-                                      max_length=128)
+        ood_test_predictions = t5_revise(ood_test_texts, ood_test_summaries, model, tokenizer, prompt="revise: ", device='cuda:1',
+                                         batch_size=8,
+                                         generation_max_length=128)
         model.to('cpu')
         classifier = Seahorse_metrics(model_path='google/seahorse-xxl-q4', tokenizer_name='google/seahorse-xxl-q4',
                                       device='auto', batch_size=1, max_length=2048, torch_dtype=torch.float16)
@@ -157,7 +157,7 @@ def tune_using_classifier_and_rouge_threshold(trial, texts, summaries, revised_s
                 val_summaries_no_revision_needed.append(summaries[i])
                 val_revised_summaries_no_revision_needed.append(summaries[i])
 
-        train_dataset = SummarizationDataset(train_texts_properly_revised + train_texts_no_revision_needed,
+        train_dataset = RevisionDataset(train_texts_properly_revised + train_texts_no_revision_needed,
                                              train_summaries_properly_revised + train_summaries_no_revision_needed,
                                              train_revised_summaries_properly_revised + train_revised_summaries_no_revision_needed)
         ood_test_texts, ood_test_summaries = load_xsum_ood(only_low_score=True)
@@ -174,7 +174,7 @@ def tune_using_classifier_and_rouge_threshold(trial, texts, summaries, revised_s
             gradient_accumulation_steps=gradient_accumulation_steps,
             learning_rate=lr, num_train_epochs=epochs,
             evaluation_strategy='no', save_strategy='no', eval_accumulation_steps=30, weight_decay=weight_decay,
-            metric_for_best_model='rougeL', no_cuda=False)
+            metric_for_best_model='rougeL', no_cuda=False,predict_with_generate=True)
         max_length_train = 512
         trainer = T5_Trainer(collate_fn=collate_fn, model=model, tokenizer=tokenizer, args=train_args,
                              train_dataset=train_dataset,
@@ -184,20 +184,20 @@ def tune_using_classifier_and_rouge_threshold(trial, texts, summaries, revised_s
         del trainer
         torch.cuda.empty_cache()
 
-        train_predictions_properly_revised = revise(train_texts_properly_revised, train_summaries_properly_revised,
-                                                    model,
-                                                    tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        train_predictions_no_revision_needed = revise(train_texts_no_revision_needed,
-                                                      train_summaries_no_revision_needed,
-                                                      model, tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        val_predictions_properly_revised = revise(val_texts_properly_revised, val_summaries_properly_revised, model,
-                                                  tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        val_predictions_no_revision_needed = revise(val_texts_no_revision_needed, val_summaries_no_revision_needed,
-                                                    model,
-                                                    tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        ood_test_predictions = revise(ood_test_texts, ood_test_summaries, model, tokenizer, device='cuda:1',
-                                      batch_size=8,
-                                      max_length=128)
+        train_predictions_properly_revised = t5_revise(train_texts_properly_revised, train_summaries_properly_revised,
+                                                       model,
+                                                       tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        train_predictions_no_revision_needed = t5_revise(train_texts_no_revision_needed,
+                                                         train_summaries_no_revision_needed,
+                                                         model, tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        val_predictions_properly_revised = t5_revise(val_texts_properly_revised, val_summaries_properly_revised, model,
+                                                     tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        val_predictions_no_revision_needed = t5_revise(val_texts_no_revision_needed, val_summaries_no_revision_needed,
+                                                       model,
+                                                       tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        ood_test_predictions = t5_revise(ood_test_texts, ood_test_summaries, model, tokenizer, prompt="revise: ", device='cuda:1',
+                                         batch_size=8,
+                                         generation_max_length=128)
         model.to('cpu')
         del model
         import time
@@ -300,7 +300,7 @@ def tune_using_classifier(trial, texts, summaries, revised_summaries, pre_revisi
                 val_summaries_no_revision_needed.append(summaries[i])
                 val_revised_summaries_no_revision_needed.append(summaries[i])
 
-        train_dataset = SummarizationDataset(train_texts_properly_revised + train_texts_no_revision_needed,
+        train_dataset = RevisionDataset(train_texts_properly_revised + train_texts_no_revision_needed,
                                              train_summaries_properly_revised + train_summaries_no_revision_needed,
                                              train_revised_summaries_properly_revised + train_revised_summaries_no_revision_needed)
 
@@ -317,7 +317,7 @@ def tune_using_classifier(trial, texts, summaries, revised_summaries, pre_revisi
             gradient_accumulation_steps=gradient_accumulation_steps,
             learning_rate=lr, num_train_epochs=epochs,
             evaluation_strategy='no', save_strategy='no', eval_accumulation_steps=30, weight_decay=weight_decay,
-            metric_for_best_model='rougeL', no_cuda=False)
+            metric_for_best_model='rougeL', no_cuda=False,predict_with_generate=True)
         max_length_train = 512
         trainer = T5_Trainer(collate_fn=collate_fn, model=model, tokenizer=tokenizer, args=train_args,
                              train_dataset=train_dataset,
@@ -327,20 +327,20 @@ def tune_using_classifier(trial, texts, summaries, revised_summaries, pre_revisi
         del trainer
         torch.cuda.empty_cache()
 
-        train_predictions_properly_revised = revise(train_texts_properly_revised, train_summaries_properly_revised,
-                                                    model,
-                                                    tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        train_predictions_no_revision_needed = revise(train_texts_no_revision_needed,
-                                                      train_summaries_no_revision_needed,
-                                                      model, tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        val_predictions_properly_revised = revise(val_texts_properly_revised, val_summaries_properly_revised, model,
-                                                  tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        val_predictions_no_revision_needed = revise(val_texts_no_revision_needed, val_summaries_no_revision_needed,
-                                                    model,
-                                                    tokenizer, device='cuda:1', batch_size=8, max_length=128)
-        ood_test_predictions = revise(ood_test_texts, ood_test_summaries, model, tokenizer, device='cuda:1',
-                                      batch_size=8,
-                                      max_length=128)
+        train_predictions_properly_revised = t5_revise(train_texts_properly_revised, train_summaries_properly_revised,
+                                                       model,
+                                                       tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        train_predictions_no_revision_needed = t5_revise(train_texts_no_revision_needed,
+                                                         train_summaries_no_revision_needed,
+                                                         model, tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        val_predictions_properly_revised = t5_revise(val_texts_properly_revised, val_summaries_properly_revised, model,
+                                                     tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        val_predictions_no_revision_needed = t5_revise(val_texts_no_revision_needed, val_summaries_no_revision_needed,
+                                                       model,
+                                                       tokenizer, prompt="revise: ", device='cuda:1', batch_size=8, generation_max_length=128)
+        ood_test_predictions = t5_revise(ood_test_texts, ood_test_summaries, model, tokenizer, prompt="revise: ", device='cuda:1',
+                                         batch_size=8,
+                                         generation_max_length=128)
         model.to('cpu')
         del model
         import time
@@ -421,6 +421,7 @@ def tune(trial, method, model_name):
     else:
         raise ValueError('Invalid method')
 
+
 def do_study():
     study = optuna.create_study(direction='maximize')
     study.optimize(lambda trial: tune(trial, 'all', model_name='google/flan-t5-base'), n_trials=50,
@@ -429,6 +430,8 @@ def do_study():
     best_score = study.best_value
     print("Best Hyperparameters:", best_params)
     print("Best factuality score:", best_score)
+
+
 def read_results(path):
     results = {}
     with open(path, 'r') as f:
@@ -461,39 +464,67 @@ def read_results(path):
         # highest rouge score (rougeL)
         # highest ood score
         # Highest rank on all three metrics
+    if 'flan' in path:
+        model_name = 'google/flan-t5-base'
+    else:
+        model_name = 't5-base'
+    if 'all' in path:
+        method = 'all'
+    elif 'classifier_and_rouge_threshold' in path:
+        method = 'classifier_and_rouge'
+    else:
+        method = 'classifier'
+    write_script_path = "experiments/poc/best_results.txt"
+    base = f"python3 train_corrector --method {method} --model_name {model_name} --output_file experiments/poc/best_results/{method}_{model_name.replace('/','_')}.txt --calculate_factuality_scores --calculate_rouge_scores --eval_true --eval_frank"
+    scripts = []
     for key in results.keys():
         if key == 'val_factuality_score' or key == "val_properly_revised_factuality_score":
             res = results[key]
             run_hep = results['Hyperparameters'][np.argmax(res)]
             print(f"Best {key}:run {np.argmax(res)} score {np.max(res)}")
             print(f"Hyperparameters: {run_hep}")
+            script = base
+            for k in run_hep.keys():
+                script += f" --{k} {run_hep[k]}"
         elif key == 'val_rougeL' or key == 'val_properly_revised_rougeL':
             res = results[key]
             run_hep = results['Hyperparameters'][np.argmax(res)]
             print(f"Best {key}:run {np.argmax(res)} score {np.max(res)}")
             print(f"Hyperparameters: {run_hep}")
+            script = base
+            for k in run_hep.keys():
+                script += f" --{k} {run_hep[k]}"
+
         elif key == 'ood_test_factuality_score':
             res = results[key]
             run_hep = results['Hyperparameters'][np.argmax(res)]
             print(f"Best {key}:run {np.argmax(res)} score {np.max(res)}")
             print(f"Hyperparameters: {run_hep}")
+            script = base
+            for k in run_hep.keys():
+                script += f" --{k} {run_hep[k]}"
+        else:
+            continue
+        scripts.append(script)
+    print(scripts)
+    with open(write_script_path, 'a') as f:
+        for script in scripts:
+            f.write(script + '\n')
 
 def main():
     main_dir = "experiments/poc"
-    paths = ["hyperparameter_tuning_all_t5-base.txt","hyperparameter_tuning_all_google_flan-t5-base.txt"
-        ,"hyperparameter_tuning_using_classifier_and_rouge_threshold_google_flan-t5-base.txt",
-                "hyperparameter_tuning_using_classifier_and_rouge_threshold_t5.txt",
+    paths = ["hyperparameter_tuning_all_t5-base.txt", "hyperparameter_tuning_all_google_flan-t5-base.txt"
+        , "hyperparameter_tuning_using_classifier_and_rouge_threshold_google_flan-t5-base.txt",
+             "hyperparameter_tuning_using_classifier_and_rouge_threshold_t5.txt",
              "hyperparameter_tuning_t5_using_classifier.txt",
              "hyperparameter_tuning_t5_flan_using_classifier.txt"
              ]
     for path in paths:
         print(path)
-        read_results(main_dir +'/' + path)
+        read_results(main_dir + '/' + path)
         print('---------------------------------------------------------------------------------------')
         print()
         print()
-
-
 
 
 if __name__ == '__main__':

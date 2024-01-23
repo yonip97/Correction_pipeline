@@ -18,21 +18,7 @@ from datetime import datetime
 from data.data_utils import collate_fn
 from data.factuality_datasets import FactCC_dataset, TrueTeacher_anli_dataset, TRUE_dataset
 from data.data_utils import tokeinized_collate_fn
-
-
-class T5_Trainer(Seq2SeqTrainer):
-    def __init__(self, max_length_train=512, max_length_eval=2048, **kwargs):
-        self.max_length_train = max_length_train
-        self.max_length_eval = max_length_eval
-        super(T5_Trainer, self).__init__(**kwargs)
-
-    def get_train_dataloader(self) -> DataLoader:
-        return DataLoader(self.train_dataset, batch_size=self.args.train_batch_size, shuffle=True,
-                          collate_fn=lambda x: tokeinized_collate_fn(x, self.tokenizer, self.max_length_train), pin_memory=False)
-
-    def get_eval_dataloader(self, eval_dataset=None) -> DataLoader:
-        return DataLoader(self.eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
-                          collate_fn=lambda x: tokeinized_collate_fn(x, self.tokenizer, self.max_length_eval), pin_memory=False)
+from general.t5_trainer import T5_Trainer
 
 
 def compute_metrics(p, tokenizer, model):
@@ -56,7 +42,7 @@ def compute_metrics(p, tokenizer, model):
     # return {'roc auc': score, 'avg_auc_roc_true': avg_auc_roc_true}
 
 
-def main():
+def train():
     os.environ["WANDB_DISABLED"] = "true"
     eval_dataset = FactCC_dataset("factCC/data/unpaired_annotated_data/")
 
@@ -136,42 +122,6 @@ def evaluate(dataloader, model, tokenizer, device='cpu'):
         results_dict['total'] = {'roc auc': roc_auc, 'accuracy': accuracy}
         print("Roc Auc Score: ", roc_auc)
         print("Accuracy: ", accuracy)
-        model.train()
+        model.refine()
         return df, results_dict
 
-
-if __name__ == '__main__':
-    # roc_auc_scores = pd.read_csv('results.csv', index_col=0)
-    # datasets_names = roc_auc_scores.loc['dataset']
-    # roc_auc_scores = roc_auc_scores.loc['roc auc']
-    # columns = ['QAGS_C', 'SummEval', 'Frank', 'QAGS_X', 'MNBM']
-    # datasets_locations = []
-    # for dataset_name in datasets_names:
-    #     for i in range(len(columns)):
-    #         if columns[i].lower() in dataset_name:
-    #             datasets_locations.append(i)
-    # roc_auc_scores = roc_auc_scores[datasets_locations].astype(float).round(2)
-    # full_data = pd.DataFrame(columns=columns,
-    #                          data=[[81.9, 78.0, 89.3, 81.9, 78.5], roc_auc_scores, [74.9, 63.7, 81.3, 77.2, 77.0]],
-    #                          index=['TrueTeacher results', 'My results', 'Anli'])
-    # full_data['mean'] = full_data.mean(axis=1)
-    # full_data.to_csv('results.csv')
-    # main()
-
-    # dataset = TRUE_dataset("data/true_data", ['summarization'])
-    # dataset = FactCC_dataset('factCC/data/unpaired_annotated_data/')
-    dataset = TRUE_dataset("data/true_data", ['summarization'])
-    for checkpoint in ['TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000',
-                       'TrueTeacher/results/run name_2023-09-05 13:23:47/checkpoint-4000',
-                       'TrueTeacher/results/run name_2023-09-01 16:06:11/checkpoint-13000']:
-    # dataset_3 = TrueTeacher_anli_dataset(tokenizer=T5Tokenizer.from_pretrained("t5-base"), true_teacher_samples=1e5, seed=1)
-        dataloader = DataLoader(dataset, batch_size=8, shuffle=True, collate_fn=collate_fn)
-    #model_path = '/data/home/yehonatan-pe/Correction_pipeline/TrueTeacher/results/run name_2023-10-11 00:31:57/checkpoint-23000'
-        model = T5ForConditionalGeneration.from_pretrained(checkpoint)
-        tokenizer = T5Tokenizer.from_pretrained("t5-base")
-        device = 'cuda'
-
-        df, _ = evaluate(dataloader, model, tokenizer, device)
-        print(df)
-        print(df['roc auc'].mean())
-    print("-------------------------------------------------------------------------------------------------------------------")

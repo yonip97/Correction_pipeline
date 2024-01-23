@@ -1,6 +1,19 @@
-from utils import clean_text
+import re
 from collections import Counter
 import evaluate
+from tqdm import tqdm
+
+def clean_text(text):
+    # Convert to lowercase
+    text = text.lower()
+
+    # Remove special characters, numbers, and punctuation
+    text = re.sub(r'[^a-z\s]', '', text)
+
+    # Remove extra whitespaces
+    text = re.sub(r'\s+', ' ', text).strip()
+
+    return text
 
 
 def word_wise_f1_score(predicted_text, target_text):

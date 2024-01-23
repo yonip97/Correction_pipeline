@@ -27,18 +27,6 @@ def collate_fn(batch, tokenizer, max_length):
             'labels': labels['input_ids']}
 
 
-class SummarizationDataset(Dataset):
-    def __init__(self, texts, summaries, revised_summaries):
-        self.texts = texts
-        self.summaries = summaries
-        self.revised_summaries = revised_summaries
-
-    def __len__(self):
-        return len(self.texts)
-
-    def __getitem__(self, item):
-        return {'document': self.texts[item], 'summary': self.summaries[item],
-                'revised_summary': self.revised_summaries[item]}
 
 
 def load_xsum_ood(only_low_score=False, num_of_examples=1000):

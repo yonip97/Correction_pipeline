@@ -2,6 +2,7 @@ import os
 import sys
 
 import matplotlib.pyplot as plt
+import torch
 
 sys.path.append(os.path.dirname(os.getcwd()))
 os.chdir('../')
@@ -109,8 +110,8 @@ def trueteacher_scoring(summaries, texts, device='cpu', batch_size=4):
     model_path = 'google/t5_11b_trueteacher_and_anli'
     tokenizer_name = 'google/t5_11b_trueteacher_and_anli'
     model = TrueTeacher(model_path=model_path, tokenizer_name=tokenizer_name, device=device, batch_size=batch_size,
-                        max_length=2048)
-    scores = model.score(summaries, texts)
+                        max_length=2048, torch_dtype=torch.float16)
+    scores = model.score(texts = texts, summaries=summaries)
     return scores
 
 
@@ -118,8 +119,8 @@ def seahorse_scoring(summaries, texts, device='cpu', batch_size=4):
     model_path = 'google/seahorse-xxl-q4'
     tokenizer_name = 'google/seahorse-xxl-q4'
     model = Seahorse_metrics(model_path=model_path, tokenizer_name=tokenizer_name, device=device, batch_size=batch_size,
-                             max_length=2048)
-    scores = model.score(summaries, texts)
+                             max_length=2048,torch_dtype=torch.float16)
+    scores = model.score(texts=texts, summaries=summaries)
     return scores
 def add_rouge(summaries, revised_summaries):
     rouge_metric = evaluate.load('rouge')
@@ -152,15 +153,15 @@ def main():
     df = pd.read_csv('data/poc/gpt_4_turbo_results.csv')
     df = df[~df['revised_summary'].isna()]
     df['true_teacher_summary_scores'] = trueteacher_scoring(summaries=df['summary'].tolist(), texts=df['text'].tolist(),
-                                                            device='cpu', batch_size=4)
+                                                            device='auto', batch_size=1)
     df['true_teacher_revised_summary_scores'] = trueteacher_scoring(summaries=df['revised_summary'].tolist(),
-                                                                    texts=df['text'].tolist(), device='cpu',
-                                                                    batch_size=4)
+                                                                    texts=df['text'].tolist(), device='auto',
+                                                                    batch_size=1)
     df['seahorse_xxl_summary_scores'] = seahorse_scoring(summaries=df['summary'].tolist(), texts=df['text'].tolist(),
-                                                         device='cpu', batch_size=4)
+                                                         device='auto', batch_size=1)
     df['seahorse_xxl_revised_summary_scores'] = seahorse_scoring(summaries=df['revised_summary'].tolist(),
-                                                                 texts=df['text'].tolist(), device='cpu',
-                                                                 batch_size=4)
+                                                                 texts=df['text'].tolist(), device='auto',
+                                                                 batch_size=1)
     rouge_scores = add_rouge(df['summary'].tolist(), df['revised_summary'].tolist())
     for key in rouge_scores.keys():
         df[key] = rouge_scores[key]

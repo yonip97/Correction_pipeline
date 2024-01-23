@@ -118,7 +118,40 @@ def main():
         plot_confusion_matrix(df, pre, post, classes=[0, 1], title=f"{pre} performance")
 
 
-
-
+def compare():
+    df = pd.read_json('experiments/poc/best_results/all_results.json')
+    options = ['pre_revision', 'post_revision', 'rougeL']
+    cols = df.columns
+    true_cols = [col for col in cols if 'true' in col and 'BERTS2S' not in col and 'TConvS2S' not in col] +['name']
+    frank_cols = [col for col in cols if 'frank' in col and 'true' not in col and 'BERTS2S' not in col and 'TConvS2S' not in col] +['name']
+    true_df = df[true_cols]
+    frank_df = df[frank_cols]
+    real_cols = ['name']
+    for option in options:
+        temp = []
+        for col in true_cols:
+            if option in col:
+                temp.append(true_df[col])
+        true_df[f'mean_true_{option}'] = np.mean(temp, axis=0)
+        real_cols.append(f'mean_true_{option}')
+    true_df = true_df[real_cols]
+    real_cols = ['name']
+    for option in options:
+        temp = []
+        for col in frank_cols:
+            if option in col:
+                temp.append(frank_df[col])
+        frank_df[f'mean_frank_{option}'] = np.mean(temp, axis=0)
+        real_cols.append(f'mean_frank_{option}')
+    frank_df = frank_df[real_cols]
+    df = frank_df.merge(true_df, on='name').round(4)
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
+    print(df.sort_values(by='mean_frank_post_revision'))
+    print(df.sort_values(by='mean_frank_rougeL'))
+    print(df.sort_values(by='mean_true_post_revision'))
+    print(df.sort_values(by='mean_true_rougeL'))
+    return df
 if __name__ == "__main__":
-    main()
+    # main()
+    compare()

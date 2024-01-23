@@ -4,8 +4,8 @@ from tqdm import tqdm
 from TrueTeacher.inference import TrueTeacher
 from factCC.inference import Factcc_classifier
 from q_squared.inference import Q_squared_classifier
-from knowledge_distillation.LLMS import LLMFactualityClassifier
-from knowledge_distillation.LLMS import Summarization_correction_model
+from general.LLMS import LLMFactualityClassifier
+from general.LLMS import Summarization_correction_model
 import random
 
 
@@ -160,7 +160,7 @@ class RevisionPipeline():
         revised_summaries = []
         for batch in tqdm(dataloader):
             texts, summaries = batch
-            revised_summary = self.revision_model.revise(texts, summaries, **self.revision_model_kwargs)
+            revised_summary = self.revision_model.t5_revise(texts, summaries, **self.revision_model_kwargs)
             revised_summaries.append(revised_summary)
         return revised_summaries
 

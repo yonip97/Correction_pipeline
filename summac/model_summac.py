@@ -430,32 +430,8 @@ class SummaCZS:
 
 
 def main():
-    from sklearn.metrics import roc_auc_score
-
-    dataset = TRUE_dataset('data/true_data', ['summarization'])
-    df = dataset.df
-    texts = dataset.df['grounding'].tolist()
-    summaries = dataset.df['generated_text'].tolist()
     model = SummaCZS(granularity="document", model_name="vitc", imager_load_cache=True,
                      device="cuda:1", use_con=False)  # Device can be `cpu` or `cuda` when GPU is available
     # model = SummaCConv(models=['vitc'],start_file='default',bins='percentile',granularity = 'document', device="cuda:1")
-    # scores = model.score(originals=texts, generateds=summaries)['scores']
-    # df['score'] = scores
-    records = []
-    from sklearn.metrics import f1_score, accuracy_score, balanced_accuracy_score
-    threshold = 0.95
-    for dataset_name in df['dataset'].unique():
-        roc_auc_result = roc_auc_score(df[df['dataset'] == dataset_name]['label'],
-                                       df[df['dataset'] == dataset_name]['score'])
-
-        records.append((dataset_name, roc_auc_result))
-    df = pd.DataFrame.from_records(records, columns=['dataset', 'f1', 'acc', 'bal acc'])
-    pd.set_option('display.max_rows', None)
-    pd.set_option('display.max_columns', None)
-
-    print(df)
 
 
-if __name__ == "__main__":
-    pass
-    # main()
