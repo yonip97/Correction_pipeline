@@ -58,6 +58,9 @@ def parserargs():
     args.add_argument("--device", type=str, default='cuda')
     args.add_argument('--output_dir', type=str, default='experiments/baseline_model/outputs')
     args.add_argument('--output_path', type=str)
+    args.add_argument('--optim', type=str, default='adamw_torch')
+    args.add_argument('--resume_from_checkpoint', action='store_true')
+    args.add_argument('--checkpoints_path', type=str, default=None)
     args = args.parse_args()
     return args
 
@@ -89,33 +92,21 @@ def collate_fn(batch, tokenizer, max_length, prefix=''):
 
 
 def train(train_dataset, val_dataset, dataset, args):
-    run_name = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
-    checkpoints_path = os.path.join(args.model_checkpoints_dir, f'{args.model}_{dataset}_{run_name}')
-    # output_dir_run = f'experiments/baseline_model/checkpoints/{args.model}_{dataset}_{run_name}'
-    # args.output_dir_run = output_dir_run
-    os.mkdir(checkpoints_path)
-    with open(os.path.join(checkpoints_path, 'args.txt'), 'w') as f:
-        f.write(str(args))
-    print("Started sleeping for 2.5 hours")
-    time.sleep(60 * 60 * 2.5)
-    print("Finished sleeping")
+    if args.resume_from_checkpoint and args.checkpoints_path is not None:
+        checkpoints_path = args.checkpoints_path
+    else:
+        run_name = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+        checkpoints_path = os.path.join(args.model_checkpoints_dir, f'{args.model}_{dataset}_{run_name}')
+        os.mkdir(checkpoints_path)
+        with open(os.path.join(checkpoints_path, 'args.txt'), 'w') as f:
+            f.write(str(args))
     tokenizer = T5Tokenizer.from_pretrained(args.model)
     model = T5ForConditionalGeneration.from_pretrained(args.model)
     generation_config = model.generation_config
     generation_config.max_length = args.max_generation_length
     generation_config.early_stopping = True
-    # generation_config.num_beams = args.beam_size
     generation_config.length_penalty = args.length_penalty
     model.generation_config = generation_config
-    # model_params = model.config.task_specific_params
-    # model_params['summarization']['length_penalty'] = 0.6
-    # model_params['summarization']['max_length'] = 128
-    # model.config.task_specific_params =  model_params
-
-    # generation_config = GenerationConfig(max_length=128, min_length=0, early_stopping=True,
-    #                                      num_beams=4, no_repeat_ngram_size=3, length_penalty=0.6)
-    # model.config.task_specific_params['summarization']['length_penalty'] = 0.6
-
     train_args = Seq2SeqTrainingArguments(
         output_dir=checkpoints_path,
         do_train=True, do_eval=True,
@@ -125,7 +116,8 @@ def train(train_dataset, val_dataset, dataset, args):
         learning_rate=args.lr, num_train_epochs=args.epochs, save_total_limit=args.save_limit,
         load_best_model_at_end=True, evaluation_strategy=args.evaluation_strategy, save_strategy=args.save_strategy,
         eval_steps=args.eval_steps, save_steps=args.eval_steps, eval_accumulation_steps=30,
-        metric_for_best_model='rougeL', no_cuda=False, predict_with_generate=True, generation_num_beams=args.beam_size)
+        metric_for_best_model='rougeL', no_cuda=False, predict_with_generate=True, generation_num_beams=args.beam_size,
+        optim=args.optim, overwrite_output_dir=False)
     val_texts = [row['text'] for row in val_dataset]
     max_length_train = args.encoder_max_length
     trainer = T5_Trainer(collate_fn=collate_fn, model=model, tokenizer=tokenizer, args=train_args,
@@ -133,7 +125,10 @@ def train(train_dataset, val_dataset, dataset, args):
                          eval_dataset=val_dataset,
                          compute_metrics=lambda p: compute_metrics(p, tokenizer, val_texts),
                          max_length_train=max_length_train, max_length_eval=max_length_train)
-    trainer.train()
+    if args.resume_from_checkpoint:
+        trainer.train(resume_from_checkpoint=True)
+    else:
+        trainer.train()
     del trainer
     del model
     gc.collect()
