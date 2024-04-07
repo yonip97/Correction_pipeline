@@ -26,7 +26,7 @@
       <paths name="yehonatan-pe@nlp18.iem.technion.ac.il:22 password">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/yehonatan-pe/Correction_pipeline" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="data/home/yehonatan-pe/Correction_pipeline" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

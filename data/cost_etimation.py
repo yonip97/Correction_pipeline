@@ -35,10 +35,22 @@ class Cost_estimator():
             text = texts[i]
             summary = summaries[i]
             model_input = prompt
-            model_input += 'original_text: ' + '\n' + text + '\n'
+            model_input += 'document: ' + '\n' + text + '\n'
             model_input += "summary: " + '\n' + summary + '\n'
             model_input += 'revised summary: ' + '\n'
             item_cost, item_input_len, item_output_len = self.estimate_cost(model_input, summary)
+            total_cost += item_cost
+            total_input += item_input_len
+            total_output += item_output_len
+        return total_cost, total_input, total_output
+    def calculate_cost(self, input_texts, output_texts):
+        total_cost = 0
+        total_input = 0
+        total_output = 0
+        for i in tqdm(range(len(input_texts))):
+            input_text = input_texts[i]
+            output_text = output_texts[i]
+            item_cost, item_input_len, item_output_len = self.estimate_cost(input_text, output_text)
             total_cost += item_cost
             total_input += item_input_len
             total_output += item_output_len
