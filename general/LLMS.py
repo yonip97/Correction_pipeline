@@ -27,27 +27,10 @@ class LLM_model():
         else:
             self.client = OpenAI(api_key=API_KEY)
         if model == 'gpt-3.5-turbo':
-        #    self.client = OpenAI(api_key=API_KEY)
-            # openai.api_key = API_KEY
-            # self.client = AzureOpenAI(
-            #     api_key=API_KEY,
-            #     api_version='2023-09-01-preview',
-            #     azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/')
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-3.5-turbo')
         elif model == 'gpt-4':
-            # openai.api_key = API_KEY
-            # openai.api_type = "azure"
-            # openai.api_version = "2023-05-15"
-            # openai.api_base = "https://researchopenai2023.openai.azure.com/"
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-4')
         elif model == 'gpt-4-turbo':
-            # self.client = AzureOpenAI(
-            #     api_key=API_KEY,
-            #     api_version='2023-09-01-preview',
-            #     azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/')
-            # api_key=os.getenv("OPENAI_API_KEY"),
-            # api_version='2023-09-01-preview',
-            # azure_endpoint=os.getenv("OPENAI_API_BASE")
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-4')
         else:
             raise ValueError(f"model {model} not supported")
@@ -73,21 +56,6 @@ class LLM_model():
                                                                temperature=0,
                                                                max_tokens=max_length, timeout=60)
                 return response.choices[0].message.content, None
-            # if self.model in ['gpt-4']:
-            #     response = openai.ChatCompletion.create(
-            #         engine=self.model,
-            #         messages=message,
-            #         temperature=0,
-            #         max_tokens=max_length,
-            #         request_timeout=60
-            #     )
-            #     return response['choices'][0]['message']['content'], None
-            # elif self.model in ['gpt-3.5-turbo', 'gpt-4-turbo']:
-            #     response = self.client.chat.completions.create(model=self.model,
-            #                                                    messages=message,
-            #                                                    temperature=0,
-            #                                                    max_tokens=max_length, timeout=60)
-            #     return response.choices[0].message.content, None
             else:
                 raise ValueError(f"model {self.model} not supported")
         except openai.OpenAIError as e:
@@ -106,7 +74,7 @@ class Summarization_correction_model(LLM_model):
     def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, **kwargs):
         super(Summarization_correction_model, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY,
                                                              **kwargs)
-        f = open(temp_save_dir + '/' + 'temp_results_summarization.csv', 'w')
+        f = open(temp_save_dir + '/' + 'temp_results_revision.csv', 'w')
         self.csv_writer = csv.writer(f)
         self.csv_writer.writerow(['text', 'summary', 'revised_summary', 'error'])
 

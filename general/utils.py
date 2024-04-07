@@ -8,6 +8,7 @@ from sklearn.metrics import confusion_matrix
 from torch.utils.data import Dataset
 import os
 
+
 def get_latest_directory(path):
     # Get all directories in the given path
     all_dirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
@@ -23,6 +24,7 @@ def get_latest_directory(path):
     latest_directory = max(dir_creation_times, key=dir_creation_times.get)
 
     return os.path.join(path, latest_directory)
+
 
 def clean_text(text):
     text = text.lower()
@@ -48,6 +50,8 @@ class RevisionDataset(Dataset):
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item],
                 'revised_summary': self.revised_summaries[item]}
+
+
 class SummarizationDataset(Dataset):
     def __init__(self, texts, summaries):
         self.texts = texts
@@ -58,6 +62,8 @@ class SummarizationDataset(Dataset):
 
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item]}
+
+
 def plot_confusion_matrix(df, col1, col2, classes, title,
                           normalize=False,
                           cmap='gray_r',

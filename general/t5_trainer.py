@@ -41,10 +41,12 @@ def collate_fn_revision_test(batch, tokenizer, max_length):
 
 
 class T5_Trainer(Seq2SeqTrainer):
-    def __init__(self, collate_fn, max_length_train=512, max_length_eval=512, collate_fn_test=None, **kwargs):
+    def __init__(self, collate_fn, max_length_train=512, max_length_eval=512, collate_fn_eval=None,
+                 collate_fn_test=None, **kwargs):
         self.collate_fn = collate_fn
         self.max_length_train = max_length_train
         self.max_length_eval = max_length_eval
+        self.collate_fn_eval = collate_fn_eval
         self.collate_fn_test = collate_fn_test
         super(T5_Trainer, self).__init__(**kwargs)
 
@@ -55,13 +57,23 @@ class T5_Trainer(Seq2SeqTrainer):
 
     def get_eval_dataloader(self, eval_dataset=None) -> DataLoader:
         if eval_dataset is None:
-            return DataLoader(self.eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
-                              collate_fn=lambda x: self.collate_fn(x, self.tokenizer, self.max_length_eval),
-                              pin_memory=False)
+            if self.collate_fn_eval is None:
+                return DataLoader(self.eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
+                                  collate_fn=lambda x: self.collate_fn(x, self.tokenizer, self.max_length_eval),
+                                  pin_memory=False)
+            else:
+                return DataLoader(self.eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
+                                  collate_fn=lambda x: self.collate_fn_eval(x, self.tokenizer, self.max_length_eval),
+                                  pin_memory=False)
         else:
-            return DataLoader(eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
-                              collate_fn=lambda x: self.collate_fn(x, self.tokenizer, self.max_length_eval),
-                              pin_memory=False)
+            if self.collate_fn_eval is None:
+                return DataLoader(eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
+                                  collate_fn=lambda x: self.collate_fn(x, self.tokenizer, self.max_length_eval),
+                                  pin_memory=False)
+            else:
+                return DataLoader(eval_dataset, batch_size=self.args.eval_batch_size, shuffle=False,
+                                  collate_fn=lambda x: self.collate_fn_eval(x, self.tokenizer, self.max_length_eval),
+                                  pin_memory=False)
 
     def get_test_dataloader(self, test_dataset: Dataset) -> DataLoader:
         if self.collate_fn_test is None:
@@ -87,7 +99,7 @@ class T5_Trainer(Seq2SeqTrainer):
 
 
 def t5_summarize(texts, model, tokenizer, prompt, device='cpu', batch_size=128, max_generation_length=128, beam_size=4,
-                 early_stopping=True, length_penalty=0.6,max_encoding_length = 512):
+                 early_stopping=True, length_penalty=0.6, max_encoding_length=512):
     summaries = []
     model_inputs = [(prompt + text) for text in texts]
     model.eval()
@@ -95,7 +107,8 @@ def t5_summarize(texts, model, tokenizer, prompt, device='cpu', batch_size=128, 
     with torch.no_grad():
         model.eval()
         for batch_texts in tqdm(iter_list(model_inputs, batch_size=batch_size)):
-            tokenized = tokenizer(batch_texts, padding=True, truncation=True, max_length=max_encoding_length, return_tensors='pt').to(
+            tokenized = tokenizer(batch_texts, padding=True, truncation=True, max_length=max_encoding_length,
+                                  return_tensors='pt').to(
                 device)
             outputs = model.generate(**tokenized, max_length=max_generation_length, num_beams=beam_size,
                                      early_stopping=early_stopping, length_penalty=length_penalty)
