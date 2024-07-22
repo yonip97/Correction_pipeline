@@ -14,8 +14,14 @@ class TrueTeacher():
         self.batch_size = batch_size
         self.one_token = self.tokenizer('1').input_ids[0]
         if self.device == 'auto':
-            self.model = T5ForConditionalGeneration.from_pretrained(model_path, device_map='auto',
+            self.model = T5ForConditionalGeneration.from_pretrained(model_path,device_map='auto',
                                                                     torch_dtype=torch_dtype).eval()
+            # from accelerate import infer_auto_device_map, dispatch_model
+            # device_map = infer_auto_device_map(self.model,
+            #                                    max_memory={0: "12GiB",1:"12GB", "cpu": "40GiB"},
+            #                                    no_split_module_classes=["T5Block"])
+            # self.model = dispatch_model(self.model, device_map)
+
             self.input_device = 'cuda'
         else:
             self.input_device = self.device

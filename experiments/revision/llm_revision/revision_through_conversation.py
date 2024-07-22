@@ -10,9 +10,9 @@ from tqdm import tqdm
 import string
 
 sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
+os.chdir('../../')
 sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
+os.chdir('../../')
 
 
 

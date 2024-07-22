@@ -53,7 +53,7 @@ class Fragments(object):
         summaries = [x for x in tqdm(self._en.pipe(summaries, disable=["tagger", "parser", "ner", "textcat"]))]
         print("processing texts")
         #old_summaries = [self._tokenize(summary) if tokenize else summary.split() for summary in summaries]
-        texts = [x for x in tqdm(self._en.pipe(texts, disable=["tagger", "parser", "ner", "textcat"]))]
+        texts = [x for x in tqdm(self._en.pipe(texts, disable=["tagger", "parser", "ner", "textcat"], batch_size=10))]
         #old_texts = [self._tokenize(text) if tokenize else text.split() for text in texts]
         summaries_norms = [self._normalize(summary, case) for summary in summaries]
         texts_norms = [self._normalize(text, case) for text in texts]

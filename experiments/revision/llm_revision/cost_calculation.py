@@ -4,9 +4,9 @@ import sys
 import numpy as np
 
 sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
+os.chdir('../../')
 sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
+os.chdir('../../')
 
 import pandas as pd
 from data.cost_etimation import Cost_estimator

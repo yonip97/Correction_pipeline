@@ -8,12 +8,9 @@ sys.path.append(os.path.dirname(os.getcwd()))
 os.chdir('../')
 
 import json
-from datetime import datetime
 import argparse
 import os
 import pandas as pd
-from tqdm import tqdm
-from general.revision_pipeline import chose_revision_model
 import evaluate
 import torch
 from experiments.scoring import score
@@ -79,25 +76,29 @@ def get_data(args):
         df.to_csv(os.path.join(args.revision_data_dir, args.revision_data_file + '.csv'))
     else:
         df = pd.read_csv(os.path.join(args.revision_data_dir, args.revision_data_file + '.csv'), index_col=0)
+    df = df[df['text'].notnull()]
     texts = df['text'].tolist()
     summaries = df['model_summary'].tolist()
     original_summaries = df['original_summary'].tolist()
-    factuality_scores = score(texts=texts, summaries=summaries, metrics=['seahorse'])['seahorse']
-    df['pre_revision_factuality_score'] = factuality_scores
+    factuality_scores = score(texts=texts, summaries=summaries, metrics=['trueteacher'])
+    df['model_summary_trueteacher'] = factuality_scores['trueteacher']
+    # df['model_summary_seahorse'] = factuality_scores['seahorse']
     rouge_metric = evaluate.load('rouge')
-    rouge_scores = rouge_metric.compute(summaries, original_summaries)['rougeL']
+    rouge_scores = rouge_metric.compute(predictions=summaries, references=original_summaries)['rougeL']
     df['rougeL_base_to_original'] = rouge_scores
     fragments_metric = Fragments()
     fragments_scores = fragments_metric.score(metrics=['density', 'coverage'], texts=texts, summaries=summaries)
-    df['pre_revision_density'] = fragments_scores['density']
-    df['pre_revision_coverage'] = fragments_scores['coverage']
-    df['pre_revision_length'] = [len(word_tokenize(summary)) for summary in summaries]
+    df['model_summary_density'] = fragments_scores['density']
+    df['model_summary_coverage'] = fragments_scores['coverage']
+    df['model_summary_length'] = [len(word_tokenize(summary)) for summary in summaries]
+    df['text_length'] = [len(word_tokenize(text)) for text in texts]
     df.to_csv(os.path.join(args.revision_data_dir, args.revision_data_file + '.csv'))
 
 
 def main():
     args = parseargs()
     get_data(args)
+
 
 
 if __name__ == "__main__":

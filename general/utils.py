@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from torch.utils.data import Dataset
 import os
-
+import torch.distributed as dist
 
 def get_latest_directory(path):
     # Get all directories in the given path
@@ -24,6 +24,22 @@ def get_latest_directory(path):
     latest_directory = max(dir_creation_times, key=dir_creation_times.get)
 
     return os.path.join(path, latest_directory)
+
+def find_largest_numbered_dir(root_dir):
+    largest_number = -1  # Initialize the largest number to a very small value
+    largest_dir = None
+
+    # Iterate over each entry in the root directory
+    for entry in os.listdir(root_dir):
+        if os.path.isdir(os.path.join(root_dir, entry)):
+            if entry.isdigit():  # Check if entry name is a digit
+                entry_number = int(entry)
+                if entry_number > largest_number:
+                    largest_number = entry_number
+                    largest_dir = entry
+    if largest_dir is None:
+        return -1
+    return int(largest_dir)
 
 
 def clean_text(text):
@@ -63,7 +79,17 @@ class SummarizationDataset(Dataset):
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item]}
 
+class SummarizationDatasetwithLogits(Dataset):
+    def __init__(self, texts, summaries, logits):
+        self.texts = texts
+        self.summaries = summaries
+        self.logits = logits
 
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item], 'logits': self.logits[item]}
 def plot_confusion_matrix(df, col1, col2, classes, title,
                           normalize=False,
                           cmap='gray_r',
@@ -119,3 +145,13 @@ def add_None_for_one(annotated_list, list_of_objects):
             full_list[i] = list_of_objects[counter]
             counter += 1
     return full_list
+def setup(rank, world_size):
+    os.environ['MASTER_ADDR'] = 'localhost'
+    os.environ['MASTER_PORT'] = '12355'
+
+    # initialize the process group
+    dist.init_process_group("nccl", rank=rank, world_size=world_size)
+
+def cleanup():
+    print("Destroying process group...")
+    dist.destroy_process_group()

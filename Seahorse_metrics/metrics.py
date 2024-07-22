@@ -17,7 +17,7 @@ class Seahorse_metrics():
         self.one_token = self.tokenizer('1').input_ids[0]
         if self.device == 'auto':
             self.model = MT5ForConditionalGeneration.from_pretrained(model_path, device_map='auto',
-                                                                     torch_dtype=torch_dtype).eval()
+                                                                     torch_dtype=torch_dtype,cache_dir= "/data/home/shared/.cache/huggingface").eval()
             self.input_device = 'cuda'
         else:
             self.input_device = self.device
@@ -42,12 +42,14 @@ class Seahorse_metrics():
                     outputs = self.model(**model_input, decoder_input_ids=decoder_input_ids)
                     logits = torch.softmax(outputs.logits.float(), dim=-1)
                     batch_factuality_score = logits.detach().cpu()[:, 0, self.one_token]
-
                     results += batch_factuality_score.tolist()
+                    del model_input
+                    del decoder_input_ids
+                    del logits
                     #torch.cuda.empty_cache()
                     if len(results) / 100 > counter:
                         counter += 1
-                        print(np.nanmean(results))
+                        print(np.mean([r for r in results if r is not None]))
                 except RuntimeError as e:
                     if "out of memory" in str(e) and self.return_none:
                         print("Out of memory. Trying to free up some GPU memory.")

@@ -7,7 +7,7 @@ import json
 
 
 def split_train(dataset, split, path_to_documents_for_summarization_indices, num_of_documents_for_summarization,
-                num_of_documents_for_revision, seed):
+                num_of_documents_for_revision, seed, additional_train_filter_indices):
     print(path_to_documents_for_summarization_indices)
     if os.path.exists(path_to_documents_for_summarization_indices):
         documents_indices = json.load(open(path_to_documents_for_summarization_indices, 'r'))
@@ -44,6 +44,8 @@ def split_train(dataset, split, path_to_documents_for_summarization_indices, num
             indices = revision_indices
         else:
             indices = summarization_indices
+    if additional_train_filter_indices is not None:
+        indices = [i for i in indices if i in additional_train_filter_indices]
     return Subset(dataset, indices)
 
 
@@ -68,7 +70,7 @@ def split_cnndm_dataset(split, path_to_documents_for_summarization_indices, num_
 
 
 def split_xsum_dataset(split, path_to_documents_for_summarization_indices, num_of_documents_for_summarization,
-                       num_of_documents_for_revision, seed):
+                       num_of_documents_for_revision, seed, additional_train_filter_indices=None):
     if split == 'validation_model':
         dataset = load_dataset('xsum', split='validation').rename_column('document', 'text')
     elif split == 'factuality_test':
@@ -80,7 +82,8 @@ def split_xsum_dataset(split, path_to_documents_for_summarization_indices, num_o
         if num_of_documents_for_revision + num_of_documents_for_summarization == 0:
             return dataset
         dataset = split_train(dataset, split, path_to_documents_for_summarization_indices,
-                              num_of_documents_for_summarization, num_of_documents_for_revision, seed)
+                              num_of_documents_for_summarization, num_of_documents_for_revision, seed,
+                              additional_train_filter_indices)
     else:
         raise ValueError(f'Unexpected split: {split}')
     return dataset

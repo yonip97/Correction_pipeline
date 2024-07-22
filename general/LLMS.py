@@ -12,6 +12,7 @@ from tqdm import tqdm
 
 class LLM_model():
     def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, azure=False,
+                 input_price=0, output_price=0,
                  **kwargs):
         if prompt is None:
             raise ValueError("prompt can't be None")
@@ -38,6 +39,8 @@ class LLM_model():
         self.other_errors = 0
         path_logger = temp_save_dir + '/' + 'logger.txt'
         self.logger = open(path_logger, 'w')
+        self.input_price = input_price
+        self.output_price = output_price
 
     def call_llm(self, text, max_length, **kwargs):
         input = self.prompt + '\n' + text + '\n' + self.past_text_prompt
@@ -55,7 +58,10 @@ class LLM_model():
                                                                messages=message,
                                                                temperature=0,
                                                                max_tokens=max_length, timeout=60)
-                return response.choices[0].message.content, None
+                input_tokens = response.usage.prompt_tokens
+                output_tokens = response.usage.completion_tokens
+                price = input_tokens / 1000 * self.input_price + output_tokens / 1000 * self.output_price
+                return response.choices[0].message.content, None, price
             else:
                 raise ValueError(f"model {self.model} not supported")
         except openai.OpenAIError as e:
@@ -71,28 +77,31 @@ class LLM_model():
 
 
 class Summarization_correction_model(LLM_model):
-    def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, **kwargs):
+    def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, input_price=0,
+                 output_price=0, **kwargs):
         super(Summarization_correction_model, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY,
+                                                             input_price=input_price, output_price=output_price,
                                                              **kwargs)
         f = open(temp_save_dir + '/' + 'temp_results_revision.csv', 'w')
         self.csv_writer = csv.writer(f)
         self.csv_writer.writerow(['text', 'summary', 'revised_summary', 'error'])
 
     def revise(self, texts, summaries, max_length=None):
-        revised_summaries, errors = [], []
+        revised_summaries, errors, prices = [], [], []
         for text, summary in zip(texts, summaries):
-            revised_summary, error = self.revise_single(text, summary, max_length=max_length)
+            revised_summary, error, price = self.revise_single(text, summary, max_length=max_length)
             revised_summaries.append(revised_summary)
             errors.append(error)
-        return revised_summaries, errors
+            prices.append(price)
+        return revised_summaries, errors, prices
 
     def revise_single(self, text, summary, max_length=None):
         text_for_revision = f"Document: \n {text} \n summary: \n {summary} \n"
         if max_length is None:
             max_length = len(self.estimation_tokenizer.encode(summary)) + 10
-        revised_summary, error = self.call_llm(text_for_revision, max_length=max_length)
-        self.csv_writer.writerow([text, summary, revised_summary, error])
-        return revised_summary, error
+        revised_summary, error, price = self.call_llm(text_for_revision, max_length=max_length)
+        self.csv_writer.writerow([text, summary, revised_summary, error, price])
+        return revised_summary, error, price
 
 
 class LLMFactualityClassifier(LLM_model):
@@ -101,7 +110,7 @@ class LLMFactualityClassifier(LLM_model):
         super(LLMFactualityClassifier, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY, **kwargs)
         f = open(temp_save_dir + '/' + 'temp_results_classification.csv', 'w')
         self.csv_writer = csv.writer(f)
-        self.csv_writer.writerow(['text', 'summary', 'prediction_text', 'prediction_label', 'error'])
+        self.csv_writer.writerow(['text', 'summary', 'prediction_text', 'prediction_label', 'error','price'])
         self.text_to_labels = text_to_labels
 
     def classify(self, texts, summaries, max_length):
@@ -129,26 +138,29 @@ class LLMFactualityClassifier(LLM_model):
 
 class SummarizationModel(LLM_model):
     def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, azure=False,
+                 input_price=0, output_price=0,
                  **kwargs):
         super(SummarizationModel, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY, azure,
-                                                 ** kwargs)
+                                                 input_price=input_price, output_price=output_price,
+                                                 **kwargs)
         f = open(temp_save_dir + '/' + 'temp_results_summarization.csv', 'w')
         self.csv_writer = csv.writer(f)
-        self.csv_writer.writerow(['text', 'summary', 'error'])
+        self.csv_writer.writerow(['text', 'summary', 'error','price'])
 
     def summarize(self, texts, max_generation_length):
-        summaries, errors = [], []
+        summaries, errors, prices = [], [], []
         for text in tqdm(texts):
-            revised_summary, error = self.summarize_single(text, max_generation_length=max_generation_length)
+            revised_summary, error, price = self.summarize_single(text, max_generation_length=max_generation_length)
             summaries.append(revised_summary)
             errors.append(error)
+            prices.append(price)
             if error is not None:
                 print(error)
                 time.sleep(3)
-        return summaries, errors
+        return summaries, errors, prices
 
     def summarize_single(self, text, max_generation_length):
         text_for_summarization = f"Text: \n {text}"
-        summary, error = self.call_llm(text_for_summarization, max_length=max_generation_length)
-        self.csv_writer.writerow([text, summary, error])
-        return summary, error
+        summary, error, price = self.call_llm(text_for_summarization, max_length=max_generation_length)
+        self.csv_writer.writerow([text, summary, error, price])
+        return summary, error, price
