@@ -221,7 +221,7 @@ def t5_summarize(texts, model, tokenizer, prompt, device='cpu', batch_size=128, 
 
 
 def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, max_generation_length, beam_size,
-                         early_stopping, length_penalty, max_encoding_length, min_generation_length):
+                         early_stopping, length_penalty, max_encoding_length, min_generation_length,student_logits):
     world_size = torch.cuda.device_count()
     os.makedirs(out_dir + '/summarization_temp')
     processes = [mp.Process(target=t5_summarize_mp, args=(i,
@@ -232,7 +232,7 @@ def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, m
                                                           beam_size, early_stopping,
                                                           length_penalty,
                                                           max_encoding_length,
-                                                          min_generation_length)) for i in
+                                                          min_generation_length,student_logits)) for i in
                  range(world_size)]
 
     for process in processes:
@@ -246,21 +246,30 @@ def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, m
     gc.collect()
     torch.cuda.empty_cache()
     new_model_summaries = []
+    new_model_logits = []
     print("done")
     files = os.listdir(out_dir + '/summarization_temp')
     files = sorted(files)
     for file in files:
         with open(out_dir + '/summarization_temp/' + file, 'rb') as f:
-            summaries = pickle.load(f)
-            new_model_summaries += summaries
+            if student_logits:
+                summaries, logits = pickle.load(f)
+                new_model_summaries += summaries
+                new_model_logits += logits
+            else:
+                summaries = pickle.load(f)
+                new_model_summaries += summaries
     shutil.rmtree(out_dir + '/summarization_temp')
-    return new_model_summaries
+    if student_logits:
+        return new_model_summaries, new_model_logits
+    return new_model_summaries, [None] * len(new_model_summaries)
 
 
 def t5_summarize_mp(rank, world_size, output_dir, texts, model, tokenizer, prompt, batch_size=128,
                     max_generation_length=128,
                     beam_size=4,
-                    early_stopping=True, length_penalty=0.6, max_encoding_length=512, min_generation_length=0):
+                    early_stopping=True, length_penalty=0.6, max_encoding_length=512, min_generation_length=0,
+                    student_logits=False):
     # setup(rank, world_size)
     print(rank)
     print(world_size)
@@ -270,6 +279,7 @@ def t5_summarize_mp(rank, world_size, output_dir, texts, model, tokenizer, promp
         print(data_per_device_size)
         texts = texts[rank * data_per_device_size:(rank + 1) * data_per_device_size]
         summaries = []
+        summaries_logits = []
         model_inputs = [(prompt + text) for text in texts]
         model.to(rank)
         model.eval()
@@ -285,11 +295,25 @@ def t5_summarize_mp(rank, world_size, output_dir, texts, model, tokenizer, promp
                                          early_stopping=early_stopping, length_penalty=length_penalty,
                                          min_new_tokens=min_generation_length)
                 batch_summaries = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+                if student_logits:
+                    tokenized_summaries = tokenizer(batch_summaries, padding=True, truncation=True, max_length=max_encoding_length,
+                              return_tensors='pt').to(rank)
+                    outputs = model(**tokenized,labels = tokenized_summaries['input_ids'])
+                    batch_logits = []
+                    for i in range(outputs.logits.shape[0]):
+                        mask = tokenized_summaries['attention_mask'][i] == 1
+                        logits = outputs.logits[i][mask]
+                        batch_logits.append(logits.detach().cpu())
+                    summaries_logits += batch_logits
                 summaries += batch_summaries
         model.train()
         print("putting")
-        with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
-            pickle.dump(summaries, f)
+        if student_logits:
+            with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
+                pickle.dump((summaries, summaries_logits), f)
+        else:
+            with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
+                pickle.dump(summaries, f)
         # cleanup()
     except Exception as e:
         print(e)

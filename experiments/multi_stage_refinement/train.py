@@ -85,6 +85,7 @@ def parse_args():
     parser.add_argument('-save_refinement_inputs', action='store_true')
     parser.add_argument('-use_no_revision_needed', action='store_true')
     parser.add_argument('-distillation', action='store_true')
+    parser.add_argument('-student_logits', action='store_true')
     args = parser.parse_args()
     if args.summarization_device == 'all' or args.revision_model_device == 'all':
         torch.multiprocessing.set_start_method('spawn')
@@ -252,7 +253,7 @@ def select_summaries(new_model_summaries, texts, original_model_summaries, args)
 def produce_summaries(model, tokenizer, texts, args):
     print("producing summaries")
     if args.summarization_device == 'all':
-        new_model_summaries = t5_summarize_mp_main(model, tokenizer, texts, out_dir=args.output_dir,
+        new_model_summaries,new_model_logits = t5_summarize_mp_main(model, tokenizer, texts, out_dir=args.output_dir,
                                                    prompt=args.summarization_prompt,
                                                    batch_size=args.summarization_batch_size,
                                                    max_generation_length=args.summarization_max_generation_length,
@@ -260,12 +261,13 @@ def produce_summaries(model, tokenizer, texts, args):
                                                    early_stopping=True,
                                                    length_penalty=args.summarization_length_penalty,
                                                    max_encoding_length=args.summarization_max_encoding_length,
-                                                   min_generation_length=args.summarization_model_min_length)
+                                                   min_generation_length=args.summarization_model_min_length,
+                                                                    student_logits=args.student_logits)
 
 
     else:
         model.to(args.summarization_device)
-        new_model_summaries = t5_summarize(texts=texts, model=model, tokenizer=tokenizer,
+        new_model_summaries,new_model_logits = t5_summarize(texts=texts, model=model, tokenizer=tokenizer,
                                            prompt=args.summarization_prompt,
                                            device=args.summarization_device, batch_size=args.summarization_batch_size,
                                            max_generation_length=args.summarization_max_generation_length,
@@ -273,15 +275,19 @@ def produce_summaries(model, tokenizer, texts, args):
                                            length_penalty=args.summarization_length_penalty,
                                            max_encoding_length=args.summarization_max_encoding_length)
     new_model_summaries = [str(x) for x in new_model_summaries]
-    return new_model_summaries
+    return new_model_summaries,new_model_logits
 
 
-def score_and_chose_summaries(texts, new_model_summaries, original_model_summaries, args):
+def score_and_chose_summaries(texts, new_model_summaries,new_model_summaries_logits, original_model_summaries, args):
     no_revision_needed_indices, revision_needed_indices, seahorse_scores = select_summaries(new_model_summaries, texts,
                                                                                             original_model_summaries,
                                                                                             args)
     no_revision_needed_texts = [texts[i] for i in no_revision_needed_indices]
     no_revision_needed_summaries = [new_model_summaries[i] for i in no_revision_needed_indices]
+    if args.student_logits:
+        no_revision_needed_logits = [new_model_summaries_logits[i] for i in no_revision_needed_indices]
+    else:
+        no_revision_needed_logits =[None]*len(no_revision_needed_indices)
     revision_needed_texts = [texts[i] for i in revision_needed_indices]
     revision_needed_summaries = [new_model_summaries[i] for i in revision_needed_indices]
     revision_needed_seahorse = [seahorse_scores[i] for i in revision_needed_indices]
@@ -310,7 +316,7 @@ def score_and_chose_summaries(texts, new_model_summaries, original_model_summari
     if args.use_no_revision_needed:
         summaries = no_revision_needed_summaries + successfully_revised_summaries
         texts = no_revision_needed_texts + successfully_revised_summaries_texts
-        logits = [None] * len(no_revision_needed_summaries) + successfully_revised_summaries_logits
+        logits = no_revision_needed_logits + successfully_revised_summaries_logits
     else:
         summaries = successfully_revised_summaries
         texts = successfully_revised_summaries_texts
@@ -344,7 +350,7 @@ def train(args):
     tokenizer.save_pretrained(args.output_dir + '/latest')
     train_texts = load_data(args.train_data_path)
     train_texts = train_texts[:args.num_of_docs]
-    original_model_summaries = produce_summaries(model=model, tokenizer=tokenizer, texts=train_texts, args=args)
+    original_model_summaries,_ = produce_summaries(model=model, tokenizer=tokenizer, texts=train_texts, args=args)
     from nltk.tokenize import word_tokenize
     print(np.mean([len(word_tokenize(x)) for x in original_model_summaries]))
     if args.save_refinement_inputs:
@@ -363,7 +369,7 @@ def train(args):
             print(f'batch {batch}')
             set_texts = train_texts[i:i + args.set_size]
             original_model_summaries_set = original_model_summaries[i:i + args.set_size]
-            new_summaries = produce_summaries(model=model, tokenizer=tokenizer, texts=set_texts, args=args)
+            new_summaries,new_model_logits = produce_summaries(model=model, tokenizer=tokenizer, texts=set_texts, args=args)
             if args.save_refinement_inputs:
                 with open(os.path.join(args.output_dir, 'refinement_inputs.json'), 'r') as f:
                     data = json.load(f)
@@ -374,7 +380,7 @@ def train(args):
             del model
             gc.collect()
             torch.cuda.empty_cache()
-            successful_summaries, successful_texts,logits = score_and_chose_summaries(set_texts, new_summaries,
+            successful_summaries, successful_texts,logits = score_and_chose_summaries(set_texts, new_summaries,new_model_logits,
                                                                                original_model_summaries_set, args)
             model, tokenizer = load_summarization_model_and_tokenizer(args)
             refine_model_on_revised_summaries(model, tokenizer, successful_texts, successful_summaries,logits, args)
