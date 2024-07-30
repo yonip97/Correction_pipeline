@@ -438,7 +438,7 @@ def create_test_revisions(args):
         files = sorted(files)
         for file in files:
             with open(args.test_output_path + '/revision_temp/' + file, 'rb') as f:
-                summaries = pickle.load(f)
+                summaries,_ = pickle.load(f)
                 revised_summaries += summaries
         shutil.rmtree(args.test_output_path + '/revision_temp')
         results_per_iteration[iteration] = revised_summaries
