@@ -1,3 +1,5 @@
+import gc
+
 import math
 import pickle
 
@@ -95,6 +97,15 @@ def collate_fn_summarization_test(batch, tokenizer, max_length, introduction_pro
     return {'input_ids': inputs['input_ids'], 'attention_mask': inputs['attention_mask']}
 
 
+def collate_fn_instructions(batch, tokenizer, max_length, introduction_prompt):
+    text_inputs = [(introduction_prompt + "Summary: " + row['summary'], " Text: " + row['text']) for row in batch]
+    labels = [row['instructions'] for row in batch]
+    inputs = tokenizer(text_inputs, padding=True, truncation='only_second', max_length=max_length, return_tensors='pt')
+    labels = tokenizer(labels, padding=True, truncation=True, max_length=max_length, return_tensors='pt')
+    labels[labels == tokenizer.pad_token_id] = -100
+    return {'input_ids': inputs['input_ids'], 'attention_mask': inputs['attention_mask'], 'labels': labels['input_ids']}
+
+
 class T5_Trainer(Seq2SeqTrainer):
     def __init__(self, collate_fn=None, max_length_train=512, max_length_eval=512, collate_fn_eval=None,
                  collate_fn_test=None, prompt_train=None, prompt_eval=None, prompt_test=None, distillation=False,
@@ -170,6 +181,9 @@ class T5_Trainer(Seq2SeqTrainer):
             logits = [torch.Tensor(logit) for logit in original_logits if logit is not None]
             if len(logits) == 0:
                 return ce_loss
+            import gc
+            gc.collect()
+            torch.cuda.empty_cache()
             logits = torch.cat(logits)
             logits = logits.view(-1, logits.size(-1))
             logits = softmax(logits, dim=-1)
@@ -221,7 +235,7 @@ def t5_summarize(texts, model, tokenizer, prompt, device='cpu', batch_size=128, 
 
 
 def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, max_generation_length, beam_size,
-                         early_stopping, length_penalty, max_encoding_length, min_generation_length,student_logits):
+                         early_stopping, length_penalty, max_encoding_length, min_generation_length, student_logits=False):
     world_size = torch.cuda.device_count()
     os.makedirs(out_dir + '/summarization_temp')
     processes = [mp.Process(target=t5_summarize_mp, args=(i,
@@ -232,7 +246,7 @@ def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, m
                                                           beam_size, early_stopping,
                                                           length_penalty,
                                                           max_encoding_length,
-                                                          min_generation_length,student_logits)) for i in
+                                                          min_generation_length, student_logits)) for i in
                  range(world_size)]
 
     for process in processes:
@@ -296,9 +310,10 @@ def t5_summarize_mp(rank, world_size, output_dir, texts, model, tokenizer, promp
                                          min_new_tokens=min_generation_length)
                 batch_summaries = tokenizer.batch_decode(outputs, skip_special_tokens=True)
                 if student_logits:
-                    tokenized_summaries = tokenizer(batch_summaries, padding=True, truncation=True, max_length=max_encoding_length,
-                              return_tensors='pt').to(rank)
-                    outputs = model(**tokenized,labels = tokenized_summaries['input_ids'])
+                    tokenized_summaries = tokenizer(batch_summaries, padding=True, truncation=True,
+                                                    max_length=max_encoding_length,
+                                                    return_tensors='pt').to(rank)
+                    outputs = model(**tokenized, labels=tokenized_summaries['input_ids'])
                     batch_logits = []
                     for i in range(outputs.logits.shape[0]):
                         mask = tokenized_summaries['attention_mask'][i] == 1
@@ -364,19 +379,23 @@ def get_proper_scores(scores, beam_indices, batch_size):
     return final_logits
 
 
-def t5_revise_mp_main(texts, summaries, args):
+def t5_revise_mp_main(texts, summaries, revision_model_checkpoint, output_dir, revision_prompt,
+                      revision_batch_size, revision_max_generation_length, revision_beam_size,
+                      revision_max_encoding_length, revision_length_penalty, revision_model_min_length, distillation,
+                      joint_teaching = False):
     world_size = torch.cuda.device_count()
-    os.makedirs(args.output_dir + '/revision_temp')
+    os.makedirs(output_dir + '/revision_temp')
     processes = [mp.Process(target=t5_revise_mp, args=(i,
-                                                       world_size, args.revision_model_checkpoint,
-                                                       args.output_dir + '/revision_temp', texts, summaries,
-                                                       args.revision_prompt,
-                                                       args.revision_batch_size,
-                                                       args.revision_max_generation_length, args.revision_beam_size,
+                                                       world_size, revision_model_checkpoint,
+                                                       output_dir + '/revision_temp', texts, summaries,
+                                                       revision_prompt,
+                                                       revision_batch_size,
+                                                       revision_max_generation_length, revision_beam_size,
                                                        True,
-                                                       args.revision_max_encoding_length,
-                                                       args.revision_length_penalty,
-                                                       args.revision_model_min_length, args.distillation)) for i in
+                                                       revision_max_encoding_length,
+                                                       revision_length_penalty,
+                                                       revision_model_min_length, distillation,
+                                                       joint_teaching)) for i in
                  range(world_size)]
     for process in processes:
         process.start()
@@ -390,51 +409,52 @@ def t5_revise_mp_main(texts, summaries, args):
     torch.cuda.empty_cache()
     new_model_summaries = []
     new_model_summaries_logits = []
-    files = os.listdir(args.output_dir + '/revision_temp')
+    original_model_logits = []
+    files = os.listdir(output_dir + '/revision_temp')
     files = sorted(files)
     for file in files:
-        with open(args.output_dir + '/revision_temp/' + file, 'rb') as f:
-            if args.distillation:
-                summaries, logits = pickle.load(f)
-                new_model_summaries_logits += logits
-                new_model_summaries += summaries
+        with open(output_dir + '/revision_temp/' + file, 'rb') as f:
+            if distillation:
+                if joint_teaching:
+                    summaries, logits, original_logits = pickle.load(f)
+                    original_model_logits += original_logits
+                    new_model_summaries_logits += logits
+                    new_model_summaries += summaries
+                else:
+                    summaries, logits = pickle.load(f)
+                    new_model_summaries_logits += logits
+                    new_model_summaries += summaries
+
             else:
                 summaries = pickle.load(f)
                 new_model_summaries += summaries
-    shutil.rmtree(args.output_dir + '/revision_temp')
-    if args.distillation:
-        return new_model_summaries, new_model_summaries_logits
-    return new_model_summaries, [None] * len(new_model_summaries)
+    shutil.rmtree(output_dir + '/revision_temp')
+    if distillation:
+        if joint_teaching:
+            return new_model_summaries, new_model_summaries_logits, original_model_logits
+        return new_model_summaries, new_model_summaries_logits,[None] * len(new_model_summaries)
+    return new_model_summaries, [None] * len(new_model_summaries), [None] * len(new_model_summaries)
 
 
 def t5_revise_mp(rank, world_size, revision_model_path, output_dir, texts, summaries, prompt, batch_size=128,
                  generation_max_length=128, num_beams=1, early_stopping=True,
-                 encoding_max_length=512, len_penalty=0.6, min_generation_length=0, return_logits=False):
+                 encoding_max_length=512, len_penalty=0.6, min_generation_length=0, return_logits=False,
+                 joint_teaching=False):
     print("The min generation length is: ", min_generation_length)
     model = T5ForConditionalGeneration.from_pretrained(revision_model_path)
     tokenizer = T5Tokenizer.from_pretrained(revision_model_path)
     model.to(rank)
     data_per_device_size = math.ceil(len(texts) / world_size)
-    model_inputs = [(f'{prompt} summary: ' + summary, "text: " + text) for text, summary in zip(texts, summaries)]
+    #model_inputs = [(f'{prompt} summary: ' + summary, "text: " + text) for text, summary in zip(texts, summaries)]
+    model_inputs = [(summary, text) for text, summary in zip(texts, summaries)]
     model_inputs = model_inputs[rank * data_per_device_size:(rank + 1) * data_per_device_size]
     revised_summaries = []
     revised_logits = []
+    original_model_logits = []
     model.eval()
     with torch.no_grad():
         for batch_model_inputs in tqdm(iter_list(model_inputs, batch_size=batch_size)):
-            # tokenized = tokenizer.batch_encode_plus(batch_model_inputs, padding=True, truncation="only_second",
-            #                                         max_length=encoding_max_length, return_tensors='pt').to(
-            #     rank)
-            # outputs = model.generate(**tokenized, max_length=generation_max_length, num_beams=num_beams,
-            #                          early_stopping=early_stopping, length_penalty=len_penalty,
-            #                          min_new_tokens=min_generation_length, output_logits=True, output_scores=True,
-            #                          return_dict_in_generate=True)
-            # batch_logits = get_proper_scores(outputs.logits, outputs.beam_indices.tolist(),  list(outputs.sequences_scores.size())[0])
-            # if return_logits:
-            #     revised_logits += batch_logits
-            # batch_revised_summaries = tokenizer.batch_decode(outputs.sequences, skip_special_tokens=True)
-            # revised_summaries += batch_revised_summaries
-            # torch.cuda.empty_cache()
+            batch_model_inputs = [(f'{prompt} summary: ' + row[0], "text: " + row[1]) for row in batch_model_inputs]
             tokenized = tokenizer.batch_encode_plus(batch_model_inputs, padding=True, truncation="only_second",
                                                     max_length=encoding_max_length, return_tensors='pt').to(
                 rank)
@@ -442,23 +462,35 @@ def t5_revise_mp(rank, world_size, revision_model_path, output_dir, texts, summa
                                                early_stopping=early_stopping, length_penalty=len_penalty,
                                                min_new_tokens=min_generation_length)
             batch_revised_summaries = tokenizer.batch_decode(generated_outputs, skip_special_tokens=True)
-            generated_outputs = tokenizer(batch_revised_summaries, padding=True, truncation=True,
-                                          max_length=generation_max_length,
-                                          return_tensors='pt').to(rank)
-            outputs = model(**tokenized, labels=generated_outputs['input_ids'])
-            batch_logits = []
-            for i in range(outputs.logits.shape[0]):
-                mask = generated_outputs['attention_mask'][i] == 1
-                logits = outputs.logits[i][mask]
-                batch_logits.append(logits.detach().cpu())
             if return_logits:
+                generated_outputs = tokenizer(batch_revised_summaries, padding=True, truncation=True,
+                                              max_length=generation_max_length,
+                                              return_tensors='pt').to(rank)
+                outputs = model(**tokenized, labels=generated_outputs['input_ids'])
+                batch_logits = []
+                for i in range(outputs.logits.shape[0]):
+                    mask = generated_outputs['attention_mask'][i] == 1
+                    logits = outputs.logits[i][mask]
+                    batch_logits.append(logits.detach().cpu())
                 revised_logits += batch_logits
+            if joint_teaching:
+                batch_summaries = [row[0] for row in batch_model_inputs]
+                batch_summaries_tokenized = tokenizer(batch_summaries, padding=True, truncation=True,
+                                            max_length=generation_max_length,
+                                            return_tensors='pt').to(rank)
+                outputs = model(**tokenized, labels=batch_summaries_tokenized['input_ids'])
+                batch_original_logits = []
+                for i in range(outputs.logits.shape[0]):
+                    mask = batch_summaries_tokenized['attention_mask'][i] == 1
+                    logits = outputs.logits[i][mask]
+                    batch_original_logits.append(logits.detach().cpu())
+                original_model_logits += batch_original_logits
             revised_summaries += batch_revised_summaries
             torch.cuda.empty_cache()
     model.train()
     if return_logits:
         with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
             pickle.dump((revised_summaries, revised_logits), f)
-    else:
+    if joint_teaching:
         with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
-            pickle.dump(revised_summaries, f)
+            pickle.dump((revised_summaries,revised_logits, original_model_logits), f)
