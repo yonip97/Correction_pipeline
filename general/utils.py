@@ -9,6 +9,7 @@ from torch.utils.data import Dataset
 import os
 import torch.distributed as dist
 
+
 def get_latest_directory(path):
     # Get all directories in the given path
     all_dirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
@@ -24,6 +25,7 @@ def get_latest_directory(path):
     latest_directory = max(dir_creation_times, key=dir_creation_times.get)
 
     return os.path.join(path, latest_directory)
+
 
 def find_largest_numbered_dir(root_dir):
     largest_number = -1  # Initialize the largest number to a very small value
@@ -54,6 +56,7 @@ def iter_list(list_, batch_size):
     for i in range(num_of_batches):
         yield list_[i * batch_size:(i + 1) * batch_size]
 
+
 class RevisionDataset(Dataset):
     def __init__(self, texts, summaries, revised_summaries):
         self.texts = texts
@@ -79,6 +82,7 @@ class SummarizationDataset(Dataset):
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item]}
 
+
 class SummarizationDatasetwithLogits(Dataset):
     def __init__(self, texts, summaries, logits):
         self.texts = texts
@@ -90,6 +94,34 @@ class SummarizationDatasetwithLogits(Dataset):
 
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item], 'logits': self.logits[item]}
+
+
+class ExplanationsDataset(Dataset):
+    def __init__(self, texts, summaries, explanations):
+        self.texts = texts
+        self.summaries = summaries
+        self.explanations = explanations
+
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item], 'explanations': self.explanations[item]}
+
+
+class InstructionsDataset(Dataset):
+    def __init__(self, texts, summaries, instructions):
+        self.texts = texts
+        self.summaries = summaries
+        self.instructions = instructions
+
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item], 'instructions': self.instructions[item]}
+
+
 def plot_confusion_matrix(df, col1, col2, classes, title,
                           normalize=False,
                           cmap='gray_r',
@@ -145,12 +177,15 @@ def add_None_for_one(annotated_list, list_of_objects):
             full_list[i] = list_of_objects[counter]
             counter += 1
     return full_list
+
+
 def setup(rank, world_size):
     os.environ['MASTER_ADDR'] = 'localhost'
     os.environ['MASTER_PORT'] = '12355'
 
     # initialize the process group
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
+
 
 def cleanup():
     print("Destroying process group...")
