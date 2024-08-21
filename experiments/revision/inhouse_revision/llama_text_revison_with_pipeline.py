@@ -40,7 +40,7 @@ def parseargs_llms():
     parser.add_argument('-revision_temperature', type=float)
     parser.add_argument('-revision_early_stopping', action='store_true')
     parser.add_argument('-revision_sample', action='store_true')
-    parser.add_argument('-batch_size', type=int, default=8)
+    parser.add_argument('-batch_size', type=int, default=4)
     args = parser.parse_args()
     with open(args.revision_prompt_path, 'r') as file:
         args.revision_prompt = file.read()
@@ -64,26 +64,18 @@ def get_data(args):
     texts = rel_df['text'].tolist()
     return texts, summaries
 
-
 def llm_revision():
     access_token = "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"
     args = parseargs_llms()
     texts, summaries = get_data(args)
     model_id = args.model
-    # pipeline = transformers.pipeline(
-    #     "text-generation",
-    #     model=model_id,
-    #     model_kwargs={"torch_dtype": torch.bfloat16},
-    #     device_map="auto", token=access_token
-    # )
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    pipeline = transformers.pipeline(
+        "text-generation",
+        model=model_id,
+        model_kwargs={"torch_dtype": torch.bfloat16},
+        device_map="auto", token=access_token
+    )
 
-    model = AutoModelForCausalLM.from_pretrained(model_id, device_map='auto', token=access_token,torch_dtype=torch.bfloat16)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, token=access_token)
-    terminators = [
-        tokenizer.eos_token_id,
-        tokenizer.convert_tokens_to_ids("<|eot_id|>")
-    ]
     revisions = []
     times = []
     all_inputs = [
@@ -91,29 +83,16 @@ def llm_revision():
         text, summary in
         zip(texts, summaries)]
     start = time.time()
-    batch_size = args.batch_size
-    for i in range(0, len(all_inputs), batch_size):
-        messages = [[
-            {"role": "user", "content": all_inputs[index]},
-        ] for index in range(i, min(i + batch_size, len(all_inputs)))]
-        tokenizer.pad_token_id = tokenizer.eos_token_id
-
-        messages = tokenizer.apply_chat_template(
+    for i in range(len(all_inputs)):
+        messages = [
+            {"role": "user", "content": all_inputs[i]}]
+        outputs = pipeline(
             messages,
-            add_generation_prompt=True, tokenize=False
-        )
-        tokenizer.pad_token_id = tokenizer.eos_token_id
-        inputs = tokenizer(messages, padding="longest", return_tensors="pt").to('cuda')
-        outputs = model.generate(**inputs, max_new_tokens=args.revision_max_length, pad_token_id=tokenizer.eos_token_id,
-                                 eos_token_id=terminators)
-        full_text_revision = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-        # temp_texts = tokenizer.batch_decode(inputs["input_ids"], skip_special_tokens=True)
-        # full_text_revision = [i[len(temp_texts[idx]):].strip() for idx, i in enumerate(full_text_revision)]
-
-        revisions += full_text_revision
+            max_new_tokens=args.revision_max_length)
+        full_text_revision = outputs[0]["generated_text"][-1]['content']
+        revisions.append(full_text_revision)
         print(f"Finished {i + 1} out of {len(all_inputs)} in {time.time() - start} seconds")
-        batch_time = time.time() - start
-        times += [batch_time/batch_size] * batch_size
+        times.append(time.time() - start)
         start = time.time()
         df = pd.DataFrame(
             {'text': texts[:len(revisions)], 'model_summary': summaries[:len(revisions)], 'revised_summary_full_text': revisions, 'time': times})
