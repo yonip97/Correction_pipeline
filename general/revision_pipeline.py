@@ -24,62 +24,35 @@ class Mock_model():
 
 
 def chose_revision_model(args):
+    past_text_prompt = args.past_text_prompt
     if args.revision_model_name == 'gpt-4':
         prompt = args.revision_prompt
         API_KEY = args.API_KEY_revision_model
-        return Summarization_correction_model(temp_save_dir=args.temp_dir_path, prompt=prompt, past_text_prompt='',
+        return Summarization_correction_model(temp_save_dir=args.temp_dir_path, prompt=prompt,
+                                              past_text_prompt=past_text_prompt,
                                               model='gpt-4',
                                               API_KEY=API_KEY, azure=args.azure, input_price=args.input_price,
                                               output_price=args.output_price)
     elif args.revision_model_name == 'gpt-4-turbo':
         prompt = args.revision_prompt
         API_KEY = args.API_KEY_revision_model
-        return Summarization_correction_model(temp_save_dir=args.temp_dir_path, prompt=prompt, past_text_prompt='',
+        return Summarization_correction_model(temp_save_dir=args.temp_dir_path, prompt=prompt,
+                                              past_text_prompt=past_text_prompt,
                                               model=args.revision_model_name,
                                               API_KEY=API_KEY, azure=args.azure, input_price=args.input_price,
                                               output_price=args.output_price)
+    elif args.revision_model_name == 'llama-3.1':
+        prompt = args.revision_prompt
+        API_KEY = args.API_KEY_revision_model
+        return Summarization_correction_model(temp_save_dir=args.temp_dir_path, prompt=prompt,
+                                              past_text_prompt=past_text_prompt,
+                                              model='llama-3.1-70b-versatile',
+                                              API_KEY=API_KEY, input_price=args.input_price,
+                                              output_price=args.output_price,groq=args.groq)
     elif args.revision_model_name == 'mock':
         return Mock_model()
     else:
         raise ValueError("No such revison model exists!")
-
-
-#
-# def chose_factuality_classifier(args):
-#     device = args.device
-#     batch_size = args.factuality_batch_size
-#     if args.factuality_classifier_name == 'TrueTeacher-t5-base':
-#         return TrueTeacher(model_path='TrueTeacher/TrueTeacher-t5-base-checkpoint', tokenizer_name='t5-base',
-#                            device=device, batch_size=batch_size,
-#                            max_length=2048)
-#     elif args.factuality_classifier_name == 'TrueTeacher-t5-11b':
-#         return TrueTeacher(model_path='google/t5_11b_trueteacher_and_anli',
-#                            tokenizer_name='google/t5_11b_trueteacher_and_anli', device=device, batch_size=batch_size,
-#                            max_length=2048)
-#     elif args.factuality_classifier_name == 'Factcc':
-#         return Factcc_classifier(checkpoint_path='factCC/checkpoints/factcc-checkpoint',
-#                                  backbone_model_name='bert-base-uncased', device=device, batch_size=batch_size)
-#     elif args.factuality_classifier_name == 'q_squared_f1':
-#         return Q_squared_classifier(device=device, similarity_metric='f1', threshold=args.threshold,
-#                                     remove_personal=True)
-#     elif args.factuality_classifier_name == 'q_squared_nli':
-#         return Q_squared_classifier(device=device, similarity_metric='nli', threshold=args.threshold,
-#                                     remove_personal=True)
-#     elif args.factuality_classifier_name == 'LLM_chatgpt':
-#         prompt = args.factuality_classifier_prompt
-#         API_KEY = args.API_KEY_factuality_classifier
-#         return LLMFactualityClassifier(temp_save_dir=args.dir_path, prompt=prompt,
-#                                        text_to_labels=args.text_to_labels, past_text_prompt='',
-#                                        model='gpt-3.5-turbo',
-#                                        API_KEY=API_KEY)
-#     elif args.factuality_classifier_name == 'LLM_gpt-4':
-#         prompt = args.factuality_classifier_prompt
-#         API_KEY = args.API_KEY_factuality_classifier
-#         return LLMFactualityClassifier(temp_save_dir=args.dir_path, prompt=prompt,
-#                                        text_to_labels=args.text_to_labels, past_text_prompt='',
-#                                        model='gpt-4', API_KEY=API_KEY)
-#     else:
-#         raise ValueError("No such factuality classifier exists!")
 
 
 def collate_fn(batch):

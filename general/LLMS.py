@@ -8,12 +8,12 @@ from general.utils import remove_punctuation
 
 from openai import AzureOpenAI, OpenAI
 from tqdm import tqdm
+from groq import Groq
 
 
 class LLM_model():
     def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, azure=False,
-                 input_price=0, output_price=0,
-                 **kwargs):
+                 input_price=0, output_price=0, groq=False,**kwargs):
         if prompt is None:
             raise ValueError("prompt can't be None")
         self.past_text_prompt = past_text_prompt
@@ -25,6 +25,8 @@ class LLM_model():
                 api_key=API_KEY,
                 api_version='2023-09-01-preview',
                 azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/')
+        if groq:
+            self.client = Groq(api_key=API_KEY)
         else:
             self.client = OpenAI(api_key=API_KEY)
         if model == 'gpt-3.5-turbo':
@@ -33,6 +35,9 @@ class LLM_model():
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-4')
         elif model == 'gpt-4-turbo':
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-4')
+        elif 'llama-3.1' in model:
+            from transformers import AutoTokenizer
+            self.estimation_tokenizer = AutoTokenizer.from_pretrained('meta-llama/Meta-Llama-3.1-70B',token = "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")
         else:
             raise ValueError(f"model {model} not supported")
         self.open_ai_errors = 0
@@ -57,7 +62,16 @@ class LLM_model():
                 response = self.client.chat.completions.create(model=model,
                                                                messages=message,
                                                                temperature=0,
-                                                               max_tokens=max_length, timeout=60)
+                                                               max_tokens=max_length, timeout=60, **kwargs)
+                input_tokens = response.usage.prompt_tokens
+                output_tokens = response.usage.completion_tokens
+                price = input_tokens / 1000 * self.input_price + output_tokens / 1000 * self.output_price
+                return response.choices[0].message.content, None, price
+            if 'llama' in self.model:
+                #message = {"role": "user", "content": input}
+                response = self.client.chat.completions.create(model=self.model,
+                                                               messages=message, max_tokens=max_length,
+                                                                                            ** kwargs)
                 input_tokens = response.usage.prompt_tokens
                 output_tokens = response.usage.completion_tokens
                 price = input_tokens / 1000 * self.input_price + output_tokens / 1000 * self.output_price
@@ -86,20 +100,14 @@ class Summarization_correction_model(LLM_model):
         self.csv_writer = csv.writer(f)
         self.csv_writer.writerow(['text', 'summary', 'revised_summary', 'error'])
 
-    def revise(self, texts, summaries, max_length=None):
-        revised_summaries, errors, prices = [], [], []
-        for text, summary in zip(texts, summaries):
-            revised_summary, error, price = self.revise_single(text, summary, max_length=max_length)
-            revised_summaries.append(revised_summary)
-            errors.append(error)
-            prices.append(price)
-        return revised_summaries, errors, prices
-
-    def revise_single(self, text, summary, max_length=None):
-        text_for_revision = f"Document: \n {text} \n summary: \n {summary} \n"
+    def revise_single(self, text, summary, max_length=None, instructions=None, **kwargs):
+        if instructions is not None:
+            text_for_revision = f"Document: \n {text} \n Summary: \n {summary} \n Instructions: \n {instructions} \n"
+        else:
+            text_for_revision = f"Document: \n {text} \n Summary: \n {summary} \n"
         if max_length is None:
             max_length = len(self.estimation_tokenizer.encode(summary)) + 10
-        revised_summary, error, price = self.call_llm(text_for_revision, max_length=max_length)
+        revised_summary, error, price = self.call_llm(text_for_revision, max_length=max_length, **kwargs)
         self.csv_writer.writerow([text, summary, revised_summary, error, price])
         return revised_summary, error, price
 
@@ -110,7 +118,7 @@ class LLMFactualityClassifier(LLM_model):
         super(LLMFactualityClassifier, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY, **kwargs)
         f = open(temp_save_dir + '/' + 'temp_results_classification.csv', 'w')
         self.csv_writer = csv.writer(f)
-        self.csv_writer.writerow(['text', 'summary', 'prediction_text', 'prediction_label', 'error','price'])
+        self.csv_writer.writerow(['text', 'summary', 'prediction_text', 'prediction_label', 'error', 'price'])
         self.text_to_labels = text_to_labels
 
     def classify(self, texts, summaries, max_length):
@@ -145,7 +153,7 @@ class SummarizationModel(LLM_model):
                                                  **kwargs)
         f = open(temp_save_dir + '/' + 'temp_results_summarization.csv', 'w')
         self.csv_writer = csv.writer(f)
-        self.csv_writer.writerow(['text', 'summary', 'error','price'])
+        self.csv_writer.writerow(['text', 'summary', 'error', 'price'])
 
     def summarize(self, texts, max_generation_length):
         summaries, errors, prices = [], [], []

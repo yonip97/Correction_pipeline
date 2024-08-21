@@ -48,9 +48,24 @@ def compute_metric_rouge(p, tokenizer):
 
 
 def collate_fn_revision(batch, tokenizer, max_length, introduction_prompt="revise: "):
-    text_inputs = [(introduction_prompt + "summary: " + row['summary'], " text: " + row['text']) for row in batch]
+    text_inputs = [(introduction_prompt + "Summary: " + row['summary'], " Document: " + row['text']) for row in batch]
     revised_summaries = [row['revised_summary'] for row in batch]
     inputs = tokenizer.batch_encode_plus(text_inputs, padding=True, truncation='only_second', max_length=max_length,
+                                         return_tensors='pt')
+    labels = tokenizer(revised_summaries, padding=True, truncation=True, max_length=max_length, return_tensors='pt')
+    labels[labels == tokenizer.pad_token_id] = -100
+    return {'input_ids': inputs['input_ids'], 'attention_mask': inputs['attention_mask'],
+            'labels': labels['input_ids']}
+
+
+def collate_fn_revision_with_feedback(batch, tokenizer, max_length, introduction_prompt =''):
+    text_inputs = [
+        (introduction_prompt + '\n' + "Document: " + '\n' + row[
+            'text'],"Summary: " + '\n' + row['summary'] + '\n' + 'Feedback: ' + '\n' + row['feedback'])
+        for row in
+        batch]
+    revised_summaries = [row['revised_summary'] for row in batch]
+    inputs = tokenizer.batch_encode_plus(text_inputs, padding=True, truncation='only_first', max_length=max_length,
                                          return_tensors='pt')
     labels = tokenizer(revised_summaries, padding=True, truncation=True, max_length=max_length, return_tensors='pt')
     labels[labels == tokenizer.pad_token_id] = -100
@@ -235,7 +250,8 @@ def t5_summarize(texts, model, tokenizer, prompt, device='cpu', batch_size=128, 
 
 
 def t5_summarize_mp_main(model, tokenizer, texts, out_dir, prompt, batch_size, max_generation_length, beam_size,
-                         early_stopping, length_penalty, max_encoding_length, min_generation_length, student_logits=False):
+                         early_stopping, length_penalty, max_encoding_length, min_generation_length,
+                         student_logits=False):
     world_size = torch.cuda.device_count()
     os.makedirs(out_dir + '/summarization_temp')
     processes = [mp.Process(target=t5_summarize_mp, args=(i,
@@ -382,7 +398,7 @@ def get_proper_scores(scores, beam_indices, batch_size):
 def t5_revise_mp_main(texts, summaries, revision_model_checkpoint, output_dir, revision_prompt,
                       revision_batch_size, revision_max_generation_length, revision_beam_size,
                       revision_max_encoding_length, revision_length_penalty, revision_model_min_length, distillation,
-                      joint_teaching = False):
+                      joint_teaching=False):
     world_size = torch.cuda.device_count()
     os.makedirs(output_dir + '/revision_temp')
     processes = [mp.Process(target=t5_revise_mp, args=(i,
@@ -432,7 +448,7 @@ def t5_revise_mp_main(texts, summaries, revision_model_checkpoint, output_dir, r
     if distillation:
         if joint_teaching:
             return new_model_summaries, new_model_summaries_logits, original_model_logits
-        return new_model_summaries, new_model_summaries_logits,[None] * len(new_model_summaries)
+        return new_model_summaries, new_model_summaries_logits, [None] * len(new_model_summaries)
     return new_model_summaries, [None] * len(new_model_summaries), [None] * len(new_model_summaries)
 
 
@@ -445,7 +461,7 @@ def t5_revise_mp(rank, world_size, revision_model_path, output_dir, texts, summa
     tokenizer = T5Tokenizer.from_pretrained(revision_model_path)
     model.to(rank)
     data_per_device_size = math.ceil(len(texts) / world_size)
-    #model_inputs = [(f'{prompt} summary: ' + summary, "text: " + text) for text, summary in zip(texts, summaries)]
+    # model_inputs = [(f'{prompt} summary: ' + summary, "text: " + text) for text, summary in zip(texts, summaries)]
     model_inputs = [(summary, text) for text, summary in zip(texts, summaries)]
     model_inputs = model_inputs[rank * data_per_device_size:(rank + 1) * data_per_device_size]
     revised_summaries = []
@@ -476,8 +492,8 @@ def t5_revise_mp(rank, world_size, revision_model_path, output_dir, texts, summa
             if joint_teaching:
                 batch_summaries = [row[0] for row in batch_model_inputs]
                 batch_summaries_tokenized = tokenizer(batch_summaries, padding=True, truncation=True,
-                                            max_length=generation_max_length,
-                                            return_tensors='pt').to(rank)
+                                                      max_length=generation_max_length,
+                                                      return_tensors='pt').to(rank)
                 outputs = model(**tokenized, labels=batch_summaries_tokenized['input_ids'])
                 batch_original_logits = []
                 for i in range(outputs.logits.shape[0]):
@@ -493,4 +509,4 @@ def t5_revise_mp(rank, world_size, revision_model_path, output_dir, texts, summa
             pickle.dump((revised_summaries, revised_logits), f)
     if joint_teaching:
         with open(output_dir + f'/rank_{rank}.pkl', 'wb') as f:
-            pickle.dump((revised_summaries,revised_logits, original_model_logits), f)
+            pickle.dump((revised_summaries, revised_logits, original_model_logits), f)
