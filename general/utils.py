@@ -70,7 +70,19 @@ class RevisionDataset(Dataset):
         return {'text': self.texts[item], 'summary': self.summaries[item],
                 'revised_summary': self.revised_summaries[item]}
 
+class RevisionDatasetWithFeedback(Dataset):
+    def __init__(self, texts, summaries, revised_summaries, feedback):
+        self.texts = texts
+        self.summaries = summaries
+        self.revised_summaries = revised_summaries
+        self.feedback = feedback
 
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item],
+                'revised_summary': self.revised_summaries[item], 'feedback': self.feedback[item]}
 class SummarizationDataset(Dataset):
     def __init__(self, texts, summaries):
         self.texts = texts
@@ -82,7 +94,17 @@ class SummarizationDataset(Dataset):
     def __getitem__(self, item):
         return {'text': self.texts[item], 'summary': self.summaries[item]}
 
+class SummarizationDatasetWithFeedback(Dataset):
+    def __init__(self, texts, summaries, feedback):
+        self.texts = texts
+        self.summaries = summaries
+        self.feedback = feedback
 
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, item):
+        return {'text': self.texts[item], 'summary': self.summaries[item], 'feedback': self.feedback[item]}
 class SummarizationDatasetwithLogits(Dataset):
     def __init__(self, texts, summaries, logits):
         self.texts = texts
