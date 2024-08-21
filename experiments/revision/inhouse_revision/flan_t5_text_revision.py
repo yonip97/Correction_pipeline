@@ -5,22 +5,14 @@ import numpy as np
 import pandas as pd
 import torch
 
-# os.chdir('../')
-# sys.path.append(os.path.dirname(os.getcwd()))
-# os.chdir('../')
-# sys.path.append(os.path.dirname(os.getcwd()))
-# os.chdir('../')
-# sys.path.append(os.path.dirname(os.getcwd()))
-# print(os.getcwd())
 os.chdir("/data/home/yehonatan-pe/Correction_pipeline")
 sys.path.append(os.getcwd())
 from transformers import T5ForConditionalGeneration, T5Tokenizer, Seq2SeqTrainingArguments
 from general.t5_trainer import T5_Trainer, collate_fn_revision, collate_fn_revision_test, \
-    WandbCallback, t5_revise_mp
+    WandbCallback, t5_revise_mp,collate_fn_revision_with_feedback
 import argparse
-from Seahorse_metrics.metrics import Seahorse_metrics
 import evaluate
-from general.utils import RevisionDataset, SummarizationDataset, find_largest_numbered_dir
+from general.utils import RevisionDataset,RevisionDatasetWithFeedback, SummarizationDataset,SummarizationDatasetWithFeedback, find_largest_numbered_dir
 from general.fragments_metrics import Fragments
 from experiments.scoring import score
 import gc
@@ -70,13 +62,7 @@ def compute_metrics(p, tokenizer, eval_texts, base_seahorse_scores, base_density
     results['density'] = np.mean(density_scores)
     gc.collect()
     torch.cuda.empty_cache()
-    seahorse_metric = Seahorse_metrics(model_path='google/seahorse-xxl-q4', tokenizer_name='google/seahorse-xxl-q4',
-                                       device='auto', batch_size=1, torch_dtype=torch.float16, max_length=2048,
-                                       return_none=True)
-    seahorse_scores = seahorse_metric.score(texts=eval_texts, summaries=predictions)
-    del seahorse_metric
-    gc.collect()
-    torch.cuda.empty_cache()
+    seahorse_scores = score(texts=eval_texts, summaries=predictions, metrics=['seahorse'])
     results['seahorse'] = np.mean([x for x in seahorse_scores if x is not None])
     seahorse_diff = [x - y for x, y in zip(seahorse_scores, base_seahorse_scores) if
                      x is not None]
@@ -92,7 +78,6 @@ def compute_metrics(p, tokenizer, eval_texts, base_seahorse_scores, base_density
     rouge_scores_to_base = \
         rouge_metric.compute(predictions=predictions, references=base_model_summaries, use_aggregator=False)['rougeL']
     results['rougeL_to_base'] = np.mean(rouge_scores_to_base)
-    # wandb.log(results)
     results['predicted_summaries'] = predictions
     results['seahorse_scores'] = seahorse_scores
     results['density_scores'] = density_scores
@@ -149,24 +134,41 @@ def get_revised_train_data(args):
     original_model_summaries = revised_df['model_summary'].tolist()
     revised_summaries = revised_df['revised_summary'].tolist()
     print("Number of revised samples: ", len(revised_df))
-    # train_dataset = RevisionDataset(texts, original_model_summaries, revised_summaries)
-    return texts, original_model_summaries, revised_summaries
+    if args.use_feedback:
+        instructions = revised_df['instruction'].tolist()
+        explanations = revised_df['explanation'].tolist()
+        return texts, original_model_summaries, revised_summaries, instructions, explanations
+    return texts, original_model_summaries, revised_summaries, [None] * len(texts), [None] * len(texts)
 
 
 def create_val_dataset(args):
     eval_df = pd.read_csv(args.eval_data_path + '.csv', index_col=0)
-    eval_dataset = SummarizationDataset(texts=eval_df['text'].tolist(), summaries=eval_df['model_summary'].tolist())
+    if args.use_feedback:
+        if args.instructions:
+            eval_dataset = SummarizationDatasetWithFeedback(texts=eval_df['text'].tolist(),
+                                                            summaries=eval_df['model_summary'].tolist(),
+                                                            feedback=eval_df['instruction'].tolist())
+        else:
+            eval_dataset = SummarizationDatasetWithFeedback(texts=eval_df['text'].tolist(),
+                                                            summaries=eval_df['model_summary'].tolist(),
+                                                            feedback=eval_df['explanation'].tolist())
+    else:
+        eval_dataset = SummarizationDataset(texts=eval_df['text'].tolist(), summaries=eval_df['model_summary'].tolist())
     eval_texts = eval_df['text'].tolist()
     eval_pre_revision_factuality_scores = eval_df['model_summary_seahorse'].tolist()
     eval_pre_revision_density = eval_df['model_summary_density'].tolist()
     eval_base_model_summaries = eval_df['model_summary'].tolist()
     eval_original_dataset_summaries = eval_df['original_summary'].tolist()
-    return eval_dataset, eval_texts, eval_pre_revision_factuality_scores, eval_pre_revision_density, eval_base_model_summaries, eval_original_dataset_summaries
+    if args.use_feedback:
+        eval_instructions = eval_df['instruction'].tolist()
+        eval_explanations = eval_df['explanation'].tolist()
+        return eval_dataset, eval_texts, eval_pre_revision_factuality_scores, eval_pre_revision_density, eval_base_model_summaries, eval_original_dataset_summaries, eval_instructions, eval_explanations
+    return eval_dataset, eval_texts, eval_pre_revision_factuality_scores, eval_pre_revision_density, eval_base_model_summaries, eval_original_dataset_summaries, [
+        None] * len(eval_texts), [None] * len(eval_texts)
 
 
 def parseargs_train_revision_model():
     parser = argparse.ArgumentParser()
-    # parser.add_argument('-output_path')
     parser.add_argument('-train_data_path', type=str)
     parser.add_argument('-unrevised_train_data_path', type=str)
     parser.add_argument('-model_name', type=str, default='flan-t5-xl')
@@ -258,10 +260,13 @@ def train_and_evaluate_revision_model(args):
         texts = []
         original_model_summaries = []
         new_summaries = []
-        revised_texts, revised_original_model_summaries, revised_summaries = [], [], []
+        instructions = []
+        explanations = []
+        revised_texts, revised_original_model_summaries, revised_summaries, revised_instructions, revised_explanations = [], [], [], [], []
         unrevised_texts, unrevised_original_model_summaries = [], []
         if args.train_data_path is not None:
-            revised_texts, revised_original_model_summaries, revised_summaries = get_revised_train_data(args)
+            revised_texts, revised_original_model_summaries, revised_summaries, revised_instructions, revised_explanations = get_revised_train_data(
+                args)
         if args.unrevised_train_data_path is not None:
             unrevised_texts, unrevised_original_model_summaries = get_unrevised_train_data(args)
         if args.upsample_revised and args.train_data_path is not None:
@@ -269,22 +274,41 @@ def train_and_evaluate_revision_model(args):
             revised_original_model_summaries = revised_original_model_summaries * (
                     len(unrevised_texts) // len(revised_texts))
             revised_summaries = revised_summaries * (len(unrevised_texts) // len(revised_texts))
+            revised_instructions = revised_instructions * (len(unrevised_texts) // len(revised_texts))
+            revised_explanations = revised_explanations * (len(unrevised_texts) // len(revised_texts))
         if args.downsample_unrevised and args.unrevised_train_data_path is not None:
             unrevised_texts = unrevised_texts[:len(revised_texts)]
             unrevised_original_model_summaries = unrevised_original_model_summaries[:len(revised_texts)]
         texts += revised_texts
         original_model_summaries += revised_original_model_summaries
         new_summaries += revised_summaries
+        instructions += revised_instructions
+        explanations += revised_explanations
         texts += unrevised_texts
         original_model_summaries += unrevised_original_model_summaries
         new_summaries += unrevised_original_model_summaries
-        train_dataset = RevisionDataset(texts=texts, summaries=original_model_summaries,
-                                        revised_summaries=new_summaries)
+        instructions += [""] * len(unrevised_texts)
+        explanations += [""] * len(unrevised_texts)
+        collate_fn = collate_fn_revision if args.use_feedback else collate_fn_revision
+        if args.use_feedback:
+            if args.instructions:
+                train_dataset = RevisionDatasetWithFeedback(texts=texts, summaries=original_model_summaries,
+                                                            revised_summaries=new_summaries,
+                                                            feedback=instructions)
+            else:
+                train_dataset = RevisionDatasetWithFeedback(texts=texts, summaries=original_model_summaries,
+                                                            revised_summaries=new_summaries,
+                                                            feedback=explanations)
+        else:
+            train_dataset = RevisionDataset(texts=texts, summaries=original_model_summaries,
+                                            revised_summaries=new_summaries)
         eval_dataset, eval_texts, eval_pre_revision_factuality_scores, eval_pre_revision_density \
-            , eval_base_model_summaries, eval_original_dataset_summaries = None, None, None, None, None, None
+            , eval_base_model_summaries, eval_original_dataset_summaries, eval_instructions, eval_explanations \
+            = None, None, None, None, None, None, None, None
         if args.eval:
             eval_dataset, eval_texts, eval_pre_revision_factuality_scores, eval_pre_revision_density \
-                , eval_base_model_summaries, eval_original_dataset_summaries = create_val_dataset(args)
+                , eval_base_model_summaries, eval_original_dataset_summaries, eval_instructions, eval_explanations = create_val_dataset(
+                args)
         dataset_name = args.dataset_name
         if not os.path.exists(os.path.join(args.save_dir, dataset_name)):
             os.makedirs(os.path.join(args.save_dir, dataset_name))
@@ -326,7 +350,7 @@ def train_and_evaluate_revision_model(args):
                 )
                 revision_model = get_peft_model(revision_model, lora_config)
                 print_trainable_parameters(revision_model)
-        trainer = T5_Trainer(collate_fn=collate_fn_revision, model=revision_model, tokenizer=tokenizer, args=train_args,
+        trainer = T5_Trainer(collate_fn=collate_fn, model=revision_model, tokenizer=tokenizer, args=train_args,
                              train_dataset=train_dataset, eval_dataset=eval_dataset,
                              compute_metrics=lambda p: compute_metrics(p, tokenizer, eval_texts,
                                                                        eval_pre_revision_factuality_scores,
@@ -347,32 +371,10 @@ def train_and_evaluate_revision_model(args):
         del trainer
         gc.collect()
         torch.cuda.empty_cache()
-    else:
-        pass
-        # max_length = args.max_encoding_length
-        # output_path = args.test_output_path
-        # test_args = Seq2SeqTrainingArguments(
-        #     output_dir=os.path.join(output_path, 'checkpoints'),
-        #     do_train=args.train, do_eval=args.eval,
-        #     per_device_eval_batch_size=args.eval_batch_size,
-        #     predict_with_generate=True,
-        #     evaluation_strategy=args.evaluation_strategy,
-        #     save_strategy=args.save_strategy, save_total_limit=3,
-        #     eval_steps=args.eval_steps, eval_accumulation_steps=30,
-        #     no_cuda=False, report_to=["none"])
-        # trainer = T5_Trainer(collate_fn=collate_fn_revision, model=revision_model, tokenizer=tokenizer, args=test_args,
-        #                      train_dataset=None, eval_dataset=None,
-        #                      max_length_train=max_length, max_length_eval=max_length,
-        #                      collate_fn_test=collate_fn_revision_test, callbacks=[WandbCallback()],
-        #                      prompt_train=args.train_prompt, prompt_eval=args.eval_prompt, prompt_test=args.test_prompt)
     if args.test:
         revisions_dict = create_test_revisions(args)
         if os.path.exists(args.test_output_path + '/trained_model'):
             shutil.rmtree(args.test_output_path + '/trained_model')
-        # del trainer
-        # del revision_model
-        # gc.collect()
-        # torch.cuda.empty_cache()
         score_and_save_revisions(revisions_dict, args)
 
 
@@ -438,27 +440,12 @@ def create_test_revisions(args):
         files = sorted(files)
         for file in files:
             with open(args.test_output_path + '/revision_temp/' + file, 'rb') as f:
-                summaries,_ = pickle.load(f)
+                summaries, _ = pickle.load(f)
                 revised_summaries += summaries
         shutil.rmtree(args.test_output_path + '/revision_temp')
         results_per_iteration[iteration] = revised_summaries
         original_model_summaries = revised_summaries
     return results_per_iteration
-    # t5_revise(texts=test_texts, summaries=original_model_summaries, model=revision_model, tokenizer=tokenizer,
-    #           prompt='revise: ',
-    #           device='cuda:0', batch_size=3, generation_max_length=128, num_beams=4, early_stopping=True,
-    #           encoding_max_length=1024, len_penalty=0.6)
-    # t5_revise_mp_main(texts=test_texts,summaries=original_model_summaries,revision_model=revision_model,args=args)
-    # for iter in range(args.revision_iterations):
-    #     test_dataset = RevisionDataset(texts=test_texts, summaries=original_model_summaries,
-    #                                    revised_summaries=[None] * len(test_texts))
-    #     t5_revise_mp_main()
-    #
-    #     # predictions = trainer.predict(test_dataset=test_dataset)
-    #     # final_summaries = trainer.tokenizer.batch_decode(predictions.predictions, skip_special_tokens=True)
-    #     results_per_iteration[iter] = final_summaries
-    #     original_model_summaries = final_summaries
-    # return results_per_iteration
 
 
 def score_and_save_revisions(results_per_iteration, args):
