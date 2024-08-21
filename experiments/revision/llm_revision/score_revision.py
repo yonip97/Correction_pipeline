@@ -33,7 +33,13 @@ def main():
     df = df[~df['revised_summary'].isna()]
     if args.should_split_output:
         df['revised_summary_full_text'] = df['revised_summary']
-        df['revised_summary'] = df['revised_summary'].apply(lambda x: x.split(args.delimiter)[-1].strip())
+        revised_summaries = df['revised_summary'].tolist()
+        for i in range(len(revised_summaries)):
+            if args.delimiter in revised_summaries[i]:
+                revised_summaries[i] = revised_summaries[i].split(args.delimiter)[-1].strip()
+            else:
+                revised_summaries[i] = df['model_summary'].tolist()[i]
+        df['revised_summary'] = revised_summaries
     print(f"Scoring {len(df)} examples")
     texts = [str(text) for text in df['text'].tolist()]
     summaries = [str(x) for x in df['model_summary'].tolist()]
