@@ -48,6 +48,7 @@ def parseargs_llms():
     parser.add_argument('-batch_size', type=int, default=32)
     parser.add_argument('-azure', action='store_true')
     parser.add_argument('-revision_max_length', type=int, default=1000)
+    parser.add_argument('-seahorse_threshold', type=float, default=0.5)
     args = parser.parse_args()
     with open(args.revision_prompt_path, 'r') as file:
         args.revision_prompt = file.read()
@@ -92,11 +93,11 @@ def get_data(args):
         df = pd.read_csv(os.path.join(args.revision_data_dir, args.revision_data_file), index_col=0)
     for col in df.columns:
         if 'model_summary_seahorse' == col:
-            rel_df = df[(df['model_summary_seahorse'] < 0.5)]
+            rel_df = df[(df['model_summary_seahorse'] < args.seahorse_threshold)]
             summaries = rel_df['model_summary'].tolist()
             texts = rel_df['text'].tolist()
             scores = rel_df['model_summary_seahorse'].tolist()
-            return texts, summaries, scores
+            return texts, summaries, scores,
     texts = df['text'].tolist()
     summaries = df['model_summary'].tolist()
     factuality_scores = score(texts=texts, summaries=summaries, metrics=['seahorse'])['seahorse']
@@ -104,12 +105,11 @@ def get_data(args):
                        'text': texts,
                        'model_summary': summaries})
     df.to_csv(os.path.join(args.revision_data_dir, args.revision_data_file))
-    rel_df = df[(df['model_summary_seahorse'] < 0.5)]
+    rel_df = df[(df['model_summary_seahorse'] < args.seahorse_threshold)]
     scores = rel_df['model_summary_seahorse'].tolist()
     summaries = rel_df['model_summary'].tolist()
     texts = rel_df['text'].tolist()
     return texts, summaries, scores
-
 
 def llm_revision():
     args = parseargs_llms()
