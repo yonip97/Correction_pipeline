@@ -9,7 +9,7 @@ os.chdir("/data/home/yehonatan-pe/Correction_pipeline")
 sys.path.append(os.getcwd())
 from transformers import T5ForConditionalGeneration, T5Tokenizer, Seq2SeqTrainingArguments
 from general.t5_trainer import T5_Trainer, collate_fn_revision, collate_fn_revision_test, \
-    WandbCallback, t5_revise_mp,collate_fn_revision_with_feedback
+    WandbCallback, t5_revise_mp,collate_fn_revision_with_feedback,t5_revise_mp_with_feedback
 import argparse
 import evaluate
 from general.utils import RevisionDataset,RevisionDatasetWithFeedback, SummarizationDataset,SummarizationDatasetWithFeedback, find_largest_numbered_dir
@@ -218,6 +218,8 @@ def parseargs_train_revision_model():
     parser.add_argument('-test_trueteacher', action='store_true', default=False)
     parser.add_argument('-save', action='store_true', default=False)
     parser.add_argument('-wandb', action='store_true', default=False)
+    parser.add_argument('-use_feedback', action='store_true', default=False)
+    parser.add_argument('-instructions', action='store_true', default=False)
     args = parser.parse_args()
     if args.pretrained_model_path is None:
         model_name_to_path = {'flan-t5-large': 'google/flan-t5-large', 'flan-t5-xl': 'google/flan-t5-xl'}
@@ -289,7 +291,7 @@ def train_and_evaluate_revision_model(args):
         new_summaries += unrevised_original_model_summaries
         instructions += [""] * len(unrevised_texts)
         explanations += [""] * len(unrevised_texts)
-        collate_fn = collate_fn_revision if args.use_feedback else collate_fn_revision
+        collate_fn = collate_fn_revision_with_feedback if args.use_feedback else collate_fn_revision
         if args.use_feedback:
             if args.instructions:
                 train_dataset = RevisionDatasetWithFeedback(texts=texts, summaries=original_model_summaries,
@@ -378,13 +380,13 @@ def train_and_evaluate_revision_model(args):
         score_and_save_revisions(revisions_dict, args)
 
 
-def score_summaries(texts, summaries, original_model_summaries, original_dataset_summaries, args):
+def score_summaries(texts, summaries, original_model_summaries, args):
     results = {}
     rouge_metric = evaluate.load('rouge')
-    rouge_scores_to_original = \
-        rouge_metric.compute(predictions=summaries, references=original_dataset_summaries, use_aggregator=False)[
-            'rougeL']
-    results['rougeL_to_original'] = rouge_scores_to_original
+    # rouge_scores_to_original = \
+    #     rouge_metric.compute(predictions=summaries, references=original_dataset_summaries, use_aggregator=False)[
+    #         'rougeL']
+    #results['rougeL_to_original'] = rouge_scores_to_original
     rouge_scores_to_base = \
         rouge_metric.compute(predictions=summaries, references=original_model_summaries, use_aggregator=False)['rougeL']
     results['rougeL_to_base'] = rouge_scores_to_base
@@ -407,6 +409,8 @@ def create_test_revisions(args):
     test_df = test_df[~test_df['text'].isnull()]
     test_texts = test_df['text'].tolist()
     original_model_summaries = test_df['model_summary'].tolist()
+    if args.test_prompt is None:
+        args.test_prompt = ""
     results_per_iteration = {i: [] for i in range(args.revision_iterations)}
     for iteration in range(args.revision_iterations):
         import torch.multiprocessing as mp
@@ -414,10 +418,15 @@ def create_test_revisions(args):
         if os.path.exists(args.test_output_path + '/revision_temp'):
             shutil.rmtree(args.test_output_path + '/revision_temp')
         os.makedirs(args.test_output_path + '/revision_temp')
-        processes = [mp.Process(target=t5_revise_mp, args=(i,
+        if args.use_feedback:
+            if args.instructions:
+                feedbacks = test_df['instruction'].tolist()
+            else:
+                feedbacks = test_df['explanation'].tolist()
+            processes = [mp.Process(target=t5_revise_mp_with_feedback, args=(i,
                                                            world_size, args.model_path,
                                                            args.test_output_path + '/revision_temp', test_texts,
-                                                           original_model_summaries,
+                                                           original_model_summaries,feedbacks,
                                                            args.test_prompt,
                                                            args.eval_batch_size,
                                                            args.max_generation_length, args.beam_size,
@@ -425,6 +434,18 @@ def create_test_revisions(args):
                                                            args.max_encoding_length,
                                                            args.length_penalty, args.min_generation_length)) for i in
                      range(world_size)]
+        else:
+            processes = [mp.Process(target=t5_revise_mp, args=(i,
+                                                               world_size, args.model_path,
+                                                               args.test_output_path + '/revision_temp', test_texts,
+                                                               original_model_summaries,
+                                                               args.test_prompt,
+                                                               args.eval_batch_size,
+                                                               args.max_generation_length, args.beam_size,
+                                                               True,
+                                                               args.max_encoding_length,
+                                                               args.length_penalty, args.min_generation_length)) for i in
+                         range(world_size)]
         for process in processes:
             process.start()
 
@@ -451,14 +472,14 @@ def create_test_revisions(args):
 def score_and_save_revisions(results_per_iteration, args):
     test_df = pd.read_csv(args.test_data_path + '.csv', index_col=0)
     test_df = test_df[~test_df['text'].isnull()]
+
     test_texts = test_df['text'].tolist()
-    original_dataset_summaries = test_df['original_summary'].tolist()
     original_model_summaries = test_df['model_summary'].tolist()
     for iter in range(args.revision_iterations):
         iter_summaries = results_per_iteration[iter]
         score_predictions = score_summaries(texts=test_texts, summaries=iter_summaries,
                                             original_model_summaries=original_model_summaries,
-                                            original_dataset_summaries=original_dataset_summaries, args=args)
+                                             args=args)
         if args.wandb:
             for score in score_predictions:
                 wandb.log({f'{score}_iter_{iter}': score_predictions[score]})

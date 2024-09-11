@@ -5,23 +5,13 @@ import time
 
 import numpy as np
 
-os.chdir('../')
-sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
-sys.path.append(os.path.dirname(os.getcwd()))
-os.chdir('../')
-sys.path.append(os.path.dirname(os.getcwd()))
-import json
-from datetime import datetime
+os.chdir('/data/home/yehonatan-pe/Correction_pipeline')
+sys.path.append(os.getcwd())
 import argparse
 import os
 import pandas as pd
 import torch
-from experiments.scoring import score
-from experiments.data.datasets_splits import split_xsum_dataset
-from general.t5_trainer import t5_summarize
-import transformers
-from transformers import T5ForConditionalGeneration, T5Tokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 def parseargs_llms():
@@ -40,7 +30,11 @@ def parseargs_llms():
     parser.add_argument('-revision_temperature', type=float)
     parser.add_argument('-revision_early_stopping', action='store_true')
     parser.add_argument('-revision_sample', action='store_true')
-    parser.add_argument('-batch_size', type=int, default=8)
+    parser.add_argument('-batch_size', type=int, default=4)
+    parser.add_argument('-resume', action='store_true')
+    parser.add_argument('-feedback', action='store_true')
+    parser.add_argument('-instructions', action='store_true')
+    parser.add_argument('-output_name', type=str, default='revised_summary')
     args = parser.parse_args()
     with open(args.revision_prompt_path, 'r') as file:
         args.revision_prompt = file.read()
@@ -62,64 +56,104 @@ def get_data(args):
         rel_df = df
     summaries = rel_df['model_summary'].tolist()
     texts = rel_df['text'].tolist()
-    return texts, summaries
+    if args.feedback:
+        if args.instructions:
+            instructions = rel_df['instruction']
+            return texts, summaries, instructions
+        else:
+            explanations = rel_df['explanation']
+            return texts, summaries, explanations
+    return texts, summaries, None
 
 
 def llm_revision():
     access_token = "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"
     args = parseargs_llms()
-    texts, summaries = get_data(args)
-    model_id = args.model
-    # pipeline = transformers.pipeline(
-    #     "text-generation",
-    #     model=model_id,
-    #     model_kwargs={"torch_dtype": torch.bfloat16},
-    #     device_map="auto", token=access_token
-    # )
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    texts, summaries, feedbacks = get_data(args)
 
-    model = AutoModelForCausalLM.from_pretrained(model_id, device_map='auto', token=access_token,torch_dtype=torch.bfloat16)
+    if args.resume:
+        df = pd.read_csv(args.output_path, index_col=0)
+        revisions = df['revised_summary_full_text'].tolist()
+        times = df['time'].tolist()
+        curr_texts = texts[len(revisions):]
+        cur_summaries = summaries[len(revisions):]
+        if feedbacks is not None:
+            if args.instructions:
+                all_inputs = [
+                    args.revision_prompt + '\n' + 'Document:\n' + text + '\n' + 'Summary:\n' + summary + '\n' + 'Instructions:\n' + instruction +'\n' +args.past_text_prompt
+                    for
+                    text, summary, instruction in
+                    zip(curr_texts, cur_summaries, feedbacks)]
+            else:
+                all_inputs = [
+                    args.revision_prompt + '\n' + 'Document:\n' + text + '\n' + 'Summary:\n' + summary + '\n' + 'Explanation:\n' + explanation + '\n'
+                    +args.past_text_prompt
+                    for
+                    text, summary, explanation in
+                    zip(curr_texts, cur_summaries, feedbacks)]
+        else:
+            all_inputs = [
+                args.revision_prompt + '\n' + 'Document:\n' + text + '\n' + 'Summary:\n' + summary +'\n' +args.past_text_prompt
+                for
+                text, summary in
+                zip(curr_texts, cur_summaries)]
+
+    else:
+        revisions = []
+        times = []
+        all_inputs = [
+            args.revision_prompt + '\n' + 'Document:\n' + text + '\n' + 'Summary:\n' + summary
+            for
+            text, summary in
+            zip(texts, summaries)
+        ]
+    model_id = args.model
+
+    model = AutoModelForCausalLM.from_pretrained(model_id, device_map='auto', token=access_token,
+                                                 torch_dtype=torch.bfloat16)
     tokenizer = AutoTokenizer.from_pretrained(model_id, token=access_token)
     terminators = [
         tokenizer.eos_token_id,
         tokenizer.convert_tokens_to_ids("<|eot_id|>")
     ]
-    revisions = []
-    times = []
-    all_inputs = [
-        args.revision_prompt + '\n' + 'Summary: \n' + summary + '\n' + "Document: \n" + args.past_text_prompt + text for
-        text, summary in
-        zip(texts, summaries)]
     start = time.time()
     batch_size = args.batch_size
+
     for i in range(0, len(all_inputs), batch_size):
-        messages = [[
-            {"role": "user", "content": all_inputs[index]},
-        ] for index in range(i, min(i + batch_size, len(all_inputs)))]
-        tokenizer.pad_token_id = tokenizer.eos_token_id
+        try:
+            messages = [[
+                {"role": "user", "content": all_inputs[index]},
+            ] for index in range(i, min(i + batch_size, len(all_inputs)))]
+            tokenizer.pad_token_id = tokenizer.eos_token_id
 
-        messages = tokenizer.apply_chat_template(
-            messages,
-            add_generation_prompt=True, tokenize=False
-        )
-        tokenizer.pad_token_id = tokenizer.eos_token_id
-        inputs = tokenizer(messages, padding="longest", return_tensors="pt").to('cuda')
-        outputs = model.generate(**inputs, max_new_tokens=args.revision_max_length, pad_token_id=tokenizer.eos_token_id,
-                                 eos_token_id=terminators)
-        full_text_revision = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-        # temp_texts = tokenizer.batch_decode(inputs["input_ids"], skip_special_tokens=True)
-        # full_text_revision = [i[len(temp_texts[idx]):].strip() for idx, i in enumerate(full_text_revision)]
+            messages = tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True, tokenize=False
+            )
+            tokenizer.pad_token_id = tokenizer.eos_token_id
+            inputs = tokenizer(messages, padding="longest", return_tensors="pt", max_length=4096).to('cuda')
+            outputs = model.generate(**inputs, max_new_tokens=args.revision_max_length,
+                                     pad_token_id=tokenizer.eos_token_id,
+                                     eos_token_id=terminators)
+            full_text_revision = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+            revisions += full_text_revision
+            batch_time = time.time() - start
+            times += [batch_time / batch_size] * batch_size
 
-        revisions += full_text_revision
-        print(f"Finished {i + 1} out of {len(all_inputs)} in {time.time() - start} seconds")
-        batch_time = time.time() - start
-        times += [batch_time/batch_size] * batch_size
-        start = time.time()
-        df = pd.DataFrame(
-            {'text': texts[:len(revisions)], 'model_summary': summaries[:len(revisions)], 'revised_summary_full_text': revisions, 'time': times})
-        df.to_csv(args.output_path)
+        except Exception as e:
+            print(f"Error occurred: {str(e)}")
+            revisions += ['' for _ in range(i, min(i + batch_size, len(all_inputs)))]
+            times += [0] * batch_size
+        finally:
+            print(f"Finished {i + 1} out of {len(all_inputs)} in {time.time() - start} seconds")
+            start = time.time()
+            df = pd.DataFrame(
+                {'text': texts[:len(revisions)], 'model_summary': summaries[:len(revisions)],
+                 args.output_name: revisions, 'time': times})
+            df.to_csv(args.output_path)
+
     df = pd.DataFrame(
-        {'text': texts, 'model_summary': summaries, 'revised_summary_full_text': revisions, 'time': times})
+        {'text': texts, 'model_summary': summaries, args.output_name: revisions, 'time': times})
     df.to_csv(args.output_path)
 
 

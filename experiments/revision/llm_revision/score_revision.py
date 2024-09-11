@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+
 os.chdir('../')
 sys.path.append(os.path.dirname(os.getcwd()))
 os.chdir('../')
@@ -23,6 +24,7 @@ def parse():
     parser.add_argument('-revision_data_dir', type=str)
     parser.add_argument('-should_split_output', action='store_true')
     parser.add_argument('-delimiter', type=str)
+    parser.add_argument('-llama', action='store_true')
     args = parser.parse_args()
     return args
 
@@ -30,7 +32,10 @@ def parse():
 def main():
     args = parse()
     df = pd.read_csv(os.path.join(args.revision_data_dir, args.revision_data_file) + '.csv', index_col=0)
+    df.rename(columns={'revised_summary_full_text': 'revised_summary'}, inplace=True)
     df = df[~df['revised_summary'].isna()]
+    if args.llama:
+        df['revised_summary'] = df['revised_summary'].apply(lambda x: x.split('assistant\n')[-1].strip())
     if args.should_split_output:
         df['revised_summary_full_text'] = df['revised_summary']
         revised_summaries = df['revised_summary'].tolist()
@@ -61,7 +66,7 @@ def main():
     df['rougeL_revised_to_base'] = scores['rougeL']
     # scores = metric.compute(predictions=revised_summaries, references=df['original_summary'].tolist(), use_aggregator=False)
     # df['rougeL_revised_to_original'] = scores['rougeL']
-    df.to_csv(os.path.join(args.revision_data_dir, args.output_path) + '.csv')
+    df.to_csv(os.path.join(args.revision_data_dir, args.output_path+'_temp') + '.csv')
 
 
 if __name__ == "__main__":

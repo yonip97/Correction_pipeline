@@ -31,6 +31,7 @@ def parseargs_llms():
     parser.add_argument('-output_path')
     parser.add_argument('-revision_model_name', type=str, default='mock')
     parser.add_argument('-revision_prompt_path', type=str)
+    parser.add_argument('-past_text_prompt_path', type=str)
 
     parser.add_argument('-API_KEY_revision_model', type=str, default=None)
     parser.add_argument('-temp_dir_path', type=str, default='contingency_tables')
@@ -53,6 +54,12 @@ def parseargs_llms():
     with open(args.revision_prompt_path, 'r') as file:
         args.revision_prompt = file.read()
         args.revision_prompt = args.revision_prompt.strip()
+    if args.past_text_prompt_path is not None:
+        with open(args.past_text_prompt_path, 'r') as file:
+            args.past_text_prompt = file.read()
+            args.past_text_prompt = args.past_text_prompt.strip()
+    else:
+        args.past_text_prompt = ''
     args.temp_dir_path = os.path.join(args.revision_data_dir, args.temp_dir_path)
     if not os.path.exists(args.temp_dir_path):
         os.makedirs(args.temp_dir_path)
@@ -116,6 +123,7 @@ def llm_revision():
     texts, summaries, scores = get_data(args)
     revision_model = chose_revision_model(args)
     revised_summaries, errors, prices = [], [], []
+    print(f"Revising {len(texts)} summaries")
     for text, summary in tqdm(zip(texts, summaries)):
         revised_summary, error, price = revision_model.revise_single(text=text, summary=summary,
                                                                      max_length=args.revision_max_length)
