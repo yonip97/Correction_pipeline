@@ -3,21 +3,21 @@ import os
 import sys
 import time
 
-os.chdir("/data/home/yehonatan-pe/Correction_pipeline")
+os.chdir("/home/yehonatan-pe/Correction_pipeline")
 sys.path.append(os.getcwd())
 
 import gc
 import pandas as pd
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import T5Tokenizer, T5ForConditionalGeneration, AutoTokenizer, AutoModelForCausalLM
 from transformers import Seq2SeqTrainingArguments
 from general.t5_trainer import T5_Trainer, t5_summarize, t5_revise, collate_fn_summarization, t5_summarize_mp_main, \
-    t5_revise_mp_main,collate_fn_summarization_distillation
+    t5_revise_mp_main, collate_fn_summarization_distillation, llama_revise
 import torch.multiprocessing as mp
 import evaluate
 import numpy as np
 from general.fragments_metrics import Fragments
 from experiments.scoring import score
-from general.utils import SummarizationDataset, find_largest_numbered_dir,SummarizationDatasetwithLogits
+from general.utils import SummarizationDataset, find_largest_numbered_dir, SummarizationDatasetwithLogits
 import torch
 import os
 import argparse
@@ -29,6 +29,7 @@ import traceback
 print(os.getcwd())
 
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-train', action='store_true')
@@ -37,7 +38,7 @@ def parse_args():
     parser.add_argument('-num_of_docs', type=int, default=10000)
     parser.add_argument('-summarization_model_checkpoint', type=str)
     parser.add_argument('-revision_model_checkpoint', type=str)
-    parser.add_argument('-revision_prompt', type=str, default='revise: ')
+    parser.add_argument('-revision_prompt_path', type=str, default=None)
     parser.add_argument('-revision_model_device', type=str, default='auto')
     parser.add_argument('-revision_batch_size', type=int, default=1)
     parser.add_argument('-revision_max_generation_length', type=int, default=128)
@@ -59,7 +60,7 @@ def parse_args():
     parser.add_argument('-iterations', type=int, default=1)
     parser.add_argument('-batches_to_save_model', type=int)
     parser.add_argument('-batches_to_test_model', type=int)
-    parser.add_argument('-epochs_to_save_model', type=int,default=1)
+    parser.add_argument('-epochs_to_save_model', type=int, default=1)
     parser.add_argument('-epochs_to_test_model', type=int, default=1)
     parser.add_argument('-need_revision_factuality_threshold', type=float)
     parser.add_argument('-need_revision_density_threshold', type=float)
@@ -86,12 +87,22 @@ def parse_args():
     parser.add_argument('-use_no_revision_needed', action='store_true')
     parser.add_argument('-distillation', action='store_true')
     parser.add_argument('-student_logits', action='store_true')
+    parser.add_argument('-test_seahorse', action='store_true')
+    parser.add_argument('-test_trueteacher', action='store_true')
+    parser.add_argument('-test_metrics_batch_size', type=int, default=1)
     args = parser.parse_args()
     if args.summarization_device == 'all' or args.revision_model_device == 'all':
         torch.multiprocessing.set_start_method('spawn')
+    if args.revision_prompt_path is not None:
+        with open(args.revision_prompt_path, 'r') as file:
+            args.revision_prompt = file.read()
+            args.revision_prompt = args.revision_prompt.strip()
+    else:
+        args.revision_prompt = 'revise: '
     return args
 
-def refine_model_on_revised_summaries(model, tokenizer, set_texts, set_revised_summaries,set_logits, args):
+
+def refine_model_on_revised_summaries(model, tokenizer, set_texts, set_revised_summaries, set_logits, args):
     if args.distillation:
         train_dataset = SummarizationDatasetwithLogits(set_texts, set_revised_summaries, set_logits)
         # if not os.path.exists(args.output_dir + '/train_dataset.pt'):
@@ -114,7 +125,7 @@ def refine_model_on_revised_summaries(model, tokenizer, set_texts, set_revised_s
     trainer = T5_Trainer(collate_fn=collate_fn, model=model, tokenizer=tokenizer, args=train_args,
                          train_dataset=train_dataset,
                          max_length_train=args.summarization_max_encoding_length,
-                         prompt_train=args.summarization_prompt,distillation=args.distillation)
+                         prompt_train=args.summarization_prompt, distillation=args.distillation)
     trainer.train()
     del trainer
     gc.collect()
@@ -123,26 +134,55 @@ def refine_model_on_revised_summaries(model, tokenizer, set_texts, set_revised_s
 
 def revise_model_summaries(texts, summaries, args):
     if args.revision_model_device == 'all':
-        revised_summaries,revised_summaries_logits = t5_revise_mp_main(texts, summaries, args)
+        revised_summaries, revised_summaries_logits = t5_revise_mp_main(texts, summaries,
+                                                                        args.revision_model_checkpoint, args.output_dir,
+                                                                        args.revision_prompt,
+                                                                        args.revision_batch_size,
+                                                                        args.revision_max_generation_length,
+                                                                        args.revision_beam_size,
+                                                                        args.revision_max_encoding_length,
+                                                                        args.revision_length_penalty,
+                                                                        args.revision_model_min_length,
+                                                                        args.distillation)
     else:
-
-        if args.revision_model_device == 'auto' or args.revision_model_device == 'balanced_low_0':
-            model = T5ForConditionalGeneration.from_pretrained(args.revision_model_checkpoint,
-                                                               device_map=args.revision_model_device)
+        if 'llama' in args.revision_model_checkpoint:
+            access_token ="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"
+            model = AutoModelForCausalLM.from_pretrained(args.revision_model_checkpoint, device_map='auto',
+                                                         token=access_token,
+                                                         torch_dtype=torch.bfloat16)
+            tokenizer = AutoTokenizer.from_pretrained(args.revision_model_checkpoint, token=access_token)
             device = "cuda"
+            revised_summaries, revised_summaries_logits =llama_revise(texts, summaries, model, tokenizer,
+                                                                    args.revision_prompt, device,
+                                                                    args.revision_batch_size,
+                                                                    args.revision_max_generation_length,
+                                                                    args.revision_beam_size, True,
+                                                                    args.revision_max_encoding_length,
+                                                                    len_penalty=args.revision_length_penalty,
+                                                                    return_logits=args.distillation)
+
         else:
-            model = T5ForConditionalGeneration.from_pretrained(args.revision_model_checkpoint
-                                                               ).to(args.revision_model_device)
-            device = args.revision_model_device
-        tokenizer = T5Tokenizer.from_pretrained(args.revision_model_checkpoint)
-        revised_summaries,revised_summaries_logits = t5_revise(texts, summaries, model, tokenizer, args.revision_prompt, device,
-                                      args.revision_batch_size,
-                                      args.revision_max_generation_length, args.revision_beam_size, True,
-                                      args.revision_max_encoding_length, len_penalty=args.revision_length_penalty,return_logits=args.distillation)
+            if args.revision_model_device == 'auto' or args.revision_model_device == 'balanced_low_0':
+                model = T5ForConditionalGeneration.from_pretrained(args.revision_model_checkpoint,
+                                                                   device_map=args.revision_model_device)
+                device = "cuda"
+            else:
+                model = T5ForConditionalGeneration.from_pretrained(args.revision_model_checkpoint
+                                                                   ).to(args.revision_model_device)
+                device = args.revision_model_device
+            tokenizer = T5Tokenizer.from_pretrained(args.revision_model_checkpoint)
+            revised_summaries, revised_summaries_logits = t5_revise(texts, summaries, model, tokenizer,
+                                                                    args.revision_prompt, device,
+                                                                    args.revision_batch_size,
+                                                                    args.revision_max_generation_length,
+                                                                    args.revision_beam_size, True,
+                                                                    args.revision_max_encoding_length,
+                                                                    len_penalty=args.revision_length_penalty,
+                                                                    return_logits=args.distillation)
         del model
-    gc.collect()
+        gc.collect()
     torch.cuda.empty_cache()
-    return revised_summaries,revised_summaries_logits
+    return revised_summaries, revised_summaries_logits
 
 
 def process(new_model_summaries_seahorse, new_model_summaries, revised_summaries, texts, original_model_summaries,
@@ -162,7 +202,6 @@ def process(new_model_summaries_seahorse, new_model_summaries, revised_summaries
                                                                   texts=texts)['density']
     revised_summaries_seahorse_scores = None
     indices_of_bad_revisions = []
-    from nltk.tokenize import word_tokenize
     summaries_lengths = [len(word_tokenize(x)) for x in new_model_summaries]
     revised_lengths = [len(word_tokenize(x)) for x in revised_summaries]
     original_summaries_lengths = [len(word_tokenize(x)) for x in original_model_summaries]
@@ -196,36 +235,22 @@ def process(new_model_summaries_seahorse, new_model_summaries, revised_summaries
         good_indices = [i for i in range(len(new_model_summaries)) if i not in indices_of_bad_revisions]
         possible_texts = [texts[i] for i in good_indices]
         possible_summaries = [revised_summaries[i] for i in good_indices]
-        scores = score(possible_texts, possible_summaries, ['seahorse'])['seahorse']
+        scores = score(possible_texts, possible_summaries, ['seahorse'],batch_size=args.test_metrics_batch_size)['seahorse']
         if args.revision_successful_factuality_threshold is not None:
             indices_of_bad_revisions += [good_indices[i] for i in range(len(scores)) if
-                                            scores[i] < args.revision_successful_factuality_threshold]
+                                         scores[i] < args.revision_successful_factuality_threshold]
         if args.revision_successful_factuality_diff is not None:
             indices_of_bad_revisions += [good_indices[i] for i in range(len(scores)) if
-                                         scores[i] - new_model_summaries_seahorse[good_indices[i]] < args.revision_successful_factuality_diff]
+                                         scores[i] - new_model_summaries_seahorse[
+                                             good_indices[i]] < args.revision_successful_factuality_diff]
 
-    # if args.revision_successful_factuality_threshold is not None:
-    #     if revised_summaries_seahorse_scores is None:
-    #         possible_texts = [texts[i] for i in range(len(new_model_summaries)) if i not in indices_of_bad_revisions]
-    #         possible_summaries = [new_model_summaries[i] for i in range(len(new_model_summaries)) if
-    #                               i not in indices_of_bad_revisions]
-    #         revised_summaries_seahorse_scores = score(possible_texts, possible_summaries, ['seahorse'])['seahorse']
-    #     indices_of_bad_revisions += [i for i in range(len(revised_summaries_seahorse_scores)) if
-    #                                  revised_summaries_seahorse_scores[
-    #                                      i] < args.revision_successful_factuality_threshold]
-    # if args.revision_successful_factuality_diff is not None:
-    #     if revised_summaries_seahorse_scores is None:
-    #         revised_summaries_seahorse_scores = score(texts, revised_summaries, ['seahorse'])['seahorse']
-    #     indices_of_bad_revisions += [i for i in range(len(revised_summaries_seahorse_scores)) if
-    #                                  revised_summaries_seahorse_scores[i] - new_model_summaries_seahorse[i] <
-    #                                  args.revision_successful_factuality_diff and i not in indices_of_bad_revisions]
     indices_of_good_revisions = [i for i in range(len(new_model_summaries)) if
                                  i not in indices_of_bad_revisions]
     return indices_of_good_revisions
 
 
 def select_summaries(new_model_summaries, texts, original_model_summaries, args):
-    seahorse_scores = score(texts, new_model_summaries, ['seahorse'])['seahorse']
+    seahorse_scores = score(texts, new_model_summaries, ['seahorse'],batch_size=args.test_metrics_batch_size)['seahorse']
     need_to_revise_indices = []
     if args.need_revision_factuality_threshold is not None:
         need_to_revise_indices += [i for i in range(len(seahorse_scores)) if
@@ -254,32 +279,32 @@ def select_summaries(new_model_summaries, texts, original_model_summaries, args)
 def produce_summaries(model, tokenizer, texts, args):
     print("producing summaries")
     if args.summarization_device == 'all':
-        new_model_summaries,new_model_logits = t5_summarize_mp_main(model, tokenizer, texts, out_dir=args.output_dir,
-                                                   prompt=args.summarization_prompt,
-                                                   batch_size=args.summarization_batch_size,
-                                                   max_generation_length=args.summarization_max_generation_length,
-                                                   beam_size=args.summarization_beam_size,
-                                                   early_stopping=True,
-                                                   length_penalty=args.summarization_length_penalty,
-                                                   max_encoding_length=args.summarization_max_encoding_length,
-                                                   min_generation_length=args.summarization_model_min_length,
-                                                                    student_logits=args.student_logits)
-
-
+        new_model_summaries, new_model_logits = t5_summarize_mp_main(model, tokenizer, texts, out_dir=args.output_dir,
+                                                                     prompt=args.summarization_prompt,
+                                                                     batch_size=args.summarization_batch_size,
+                                                                     max_generation_length=args.summarization_max_generation_length,
+                                                                     beam_size=args.summarization_beam_size,
+                                                                     early_stopping=True,
+                                                                     length_penalty=args.summarization_length_penalty,
+                                                                     max_encoding_length=args.summarization_max_encoding_length,
+                                                                     min_generation_length=args.summarization_model_min_length,
+                                                                     student_logits=args.student_logits)
+        print("num of summaries produced: ", len(new_model_summaries))
     else:
         model.to(args.summarization_device)
-        new_model_summaries,new_model_logits = t5_summarize(texts=texts, model=model, tokenizer=tokenizer,
-                                           prompt=args.summarization_prompt,
-                                           device=args.summarization_device, batch_size=args.summarization_batch_size,
-                                           max_generation_length=args.summarization_max_generation_length,
-                                           beam_size=args.summarization_beam_size,
-                                           length_penalty=args.summarization_length_penalty,
-                                           max_encoding_length=args.summarization_max_encoding_length)
+        new_model_summaries, new_model_logits = t5_summarize(texts=texts, model=model, tokenizer=tokenizer,
+                                                             prompt=args.summarization_prompt,
+                                                             device=args.summarization_device,
+                                                             batch_size=args.summarization_batch_size,
+                                                             max_generation_length=args.summarization_max_generation_length,
+                                                             beam_size=args.summarization_beam_size,
+                                                             length_penalty=args.summarization_length_penalty,
+                                                             max_encoding_length=args.summarization_max_encoding_length)
     new_model_summaries = [str(x) for x in new_model_summaries]
-    return new_model_summaries,new_model_logits
+    return new_model_summaries, new_model_logits
 
 
-def score_and_chose_summaries(texts, new_model_summaries,new_model_summaries_logits, original_model_summaries, args):
+def score_and_chose_summaries(texts, new_model_summaries, new_model_summaries_logits, original_model_summaries, args):
     no_revision_needed_indices, revision_needed_indices, seahorse_scores = select_summaries(new_model_summaries, texts,
                                                                                             original_model_summaries,
                                                                                             args)
@@ -288,12 +313,13 @@ def score_and_chose_summaries(texts, new_model_summaries,new_model_summaries_log
     if args.student_logits:
         no_revision_needed_logits = [new_model_summaries_logits[i] for i in no_revision_needed_indices]
     else:
-        no_revision_needed_logits =[None]*len(no_revision_needed_indices)
+        no_revision_needed_logits = [None] * len(no_revision_needed_indices)
     revision_needed_texts = [texts[i] for i in revision_needed_indices]
     revision_needed_summaries = [new_model_summaries[i] for i in revision_needed_indices]
     revision_needed_seahorse = [seahorse_scores[i] for i in revision_needed_indices]
     revision_need_original_model_summaries = [original_model_summaries[i] for i in revision_needed_indices]
-    revised_summaries,revised_summaries_logits = revise_model_summaries(revision_needed_texts, revision_needed_summaries, args)
+    revised_summaries, revised_summaries_logits = revise_model_summaries(revision_needed_texts,
+                                                                         revision_needed_summaries, args)
     indices_of_successful_revisions = process(new_model_summaries_seahorse=revision_needed_seahorse,
                                               new_model_summaries=revision_needed_summaries,
                                               revised_summaries=revised_summaries, texts=revision_needed_texts,
@@ -322,7 +348,7 @@ def score_and_chose_summaries(texts, new_model_summaries,new_model_summaries_log
         summaries = successfully_revised_summaries
         texts = successfully_revised_summaries_texts
         logits = successfully_revised_summaries_logits
-    return summaries, texts,logits
+    return summaries, texts, logits
 
 
 def load_data(data_path):
@@ -351,7 +377,7 @@ def train(args):
     tokenizer.save_pretrained(args.output_dir + '/latest')
     train_texts = load_data(args.train_data_path)
     train_texts = train_texts[:args.num_of_docs]
-    original_model_summaries,_ = produce_summaries(model=model, tokenizer=tokenizer, texts=train_texts, args=args)
+    original_model_summaries, _ = produce_summaries(model=model, tokenizer=tokenizer, texts=train_texts, args=args)
     from nltk.tokenize import word_tokenize
     print(np.mean([len(word_tokenize(x)) for x in original_model_summaries]))
     if args.save_refinement_inputs:
@@ -370,7 +396,8 @@ def train(args):
             print(f'batch {batch}')
             set_texts = train_texts[i:i + args.set_size]
             original_model_summaries_set = original_model_summaries[i:i + args.set_size]
-            new_summaries,new_model_logits = produce_summaries(model=model, tokenizer=tokenizer, texts=set_texts, args=args)
+            new_summaries, new_model_logits = produce_summaries(model=model, tokenizer=tokenizer, texts=set_texts,
+                                                                args=args)
             if args.save_refinement_inputs:
                 with open(os.path.join(args.output_dir, 'refinement_inputs.json'), 'r') as f:
                     data = json.load(f)
@@ -381,10 +408,12 @@ def train(args):
             del model
             gc.collect()
             torch.cuda.empty_cache()
-            successful_summaries, successful_texts,logits = score_and_chose_summaries(set_texts, new_summaries,new_model_logits,
-                                                                               original_model_summaries_set, args)
+            successful_summaries, successful_texts, logits = score_and_chose_summaries(set_texts, new_summaries,
+                                                                                       new_model_logits,
+                                                                                       original_model_summaries_set,
+                                                                                       args)
             model, tokenizer = load_summarization_model_and_tokenizer(args)
-            refine_model_on_revised_summaries(model, tokenizer, successful_texts, successful_summaries,logits, args)
+            refine_model_on_revised_summaries(model, tokenizer, successful_texts, successful_summaries, logits, args)
             model.save_pretrained(args.output_dir + '/latest')
             tokenizer.save_pretrained(args.output_dir + '/latest')
             if args.batches_to_save_model is not None and (batch + 1) % args.batches_to_save_model == 0:
@@ -428,14 +457,22 @@ def test(args, model=None, tokenizer=None):
     args.summarization_beam_size = args.summarization_beam_size_test
     if model is None:
         model, tokenizer = load_summarization_model_and_tokenizer(args)
-    summaries,_ = produce_summaries(model=model, tokenizer=tokenizer, texts=df['text'].tolist(), args=args)
+    summaries, _ = produce_summaries(model=model, tokenizer=tokenizer, texts=df['text'].tolist(), args=args)
     df['new_model_summary'] = summaries
     del model
     gc.collect()
     torch.cuda.empty_cache()
-    seahorse_scores = score(texts=df['text'].tolist(), summaries=summaries, metrics=['seahorse'])['seahorse']
-    df['new_model_summary_seahorse'] = seahorse_scores
-    from general.fragments_metrics import Fragments
+    if args.test_seahorse:
+        seahorse_scores = score(texts=df['text'].tolist(), summaries=summaries, metrics=['seahorse'],batch_size=args.test_metrics_batch_size)['seahorse']
+        df['new_model_summary_seahorse'] = seahorse_scores
+    else:
+        seahorse_scores = 0
+    if args.test_trueteacher:
+        trueteacher_scores = score(texts=df['text'].tolist(), summaries=summaries, metrics=['trueteacher'],batch_size=args.test_metrics_batch_size)[
+            'trueteacher']
+        df['new_model_summary_trueteacher'] = trueteacher_scores
+    else:
+        trueteacher_scores = 0
     fragments_metric = Fragments()
     fragments_scores = fragments_metric.score(['density', 'coverage'], summaries=summaries, texts=df['text'].tolist())
     df['new_model_summary_density'] = fragments_scores['density']
@@ -448,7 +485,7 @@ def test(args, model=None, tokenizer=None):
     df['new_model_summary_length'] = [len(word_tokenize(x)) for x in summaries]
     if args.wandb:
         wandb.log({'rougeL': np.mean(rouge_scores), 'density': np.mean(fragments_scores['density']),
-                   'coverage': np.mean(fragments_scores['coverage']), 'seahorse': np.mean(seahorse_scores)})
+                   'coverage': np.mean(fragments_scores['coverage']), 'seahorse': np.mean(seahorse_scores),'true_teacher': np.mean(trueteacher_scores)})
     test_output_path = os.path.join(args.output_dir, 'test_results.csv')
     df.to_csv(test_output_path)
     gc.collect()
@@ -486,21 +523,22 @@ def main():
     if args.wandb:
         wandb.finish()
 
+
 def only_refine():
     args = parse_args()
     args.output_dir = os.path.join(args.output_dir, str(32))
-    model,tokenizer = load_summarization_model_and_tokenizer(args)
+    model, tokenizer = load_summarization_model_and_tokenizer(args)
     dataset = torch.load(args.output_dir + '/train_dataset.pt')
     successful_texts = dataset.texts
     successful_summaries = dataset.summaries
     logits = dataset.logits
     refine_model_on_revised_summaries(model, tokenizer, successful_texts, successful_summaries, logits, args)
-    args.output_dir = os.path.join(args.output_dir, f'iter_0_refinement_epochs_{args.refinement_epochs}_lr_{args.refinement_lr}')
+    args.output_dir = os.path.join(args.output_dir,
+                                   f'iter_0_refinement_epochs_{args.refinement_epochs}_lr_{args.refinement_lr}')
     os.makedirs(args.output_dir)
     test(args, model, tokenizer)
 
 
 if __name__ == '__main__':
-    #only_refine()
+    # only_refine()
     main()
-
