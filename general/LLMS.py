@@ -25,7 +25,7 @@ class LLM_model():
                 api_key=API_KEY,
                 api_version='2023-09-01-preview',
                 azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/')
-        if groq:
+        elif groq:
             self.client = Groq(api_key=API_KEY)
         else:
             self.client = OpenAI(api_key=API_KEY)
@@ -82,12 +82,12 @@ class LLM_model():
             print(f"Error occurred: {e}")
             self.logger.write(f"Error occurred: {e}")
             self.open_ai_errors += 1
-            return None, f"{e}"
+            return None, f"{e}",0
         except Exception as e:
             self.other_errors += 1
             self.logger.write(f"Error occurred: {e}")
             print(f"Error in output occurred: {e}")
-            return None, f"{e}"
+            return None, f"{e}",0
 
 
 class Summarization_correction_model(LLM_model):
