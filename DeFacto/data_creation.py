@@ -83,14 +83,30 @@ def create_subsets():
     df.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/all_data.csv")
     df_with_errors.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/summaries_with_errors.csv")
     df_without_errors.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/summaries_without_errors.csv")
-    for x in [30, 50, 100]:
+    for x in [4,30, 50, 100]:
         df_with_errors_sample = df_with_errors.iloc[:x]
         df_with_errors_sample.to_csv(
             f"/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/summaries_with_errors_{x}.csv")
 
-
+def merge_train_and_val_with_errors_for_training():
+    train = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/train_with_errors_for_training.csv", index_col=0)
+    val = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/val_with_errors_for_training.csv", index_col=0)
+    train_val = pd.concat([train, val])
+    train_val.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/train_val_with_errors_for_training.csv")
+def each_set_for_training():
+    for name in ['train', 'val', 'test']:
+        df = pd.read_csv(f"/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/{name}_scores.csv", index_col=0)
+        df_with_errors = df[df['error_in_model_summary'] == True]
+        rel_cols = ['text', 'model_summary', 'instruction', 'explanation', 'revised_summary']
+        df_with_errors = df_with_errors[rel_cols]
+        if name =='test':
+            df_with_errors.rename(columns={'revised_summary': 'gt_revised_summary'}, inplace=True)
+        df_with_errors.to_csv(f"/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/{name}_with_errors_for_training.csv")
 def main():
-    create_and_score_datasets()
+    # create_and_score_datasets()
     create_subsets()
+    # each_set_for_training()
+    # merge_train_and_val_with_errors_for_training()
+
 if __name__ == "__main__":
     main()

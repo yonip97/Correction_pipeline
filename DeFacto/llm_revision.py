@@ -36,6 +36,8 @@ def parseargs_llms():
     parser.add_argument('-azure', action='store_true')
     parser.add_argument('-groq', action='store_true')
     parser.add_argument('-revision_max_length', type=int, default=1000)
+    parser.add_argument('-instructions', action='store_true')
+    parser.add_argument('-output', type=str, default='revised_summary')
     args = parser.parse_args()
     with open(args.revision_prompt_path, 'r') as file:
         args.revision_prompt = file.read()
@@ -69,15 +71,21 @@ def llm_revision():
     texts, summaries, instructions = get_data(args)
     revision_model = chose_revision_model(args)
     revised_summaries, errors, prices = [], [], []
-    for text, summary in tqdm(zip(texts, summaries)):
-        revised_summary, error, price = revision_model.revise_single(text=text, summary=summary,
-                                                                     max_length=args.revision_max_length
-                                                                     )
+    for text, summary, instruction in tqdm(zip(texts, summaries, instructions)):
+        if args.instructions:
+            revised_summary, error, price = revision_model.revise_single(text=text, summary=summary,
+                                                                         instructions=instruction,
+                                                                         max_length=args.revision_max_length
+                                                                         )
+        else:
+            revised_summary, error, price = revision_model.revise_single(text=text, summary=summary,
+                                                                         max_length=args.revision_max_length
+                                                                         )
         revised_summaries.append(revised_summary)
         errors.append(error)
         prices.append(price)
     pd.DataFrame.from_dict(
-        {'text': texts, 'model_summary': summaries, 'revised_summary': revised_summaries,
+        {'text': texts, 'model_summary': summaries, args.output: revised_summaries,
          'error': errors, 'price': prices}).to_csv(
         args.output_path + '.csv')
     print(f"Generation cost was {sum(prices)}")
