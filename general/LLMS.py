@@ -13,7 +13,7 @@ from groq import Groq
 
 class LLM_model():
     def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, azure=False,
-                 input_price=0, output_price=0, groq=False,**kwargs):
+                 input_price=0, output_price=0, groq=False, **kwargs):
         if prompt is None:
             raise ValueError("prompt can't be None")
         self.past_text_prompt = past_text_prompt
@@ -37,7 +37,8 @@ class LLM_model():
             self.estimation_tokenizer = tiktoken.encoding_for_model('gpt-4')
         elif 'llama-3.1' in model:
             from transformers import AutoTokenizer
-            self.estimation_tokenizer = AutoTokenizer.from_pretrained('meta-llama/Meta-Llama-3.1-70B',token = "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")
+            self.estimation_tokenizer = AutoTokenizer.from_pretrained('meta-llama/Meta-Llama-3.1-70B',
+                                                                      token="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")
         else:
             raise ValueError(f"model {model} not supported")
         self.open_ai_errors = 0
@@ -68,10 +69,10 @@ class LLM_model():
                 price = input_tokens / 1000 * self.input_price + output_tokens / 1000 * self.output_price
                 return response.choices[0].message.content, None, price
             if 'llama' in self.model:
-                #message = {"role": "user", "content": input}
+                # message = {"role": "user", "content": input}
                 response = self.client.chat.completions.create(model=self.model,
                                                                messages=message, max_tokens=max_length,
-                                                                                            ** kwargs)
+                                                               **kwargs)
                 input_tokens = response.usage.prompt_tokens
                 output_tokens = response.usage.completion_tokens
                 price = input_tokens / 1000 * self.input_price + output_tokens / 1000 * self.output_price
@@ -82,12 +83,12 @@ class LLM_model():
             print(f"Error occurred: {e}")
             self.logger.write(f"Error occurred: {e}")
             self.open_ai_errors += 1
-            return None, f"{e}",0
+            return None, f"{e}", 0
         except Exception as e:
             self.other_errors += 1
             self.logger.write(f"Error occurred: {e}")
             print(f"Error in output occurred: {e}")
-            return None, f"{e}",0
+            return None, f"{e}", 0
 
 
 class Summarization_correction_model(LLM_model):
@@ -110,6 +111,23 @@ class Summarization_correction_model(LLM_model):
         revised_summary, error, price = self.call_llm(text_for_revision, max_length=max_length, **kwargs)
         self.csv_writer.writerow([text, summary, revised_summary, error, price])
         return revised_summary, error, price
+
+
+class LLM_as_a_judge(LLM_model):
+    def __init__(self, temp_save_dir, prompt, past_text_prompt='', model='gpt-3.5-turbo', API_KEY=None, input_price=0,
+                 output_price=0, **kwargs):
+        super(LLM_as_a_judge, self).__init__(temp_save_dir, prompt, past_text_prompt, model, API_KEY,
+                                             input_price=input_price, output_price=output_price,
+                                             **kwargs)
+        f = open(temp_save_dir + '/' + 'temp_results_llm_as_a_judge.csv', 'w')
+        self.csv_writer = csv.writer(f)
+        self.csv_writer.writerow(['text', 'summary', 'model_output', 'error'])
+
+    def call(self, text, summary, max_length=None, **kwargs):
+        input = 'Document: \n' + text + '\n' + 'Summary: \n' + summary
+        output, error, price = self.call_llm(input, max_length=max_length, **kwargs)
+        self.csv_writer.writerow([text, summary, output, error])
+        return output, error, price
 
 
 class LLMFactualityClassifier(LLM_model):

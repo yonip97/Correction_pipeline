@@ -103,7 +103,7 @@ def each_set_for_training():
             df_with_errors.rename(columns={'revised_summary': 'gt_revised_summary'}, inplace=True)
         df_with_errors.to_csv(f"/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/{name}_with_errors_for_training.csv")
 def main():
-    # create_and_score_datasets()
+    create_and_score_datasets()
     create_subsets()
     # each_set_for_training()
     # merge_train_and_val_with_errors_for_training()
