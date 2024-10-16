@@ -157,10 +157,22 @@ def extract_mistakes_via_diff(df):
 
 df = create_initial_data()
 df = filter_based_on_instructions(df)
-df = extract_information_from_instructions(df)
-df = extract_mistakes_via_diff(df)
-df['sample_index'] = df.index
-df = df.explode('mistakes_from_instructions').reset_index(drop=True)
-c = 1
+import evaluate
+rouge_metric = evaluate.load('rouge')
+scores = rouge_metric.compute(predictions=df['revised_summary'].tolist(), references=df['model_summary'].tolist(),use_aggregator=False)
+import matplotlib.pyplot as plt
+plt.hist(scores['rougeL'], bins=20)
+plt.show()
+import numpy as np
+prev= 0
+for x in np.linspace(0.05,1.05,21):
+    count = sum([1 for score in scores['rougeL'] if score >= prev and score < x])
+    print(f"Amount of scores between {prev} and {x}: {count}")
+    prev = x
+# df = extract_information_from_instructions(df)
+# df = extract_mistakes_via_diff(df)
+# df['sample_index'] = df.index
+# df = df.explode('mistakes_from_instructions').reset_index(drop=True)
+# c = 1
 #df.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/data/initial_data_for_annotation.csv")
 
