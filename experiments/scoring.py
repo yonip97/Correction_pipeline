@@ -7,6 +7,8 @@ import gc
 
 def score(texts, summaries, metrics, device='auto', torch_dtype=torch.float16, batch_size=1):
     results = {}
+    gc.collect()
+    torch.cuda.empty_cache()
     for metric in metrics:
         if 'seahorse' in metric:
             factuality_metric = Seahorse_metrics(model_path='google/seahorse-xxl-q4',
