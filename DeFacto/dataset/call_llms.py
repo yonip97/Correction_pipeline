@@ -27,7 +27,7 @@ def create_backup(temp_save_dir, model):
 
 def calc_price(input_tokens, output_tokens, input_price, output_price):
     price = input_tokens * input_price + output_tokens * output_price
-    return price
+    return price / 10 ** 6
 
 
 class GeminiCaller:
@@ -118,7 +118,7 @@ class OpenAICaller:
 
 
 class WatsonCaller:
-    def __init__(self, model, iam_token, temp_save_dir,hf_token, project_id="705f3faa-4919-4c89-94e1-0087cf669b5c",
+    def __init__(self, model, iam_token, temp_save_dir, hf_token, project_id="705f3faa-4919-4c89-94e1-0087cf669b5c",
                  input_price=0, output_price=0):
         self.model = ModelInference(
             model_id=model,
@@ -179,15 +179,6 @@ class AnthropicCaller:
 
 class ModelCaller:
     def __init__(self, model_id, device_map, hf_token, torch_dtype):
-        # self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map=device_map, token=access_token,
-        #                                                   torch_dtype=torch_dtype)
-        # self.model.eval()
-        # self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=access_token)
-        # terminators = [
-        #     self.tokenizer.eos_token_id,
-        #     self.tokenizer.convert_tokens_to_ids("<|eot_id|>")
-        # ]
-        # self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         self.pipeline = pipeline(
             "text-generation",
             model=model_id,

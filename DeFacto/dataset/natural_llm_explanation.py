@@ -15,7 +15,7 @@ def parse_args():
     args.add_argument('-device_map', type=str)
     args.add_argument('-dtype', type=str)
     args.add_argument('-data_path', type=str)
-    args.add_argument('-num_of_samples', type=int, default=100)
+    args.add_argument('-num_of_samples', type=int)
     args.add_argument('-api_key', type=str)
     args.add_argument('-watson', action='store_true')
     args.add_argument('-azure', action='store_true')
@@ -25,7 +25,7 @@ def parse_args():
     args.add_argument('-project_id', type=str)
     args = args.parse_args()
     dtype_map = {'float16': torch.float16, 'float32': torch.float32, 'bfloat16': torch.bfloat16}
-    model_price_map = {'gpt-4-o': {'input': 2.5, 'output': 10},
+    model_price_map = {'gpt-4o': {'input': 2.5, 'output': 10},
                        'claude-3-5-sonnet-20241022': {'input': 3, 'output': 15},
                        'gemini-1.5-pro': {'input': 1.5, 'output': 5},
                        "llama-3-1-70b-instruct": {'input': 1.8, 'output': 1.8},
@@ -33,7 +33,8 @@ def parse_args():
     if args.model in model_price_map:
         args.input_price = model_price_map[args.model]['input']
         args.output_price = model_price_map[args.model]['output']
-    args.torch_dtype = dtype_map[args.dtype]
+    if args.dtype in dtype_map:
+        args.torch_dtype = dtype_map[args.dtype]
     if args.prompt_path is not None:
         with open(args.prompt_path, 'r') as file:
             args.prompt = file.read()
@@ -53,7 +54,8 @@ def get_data(args):
     df = pd.read_csv(args.data_path)
     df = df[['text', 'model_summary']]
     df.drop_duplicates(inplace=True)
-    df = df[:args.num_of_samples]
+    if args.num_of_samples is not None:
+        df = df[:args.num_of_samples]
     texts = df['text'].tolist()
     summaries = df['model_summary'].tolist()
     return texts, summaries
@@ -82,21 +84,37 @@ def chose_model(args):
 def main():
     args = parse_args()
     model = chose_model(args)
-    # model = ModelCaller(model_id=args.model, device_map=args.device_map,
-    #                     hf_token="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",
-    #                     torch_dtype=args.dtype)
     texts, summaries = get_data(args)
     outputs = []
+    errors = []
+    prices = []
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
-
     for text, summary in tqdm(zip(texts, summaries)):
         input = prompt + '\n' 'Text: ' + text + '\n' + 'Summary: ' + summary + '\n' + past_text_prompt + '\n'
-        output, _, _ = model.call(input, args.max_new_tokens)
+        output, error, price = model.call(input, args.max_new_tokens)
         outputs.append(output)
-    df = pd.DataFrame({'text': texts, 'model_summary': summaries, 'output': outputs})
+        errors.append(error)
+        prices.append(price)
+    df = pd.DataFrame({'text': texts, 'model_summary': summaries, 'output': outputs, 'error': errors, 'price': prices})
     df.to_csv(args.output_path)
+def read_results():
+    df = pd.read_csv("data/2_possible_annotation_almost_final_dataset.csv")
+    group_df = df.groupby(['text','model_summary'])['minimal text span'].apply(list)
+    df = df[['text','model_summary']]
+    df.drop_duplicates(inplace=True)
+    df = df.merge(group_df, on=['text', 'model_summary'], how='left')
+    df = df[['text', 'model_summary', 'minimal text span']]
+    df2 = pd.read_csv('data/natural_explanation/prompt1/results_gpt_4o_100.csv')
+    for i in range(100):
+        print(df['text'][i])
+        print(df['model_summary'][i])
+        print(df['minimal text span'][i])
+        print(df2['output'][i])
+        print('-----------------------------------')
+
 
 
 if __name__ == '__main__':
     main()
+    #read_results()
