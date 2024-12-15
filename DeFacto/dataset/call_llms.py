@@ -76,14 +76,19 @@ class OpenAICaller:
         if azure:
             self.client = AzureOpenAI(
                 api_key=api_key,
-                api_version='2023-09-01-preview',
-                azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/')
+                api_version='2024-02-01',
+                azure_endpoint='https://researchopenai2023eastus2.openai.azure.com/',
+            )
         else:
             self.client = OpenAI(api_key=api_key)
         self.api_rules_error = 0
         self.other_errors = 0
-        self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["output", "error", "price"])
+        if temp_save_dir is not None:
+            self.logger, self.backup = create_backup(temp_save_dir, model)
+            self.backup.writerow(["output", "error", "price"])
+        else:
+            self.logger = None
+            self.backup = None
         self.input_price = input_price
         self.output_price = output_price
 
@@ -101,19 +106,22 @@ class OpenAICaller:
 
             price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
                                self.input_price, self.output_price)
-            self.backup.writerow([response.choices[0].message.content, None, price])
+            if self.backup is not None:
+                self.backup.writerow([response.choices[0].message.content, None, price])
             return response.choices[0].message.content, None, price
         except openai.OpenAIError as e:
             print(f"Error occurred: {e}")
-            self.logger.write(f"Error occurred: {e}")
+            if self.logger is not None:
+                self.logger.write(f"Error occurred: {e}")
+                self.backup.writerow([None, f"{e}", 0])
             self.api_rules_error += 1
-            self.backup.writerow([None, f"{e}", 0])
             return None, f"{e}", 0
         except Exception as e:
-            self.other_errors += 1
-            self.logger.write(f"Error occurred: {e}")
             print(f"Error in output occurred: {e}")
-            self.backup.writerow([None, f"{e}", 0])
+            self.other_errors += 1
+            if self.logger is not None:
+                self.logger.write(f"Error occurred: {e}")
+                self.backup.writerow([None, f"{e}", 0])
             return None, f"{e}", 0
 
 
