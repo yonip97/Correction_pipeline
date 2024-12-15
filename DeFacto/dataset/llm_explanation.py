@@ -3,6 +3,8 @@ import torch
 import argparse
 import pandas as pd
 from tqdm import tqdm
+from scipy.optimize import linear_sum_assignment
+from constants import MODEL_PRICE_MAP as model_price_map, DTYPE_MAP as dtype_map
 
 
 def parse_args():
@@ -23,20 +25,15 @@ def parse_args():
     args.add_argument('-iam_token', type=str)
     args.add_argument('-hf_token', type=str)
     args.add_argument('-project_id', type=str)
+    args.add_argument('-sample_id', type=int)
     args = args.parse_args()
-    dtype_map = {'float16': torch.float16, 'float32': torch.float32, 'bfloat16': torch.bfloat16}
-    model_price_map = {'gpt-4o': {'input': 2.5, 'output': 10},
-                       'claude-3-5-sonnet-20241022': {'input': 3, 'output': 15},
-                       'gemini-1.5-pro': {'input': 1.5, 'output': 5},
-                       "llama-3-1-70b-instruct": {'input': 1.8, 'output': 1.8},
-                       'llama-3-405b-instruct': {'input': 5, 'output': 16}}
     if args.model in model_price_map:
         args.input_price = model_price_map[args.model]['input']
         args.output_price = model_price_map[args.model]['output']
     if args.dtype in dtype_map:
         args.torch_dtype = dtype_map[args.dtype]
     if args.prompt_path is not None:
-        with open(args.prompt_path, 'r') as file:
+        with open(args.prompt_path, 'r', encoding='windows-1252') as file:
             args.prompt = file.read()
             args.prompt = args.prompt.strip()
     else:
@@ -61,24 +58,30 @@ def get_data(args):
     return texts, summaries
 
 
+def get_sample(args):
+    texts, summaries = get_data(args)
+    text = texts[args.sample_id]
+    summary = summaries[args.sample_id]
+    return text, summary
+
+
 def chose_model(args):
     if 'gpt' in args.model:
-        return OpenAICaller(model=args.model, api_key=args.api_key, azure=args.azure, temp_save_dir=args.temp_save_dir,
+        return OpenAICaller(model=args.model, azure=args.azure, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price, output_price=args.output_price)
     elif 'gemini' in args.model:
-        return GeminiCaller(model=args.model, temp_save_dir=args.temp_save_dir, api_key=args.api_key,
+        return GeminiCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price,
                             output_price=args.output_price)
     elif 'claude' in args.model:
-        return AnthropicCaller(model=args.model, temp_save_dir=args.temp_save_dir, api_key=args.api_key,
+        return AnthropicCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                                input_price=args.input_price, output_price=args.output_price)
     elif args.watson:
-        return WatsonCaller(model=args.model, temp_save_dir=args.temp_save_dir, iam_token=args.iam_token,
-                            hf_token=args.hf_token, project_id=args.project_id,
+        return WatsonCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price, output_price=args.output_price)
     else:
         return ModelCaller(model_id=args.model, device_map=args.device_map,
-                           hf_token=args.hf_token, torch_dtype=args.dtype)
+                           torch_dtype=args.dtype)
 
 
 def main():
@@ -88,33 +91,37 @@ def main():
     outputs = []
     errors = []
     prices = []
+    inputs = []
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
     for text, summary in tqdm(zip(texts, summaries)):
-        input = prompt + '\n' 'Text: ' + text + '\n' + 'Summary: ' + summary + '\n' + past_text_prompt + '\n'
+        input = prompt + '\n\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
+        inputs.append(input)
         output, error, price = model.call(input, args.max_new_tokens)
         outputs.append(output)
         errors.append(error)
         prices.append(price)
-    df = pd.DataFrame({'text': texts, 'model_summary': summaries, 'output': outputs, 'error': errors, 'price': prices})
+    df = pd.DataFrame({'text': texts, 'model_summary': summaries, 'input': inputs, 'output': outputs, 'error': errors,
+                       'price': prices})
     df.to_csv(args.output_path)
-def read_results():
-    df = pd.read_csv("data/2_possible_annotation_almost_final_dataset.csv")
-    group_df = df.groupby(['text','model_summary'])['minimal text span'].apply(list)
-    df = df[['text','model_summary']]
-    df.drop_duplicates(inplace=True)
-    df = df.merge(group_df, on=['text', 'model_summary'], how='left')
-    df = df[['text', 'model_summary', 'minimal text span']]
-    df2 = pd.read_csv('data/natural_explanation/prompt1/results_gpt_4o_100.csv')
-    for i in range(100):
-        print(df['text'][i])
-        print(df['model_summary'][i])
-        print(df['minimal text span'][i])
-        print(df2['output'][i])
-        print('-----------------------------------')
 
+
+
+
+
+def send_sample():
+    args = parse_args()
+    model = chose_model(args)
+    text, summary = get_sample(args)
+    prompt = args.prompt
+    past_text_prompt = args.past_text_prompt
+    input = prompt + '\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
+    output, error, price = model.call(input, args.max_new_tokens)
+    print(output)
+    print(price)
 
 
 if __name__ == '__main__':
     main()
-    #read_results()
+    # send_sample()
+
