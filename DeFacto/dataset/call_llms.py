@@ -7,7 +7,8 @@ import anthropic
 from ibm_watsonx_ai.foundation_models import ModelInference
 import csv
 from transformers import AutoTokenizer, pipeline
-
+from dotenv import load_dotenv
+load_dotenv("/data/home/yehonatan-pe/Correction_pipeline/credentials.env")
 
 def create_backup(temp_save_dir, model):
     temp_save_dir = os.path.join(temp_save_dir, model)
@@ -31,8 +32,9 @@ def calc_price(input_tokens, output_tokens, input_price, output_price):
 
 
 class GeminiCaller:
-    def __init__(self, model, api_key, temp_save_dir, input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
         self.model = genai.GenerativeModel(model)
+        api_key = os.getenv('GENAI_API_KEY')
         genai.configure(api_key=api_key)
         self.api_rules_error = 0
         self.other_errors = 0
@@ -69,10 +71,10 @@ class GeminiCaller:
 
 
 class OpenAICaller:
-    def __init__(self, model, api_key, temp_save_dir, azure=False,
-                 input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, azure=False,input_price=0, output_price=0):
         self.model = model
         print(f"model: {model}")
+        api_key = os.getenv('OPENAI_API_KEY')
         if azure:
             self.client = AzureOpenAI(
                 api_key=api_key,
@@ -126,12 +128,14 @@ class OpenAICaller:
 
 
 class WatsonCaller:
-    def __init__(self, model, iam_token, temp_save_dir, hf_token, project_id="705f3faa-4919-4c89-94e1-0087cf669b5c",
-                 input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir,input_price=0, output_price=0):
+        api_key = os.getenv('WATSON_API_KEY')
+        project_id = os.getenv('WATSON_PROJECT_ID')
+        hf_token = os.getenv('HF_TOKEN')
         self.model = ModelInference(
             model_id=model,
             credentials={
-                "apikey": iam_token,
+                "apikey": api_key,
                 "url": "https://eu-de.ml.cloud.ibm.com"
             },
             project_id=project_id
@@ -161,7 +165,8 @@ class WatsonCaller:
 
 
 class AnthropicCaller:
-    def __init__(self, model, temp_save_dir, api_key, input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
+        api_key = os.getenv('ANTHROPIC_API_KEY')
         self.client = anthropic.Anthropic(api_key=api_key)
         self.api_rules_error = 0
         self.other_errors = 0
@@ -186,7 +191,8 @@ class AnthropicCaller:
 
 
 class ModelCaller:
-    def __init__(self, model_id, device_map, hf_token, torch_dtype):
+    def __init__(self, model_id, device_map, torch_dtype):
+        hf_token = os.getenv('HF_TOKEN')
         self.pipeline = pipeline(
             "text-generation",
             model=model_id,
