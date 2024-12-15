@@ -73,27 +73,23 @@ def get_llm_outputs(args):
     return outputs
 
 
-
-
-
 def chose_model(args):
     if 'gpt' in args.model:
-        return OpenAICaller(model=args.model, api_key=args.api_key, azure=args.azure, temp_save_dir=args.temp_save_dir,
+        return OpenAICaller(model=args.model, azure=args.azure, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price, output_price=args.output_price)
     elif 'gemini' in args.model:
-        return GeminiCaller(model=args.model, temp_save_dir=args.temp_save_dir, api_key=args.api_key,
+        return GeminiCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price,
                             output_price=args.output_price)
     elif 'claude' in args.model:
-        return AnthropicCaller(model=args.model, temp_save_dir=args.temp_save_dir, api_key=args.api_key,
+        return AnthropicCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                                input_price=args.input_price, output_price=args.output_price)
     elif args.watson:
-        return WatsonCaller(model=args.model, temp_save_dir=args.temp_save_dir, iam_token=args.iam_token,
-                            hf_token=args.hf_token, project_id=args.project_id,
+        return WatsonCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price, output_price=args.output_price)
     else:
         return ModelCaller(model_id=args.model, device_map=args.device_map,
-                           hf_token=args.hf_token, torch_dtype=args.dtype)
+                           torch_dtype=args.dtype)
 
 
 def main():
