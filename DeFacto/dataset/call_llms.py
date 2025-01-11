@@ -1,14 +1,18 @@
 import google.generativeai as genai
+from google.generativeai.types import GenerationConfig
 from openai import AzureOpenAI, OpenAI
 import openai
 import os
 import time
 import anthropic
 from ibm_watsonx_ai.foundation_models import ModelInference
+from llamaapi import LlamaAPI
 import csv
 from transformers import AutoTokenizer, pipeline
 from dotenv import load_dotenv
+
 load_dotenv("/data/home/yehonatan-pe/Correction_pipeline/credentials.env")
+
 
 def create_backup(temp_save_dir, model):
     temp_save_dir = os.path.join(temp_save_dir, model)
@@ -43,7 +47,9 @@ class GeminiCaller:
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, gen_config, input):
+    def call(self, input, max_new_tokens):
+        gen_config = GenerationConfig(max_output_tokens=max_new_tokens, temperature=0)
+        # gen_config = {'max_new_tokens': max_new_tokens, 'temperature': 0}
         try:
             response = self.model.generate_content(input, generation_config=gen_config)
             if len(response.candidates) == 0:
@@ -52,8 +58,8 @@ class GeminiCaller:
                     f"Error occurred, the input was blocked because of {response.prompt_feedback.block_reason.name}")
                 self.backup.writerow([None, "Blocked", response.prompt_feedback.block_reason.name, 0])
                 return None, response.prompt_feedback.block_reason.name, 0
-            price = calc_price(response.usage_metadata['prompt_token_count'],
-                               response.usage_metadata['candidates_token_count'],
+            price = calc_price(response.usage_metadata.prompt_token_count,
+                               response.usage_metadata.candidates_token_count,
                                self.input_price, self.output_price)
             if response.candidates[0].finish_reason.name != 'STOP' and \
                     response.candidates[0].finish_reason.name != 'MAX_TOKENS':
@@ -71,7 +77,7 @@ class GeminiCaller:
 
 
 class OpenAICaller:
-    def __init__(self, model, temp_save_dir, azure=False,input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, azure=False, input_price=0, output_price=0):
         self.model = model
         print(f"model: {model}")
         api_key = os.getenv('OPENAI_API_KEY')
@@ -128,7 +134,7 @@ class OpenAICaller:
 
 
 class WatsonCaller:
-    def __init__(self, model, temp_save_dir,input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
         api_key = os.getenv('WATSON_API_KEY')
         project_id = os.getenv('WATSON_PROJECT_ID')
         hf_token = os.getenv('HF_TOKEN')
@@ -164,6 +170,63 @@ class WatsonCaller:
         return results['generated_text'], None, price
 
 
+class LlamaApiCaller:
+    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
+        api_key = os.getenv('LLAMA_API_KEY')
+        hf_token = os.getenv('HF_TOKEN')
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.llama-api.com"
+        )
+        if '405' in model:
+
+            self.tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-405B-Instruct" ,token = hf_token)
+        elif '70' in model:
+            self.tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-70B-Instruct" ,token = hf_token)
+        else:
+            raise ValueError(f"Model {model} is not supported")
+        self.model = model.lower()
+        self.api_rules_error = 0
+        self.other_errors = 0
+        self.logger, self.backup = create_backup(temp_save_dir, model)
+        self.backup.writerow(["output", "error", "price"])
+        self.input_price = input_price
+        self.output_price = output_price
+
+    def call(self, input, max_new_tokens):
+        # request = { "model": self.model,
+        #     "messages": [
+        # {"role": "user", "content": input},
+        #         ]
+        #
+        # }
+        message = [{
+            "role": "user",
+            "content": input,
+        }]
+        # message = self.tokenizer.apply_chat_template(
+        #     [[{
+        #         "role": "user",
+        #         "content": input,
+        #     }]],
+        #     add_generation_prompt=True, tokenize=False
+        # )
+        # message = [{
+        #     "role": "user",
+        #     "content": message[0],
+        # }]
+        response = self.client.chat.completions.create(model=self.model,
+                                                       messages=message,
+                                                       max_tokens=max_new_tokens, temperature=0)
+        price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
+                           self.input_price, self.output_price)
+        # response = response.json()
+        # usage = response['usage']
+        # price = calc_price(usage['prompt_tokens'], usage['completion_tokens'], self.input_price, self.output_price)
+        # output = response['choices'][0]['message']['content']
+        return response.choices[0].message.content, None, price
+
+
 class AnthropicCaller:
     def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
         api_key = os.getenv('ANTHROPIC_API_KEY')
@@ -177,17 +240,14 @@ class AnthropicCaller:
 
     def call(self, input, max_new_tokens):
         # TODO: complete logger and exceptions handling
-        message = {"role": "user", "content": [{
-            "type": "text",
-            "text": input
-        }]}
+        message = {"role": "user", "content": input}
         message = self.client.messages.create(
             model=self.model,
             max_tokens=max_new_tokens,
             temperature=0,
             messages=[message]
         )
-        return message['content'], None, 0
+        return message.content[0].text, None, 0
 
 
 class ModelCaller:
