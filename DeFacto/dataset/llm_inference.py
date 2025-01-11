@@ -1,10 +1,9 @@
-from call_llms import ModelCaller, OpenAICaller, AnthropicCaller, WatsonCaller, GeminiCaller
-import torch
+from call_llms import ModelCaller, OpenAICaller, AnthropicCaller, LlamaApiCaller, GeminiCaller
 import argparse
 import pandas as pd
 from tqdm import tqdm
-from scipy.optimize import linear_sum_assignment
 from constants import MODEL_PRICE_MAP as model_price_map, DTYPE_MAP as dtype_map
+import os
 
 
 def parse_args():
@@ -19,17 +18,20 @@ def parse_args():
     args.add_argument('-data_path', type=str)
     args.add_argument('-num_of_samples', type=int)
     args.add_argument('-api_key', type=str)
-    args.add_argument('-watson', action='store_true')
+    args.add_argument('-llamaapi', action='store_true')
     args.add_argument('-azure', action='store_true')
-    args.add_argument('-temp_save_dir', type=str)
-    args.add_argument('-iam_token', type=str)
-    args.add_argument('-hf_token', type=str)
-    args.add_argument('-project_id', type=str)
+    # args.add_argument('-temp_save_dir', type=str)
+    # args.add_argument('-iam_token', type=str)
+    # args.add_argument('-hf_token', type=str)
+    # args.add_argument('-project_id', type=str)
     args.add_argument('-sample_id', type=int)
     args = args.parse_args()
     if args.model in model_price_map:
         args.input_price = model_price_map[args.model]['input']
         args.output_price = model_price_map[args.model]['output']
+    else:
+        args.input_price = 0
+        args.output_price = 0
     if args.dtype in dtype_map:
         args.torch_dtype = dtype_map[args.dtype]
     if args.prompt_path is not None:
@@ -39,11 +41,15 @@ def parse_args():
     else:
         args.prompt = ''
     if args.past_text_prompt_path is not None:
-        with open(args.past_text_prompt_path, 'r') as file:
+        with open(args.past_text_prompt_path, 'r', encoding='windows-1252') as file:
             args.past_text_prompt = file.read()
             args.past_text_prompt = args.past_text_prompt.strip()
     else:
         args.past_text_prompt = ''
+    if args.output_path is not None:
+        args.temp_save_dir = os.path.dirname(args.output_path)
+    else:
+        args.temp_save_dir = None
     return args
 
 
@@ -76,8 +82,8 @@ def chose_model(args):
     elif 'claude' in args.model:
         return AnthropicCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                                input_price=args.input_price, output_price=args.output_price)
-    elif args.watson:
-        return WatsonCaller(model=args.model, temp_save_dir=args.temp_save_dir,
+    elif args.llamaapi:
+        return LlamaApiCaller(model=args.model, temp_save_dir=args.temp_save_dir,
                             input_price=args.input_price, output_price=args.output_price)
     else:
         return ModelCaller(model_id=args.model, device_map=args.device_map,
@@ -106,16 +112,13 @@ def main():
     df.to_csv(args.output_path)
 
 
-
-
-
 def send_sample():
     args = parse_args()
     model = chose_model(args)
     text, summary = get_sample(args)
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
-    input = prompt + '\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
+    input = prompt + '\n\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
     output, error, price = model.call(input, args.max_new_tokens)
     print(output)
     print(price)
@@ -123,5 +126,4 @@ def send_sample():
 
 if __name__ == '__main__':
     main()
-    # send_sample()
-
+    #send_sample()
