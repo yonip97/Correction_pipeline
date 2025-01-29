@@ -1,0 +1,4362 @@
+[
+    {
+        "entry": 1,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 2,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 3,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 4,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 5,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "in the end of the text they said The stronger-than-expected retail sales figures pushed up the value of the pound.",
+        "revisit": 0
+    },
+    {
+        "entry": 6,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 7,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 8,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 9,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 10,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure about their explanations, but it will be launched, not sure if already",
+        "revisit": 1
+    },
+    {
+        "entry": 11,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "they might be a US congressional panel, they are a pannel, they are from the congress probably, becuse the company said they complied with the congress investigation. The US because they pose threat to the US",
+        "revisit": 1
+    },
+    {
+        "entry": 12,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "in total there were 18, but those were also sent",
+        "revisit": 0
+    },
+    {
+        "entry": 13,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 14,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 15,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 16,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure, in 2 times they had 40% or more, and they say it is conservative controled. But retained is still not 100%",
+        "revisit": 1
+    },
+    {
+        "entry": 17,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 18,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B sure if Indian supreme court"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 19,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "it was signed by thousands, it is a petition, which is a document sign to support a cause, and the document does support the hoard to be in Kirkcudbright",
+        "revisit": 1
+    },
+    {
+        "entry": 20,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 21,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 22,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if the drop is sharp or not",
+        "revisit": 1
+    },
+    {
+        "entry": 23,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the officals only confermed the attack, not that someone was killed. They are known to be militants, but not Islamic",
+        "revisit": 0
+    },
+    {
+        "entry": 24,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 25,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he did it regulary. does it count as a few times a year?",
+        "revisit": 1
+    },
+    {
+        "entry": 26,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 27,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "this is a strike, as they walked out, and described as protesters. ",
+        "revisit": 0
+    },
+    {
+        "entry": 28,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "they are from all groups, so cross party, and they are members of parlments, but they are MPs, but the MP relies on knowledge on the abriviation.",
+        "revisit": 0
+    },
+    {
+        "entry": 29,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 30,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "the report might be new, as they talk about it now, but not sure. But the statment was made by Mr harris, not clear if in the report ",
+        "revisit": 1
+    },
+    {
+        "entry": 31,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 32,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 33,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 34,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 35,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 36,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 37,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 38,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 39,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 40,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "the convertion is not mentioned in the text. In the text they say the 1 billion is on this crop alone, but an earlier report found they lose 3.7 annualy, so it tracks",
+        "revisit": 1
+    },
+    {
+        "entry": 41,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 42,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if it a landmark, but it is defently between canada and the EU",
+        "revisit": 1
+    },
+    {
+        "entry": 43,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 44,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "they are the same, all the text does is describe ways to stop him, and say they are not effective. But the summary is also a problem . might want to remove ",
+        "revisit": 1
+    },
+    {
+        "entry": 45,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 46,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 47,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 48,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 49,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "but there is no mention of Islamic state, only IS",
+        "revisit": 1
+    },
+    {
+        "entry": 50,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 51,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 52,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 53,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "The help line is set up, and it will answer womens question on any sysmpotoms of aborsion medication. Later it is said many but such drugs online, and it is important they will have help. And they are women in the Isle",
+        "revisit": 0
+    },
+    {
+        "entry": 54,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "it is ruled by India, but they only mention mourners, which does not mean it is a funeral, that can also be before or after it. In addition the number of people in attendence was not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 55,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not sure if started, all the verbs are in future form",
+        "revisit": 0
+    },
+    {
+        "entry": 56,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 57,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "if if just sister, still family, and she said they are all in this",
+        "revisit": 0
+    },
+    {
+        "entry": 58,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 59,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 60,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "Norway is not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 61,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not a summary, remove",
+        "revisit": 1
+    },
+    {
+        "entry": 62,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not in english, remove",
+        "revisit": 1
+    },
+    {
+        "entry": 63,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 64,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 65,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure there are 2 reports on this specipiclly. There is one report on this exactly, and a few more on the general topic, but not as sepcipic",
+        "revisit": 1
+    },
+    {
+        "entry": 66,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "As the explanation in the original dataset, it is to evict. About the racism, they were accused after the injuction, so it is ok, the exact reason is irrelvant",
+        "revisit": 0
+    },
+    {
+        "entry": 67,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "a second group should arrive, not the second group. Can not tell if it is the first",
+        "revisit": 1
+    },
+    {
+        "entry": 68,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they did retain the position, becuase the number in the brackets is for last year, and they lead there too.",
+        "revisit": 0
+    },
+    {
+        "entry": 69,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "no mistakes found",
+        "revisit": 0
+    },
+    {
+        "entry": 70,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they also say the first half was done with 0 0 and the second is 1 0, so we can infer second half",
+        "revisit": 0
+    },
+    {
+        "entry": 71,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "all correct",
+        "revisit": 0
+    },
+    {
+        "entry": 72,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "300 people is hundreds. Buried thier home is correct, becuase the text talks about residents in a specipc neighborhod. ",
+        "revisit": 0
+    },
+    {
+        "entry": 73,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 74,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the text actually tals as he took a victory. but not sure about a victory in the election, was it a victory?",
+        "revisit": 1
+    },
+    {
+        "entry": 75,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 76,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they will remain in Elstree Studios. But the studios are not former TVC. They are TVC studios which will be leased by the bbc",
+        "revisit": 0
+    },
+    {
+        "entry": 77,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it is described as new, and it is in brisol, as the city council of brisol claims it is on her land",
+        "revisit": 0
+    },
+    {
+        "entry": 78,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B focus on the same, they did not appeal, they went to a different court, after they were rejected by the supreme court",
+        "revisit": 0
+    },
+    {
+        "entry": 79,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "The coffin is from the viking period, does it make it viking? In addition, she said some of the skletons are more than 1000 years old, not this specipic one",
+        "revisit": 1
+    },
+    {
+        "entry": 80,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it was scrapped, not will be",
+        "revisit": 0
+    },
+    {
+        "entry": 81,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "many people donated in his name, and many women said on social media they did, but does it mean many women donated in his name? And are they from the US?",
+        "revisit": 1
+    },
+    {
+        "entry": 82,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 83,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "there is a stand in, so she did pull out, the final is happening this weekend as it is on Saturday and Sunday",
+        "revisit": 0
+    },
+    {
+        "entry": 84,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The plans were rejected becuase of the fraking, so yes the council decided not to allow fracking. and the summary said it is to appeal not that they applead",
+        "revisit": 0
+    },
+    {
+        "entry": 85,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "disagree with the explanation in the dataset. he was stabbed in miltonand brought to Glasgow. Cannot infer he was stabbed in Glasgow. He was stabbed",
+        "revisit": 0
+    },
+    {
+        "entry": 86,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "disagree with the explanation in the dataset. Can not infer that Wainfleet, Lincolnshire is the east coast of england",
+        "revisit": 0
+    },
+    {
+        "entry": 87,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the location of the fired man was not menioned",
+        "revisit": 0
+    },
+    {
+        "entry": 88,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 89,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "its a group with the leaders are suspected of fraud, this is close enough to a fraud ring for me. And yes the BBC as leared of it.",
+        "revisit": 0
+    },
+    {
+        "entry": 90,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it is the exact wording, and it was on the feelings of people on independe, specipclly their feeling on the referendum on independence",
+        "revisit": 0
+    },
+    {
+        "entry": 91,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not sure about this one, they stopeed bail checks, there is no such thing as electronic tagging bail checks as far as i can tell. And they did not really denied claims, they simply said they will check all bail checks.",
+        "revisit": 1
+    },
+    {
+        "entry": 92,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "funding terrorism can be viewed as terrorism offence. And it was dropped for lack of evidence",
+        "revisit": 0
+    },
+    {
+        "entry": 93,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "she intruduced a measure",
+        "revisit": 0
+    },
+    {
+        "entry": 94,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 95,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 96,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 97,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "direct quate",
+        "revisit": 0
+    },
+    {
+        "entry": 98,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 99,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 100,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 101,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "they ones asked to leave are in Kendal and Egremont, and the flooding is in Cumbria and Lancashire, so we can not know. About the hundreds of people, we know that more than 1600 houses were at risk, how many were warned, and how many people were warned, we do not really know",
+        "revisit": 1
+    },
+    {
+        "entry": 102,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they did not hold one place. That one sentence is conflicting to the rest of the text.",
+        "revisit": 0
+    },
+    {
+        "entry": 103,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if it is in Glasgo, as it is in Greater Glasgow and Clyde, but it is being held, not has been",
+        "revisit": 1
+    },
+    {
+        "entry": 104,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "make way is vauge, so to prevent interference is good. 9110 is nearly 10,000",
+        "revisit": 0
+    },
+    {
+        "entry": 105,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 106,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "a duckling was gone, and ducks can calm people according to the text, so a duckling that can calm people disappeared",
+        "revisit": 0
+    },
+    {
+        "entry": 107,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 108,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the fell bellow a million in 2014, and in 2015 it stayed there, so not the first time",
+        "revisit": 0
+    },
+    {
+        "entry": 109,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "must convict is wrong, in addition the name of the raid is not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 110,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 111,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure if it in Pembrokeshire, the counsil that deals with it is Pembrokeshire council, but it has a different name. ",
+        "revisit": 1
+    },
+    {
+        "entry": 112,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "the text talks about a new law, so it was voted and approved. They talk about \"that disease\" as a result of asbestos, and then talk about cancer, so it is asbestos-related cancer . The only thing not sure about is the insurence companies. The text calmined that those who incured the disease should pay, and that the insurence companies are not sure the law can be passed, does it mean the insurence companies were the one who caused it?",
+        "revisit": 1
+    },
+    {
+        "entry": 113,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 114,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 115,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they are Chinese women, becuase it recruit women, and was published in the UK china times. But Northen ireland was not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 116,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 117,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 118,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 119,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure on the experts, becuase they are from norway, and they came to see how expertize can be shared, but not sure they are experts. could become is wrong, as it is now",
+        "revisit": 1
+    },
+    {
+        "entry": 120,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "there is no rise in the trend, it is just 10 people this year, and that it staterd by 2 Belgian. It did not ban, they did not allow it in the first place",
+        "revisit": 1
+    },
+    {
+        "entry": 121,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it is a near four years high, not a four years high",
+        "revisit": 0
+    },
+    {
+        "entry": 122,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 123,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B",
+            "C"
+        ],
+        "notes": "they are a series. But the text talks about companies, and that gabon already attracted investors which were companies, but not sure on the connection. and the text spoke on diversipication, but not sure if it is the economy?",
+        "revisit": 1
+    },
+    {
+        "entry": 124,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 125,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure on if the six deaths happend in the protests, but western sudan was defently not mentioned",
+        "revisit": 1
+    },
+    {
+        "entry": 126,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the parlment approved, but some additional approvement is needed",
+        "revisit": 0
+    },
+    {
+        "entry": 127,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 128,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 129,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "No inconsistencies ",
+        "revisit": 0
+    },
+    {
+        "entry": 130,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 131,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 132,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure if it was launched or will be",
+        "revisit": 1
+    },
+    {
+        "entry": 133,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "no one said the tiger caused the traffic, only that it passed heavy traffic. In addition, it did happen in Doha, and it might be infered that it was in qatar, but no one said it was the capital",
+        "revisit": 1
+    },
+    {
+        "entry": 134,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "both mistakes focus on the have sent, and both gifts were sent",
+        "revisit": 0
+    },
+    {
+        "entry": 135,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "not clear if we was rulled out. He has a surgery and the Six flags will begin a month afterwards. Maybe we will participate",
+        "revisit": 0
+    },
+    {
+        "entry": 136,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they were shortlisted, but the name of the award was never given. ",
+        "revisit": 0
+    },
+    {
+        "entry": 137,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 138,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "pre dawn is night, and it is an aligment and it is rare",
+        "revisit": 0
+    },
+    {
+        "entry": 139,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it is not described as a controversy, but as a problem which everyone ignores",
+        "revisit": 0
+    },
+    {
+        "entry": 140,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 141,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "they did not refuse to pay compensation, but were only offered repairs?",
+        "revisit": 1
+    },
+    {
+        "entry": 142,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 143,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "the location is not mentioned. The goal did help, as they won. Stunning is not what they said, but said sweet. not sure if can be replaced?",
+        "revisit": 0
+    },
+    {
+        "entry": 144,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 145,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "no where did it say it was in shetland in the first palce, but it might be infered it was because it will power houses there and Sustainable Shetland fought it, but the offf was never discussed. But B is not correct",
+        "revisit": 0
+    },
+    {
+        "entry": 146,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 147,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the study was done on pigeons, but it was to test the affect on migrating birds. But it was not the first time the affect of oil was tested. It is the first time light oil as been tested",
+        "revisit": 0
+    },
+    {
+        "entry": 148,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it was lanuched, but not clear on what it means to be retained? Maybe need to remove the summary",
+        "revisit": 0
+    },
+    {
+        "entry": 149,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it could be read as the price is increasing, of the produce sold. The price did increase, and they do sell that produce, but the price of the produce as not increased for the costumer yet",
+        "revisit": 0
+    },
+    {
+        "entry": 150,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the explanation is wrong, but this is a mistake, even in the dataset explanation we can see that he thinks that it is from 2016, and he infered it by the menntion of brexit, but the year of brexit is not mentioned and is external knowledge",
+        "revisit": 0
+    },
+    {
+        "entry": 151,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the protests are against the president , corruption and high taxes, not the goverment",
+        "revisit": 0
+    },
+    {
+        "entry": 152,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "they were sentenced, and the sentence is not given, so not clear if they were jailed. But the crimes are severe, so jail seems right?",
+        "revisit": 1
+    },
+    {
+        "entry": 153,
+        "both_identified": [],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "in this context, worst can also mean greatest. But the images were not said to be in display for the first time, only that they were being put on display. About the WW-1, they mention it was in 1917, and that it was shown in the anniversary to the WW-1. but is it enough? in additon, it is said it was the worst at its time, but the war was not finished",
+        "revisit": 1
+    },
+    {
+        "entry": 154,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 155,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 156,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 157,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 158,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 159,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure on campaigners",
+        "revisit": 1
+    },
+    {
+        "entry": 160,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 161,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 162,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "there are more than 100, but the includes 18 which were schools and nurseries. So it might be less. In addition, not clear if it is in scotland or more places?",
+        "revisit": 1
+    },
+    {
+        "entry": 163,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 164,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they are more man, as 81 were already arrested, but the name of the cup was not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 165,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he did not win, only one as been set",
+        "revisit": 0
+    },
+    {
+        "entry": 166,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 167,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 168,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 169,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "B is flawed, even in their explanation. But not sure about the word campainer",
+        "revisit": 1
+    },
+    {
+        "entry": 170,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 171,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": " it is not a charity, but an Initiative set up by five charitable trusts. They did the report and made the claim, but I dont think they are a charity",
+        "revisit": 1
+    },
+    {
+        "entry": 172,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 173,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 174,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "she was appointed as the next one. She will be the current in october",
+        "revisit": 0
+    },
+    {
+        "entry": 175,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "not sure who strikes. Says just RMT union members. But it does not mention train drivers, and the union contains many more",
+        "revisit": 0
+    },
+    {
+        "entry": 176,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure on the attacked. 8 chased, but only 3 were chareged with assult, and another punched him. ",
+        "revisit": 1
+    },
+    {
+        "entry": 177,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it is the eighth season so returns is ok, but it is not this week just on the 29 of august",
+        "revisit": 0
+    },
+    {
+        "entry": 178,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "direct quote ",
+        "revisit": 0
+    },
+    {
+        "entry": 179,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 180,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 181,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 182,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "he did not know he need checks four times a year, or that he needed a  transport manager, but empolies did tell him the truck's breaks were faulty, so he did know about that",
+        "revisit": 0
+    },
+    {
+        "entry": 183,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "she is an MP, as she is a member of congress, and others (peers) back her up. But 1. No other MPs. 2. the inference she is an MP is somewhat external knowledge",
+        "revisit": 1
+    },
+    {
+        "entry": 184,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it was said the survey is the latest, and they hope the results will help convince people, which is strong evidence it is relativly new",
+        "revisit": 0
+    },
+    {
+        "entry": 185,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the text did not say they wore bowler hats, but were recommended to wear them instead of top hats. ",
+        "revisit": 0
+    },
+    {
+        "entry": 186,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the text still idetifies him as a coach, not former coach, so he might have given is resignation, but still was not done. And B, the statement is true, just not the only reason",
+        "revisit": 0
+    },
+    {
+        "entry": 187,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it was published",
+        "revisit": 0
+    },
+    {
+        "entry": 188,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 189,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "everything is good, execpt the LSE is not said the be London School of Economics. So it is still a mistake",
+        "revisit": 1
+    },
+    {
+        "entry": 190,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it is a un report, but the rise, is it sharp?",
+        "revisit": 1
+    },
+    {
+        "entry": 191,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 192,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 193,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 194,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 195,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "B is correct becuase US is not mentioned, only a place in Alaska",
+        "revisit": 0
+    },
+    {
+        "entry": 196,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 197,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 198,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 199,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the growth was slower than previous year, not slower than expected",
+        "revisit": 0
+    },
+    {
+        "entry": 200,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 201,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it is not is childhood home, he only played there as a child. About the is to be, they aim to, and start a campign, but is it definetive?",
+        "revisit": 0
+    },
+    {
+        "entry": 202,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it is very subjective, i do not know",
+        "revisit": 1
+    },
+    {
+        "entry": 203,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it looks like while the text speaks mostly about applicants, the plans will also help protect staff. In additon, the health secretry did annopunce the plan, and it is now under consultation ",
+        "revisit": 0
+    },
+    {
+        "entry": 204,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B and A are on the same thing, the text is about him bring those characters to North Korea TV, not that he watched a show featuring them. Might need to remove summary",
+        "revisit": 0
+    },
+    {
+        "entry": 205,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "you do not know he returns, becuase in the text we can not infer he was in any other film",
+        "revisit": 0
+    },
+    {
+        "entry": 206,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "he is an SNP councillor (he says he can not do his duties as councillor, and he was aide to SNP keader). It did affect is private life becuase it affected his and his family health",
+        "revisit": 0
+    },
+    {
+        "entry": 207,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 208,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "he was an attacker, even if not at the moment of the shooting. The judges delivered a verdict and that he will be sentenced on the charge of manslughter.",
+        "revisit": 0
+    },
+    {
+        "entry": 209,
+        "both_identified": [],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure about lynch, they did attack him, but it might not be a lynch becuase no one was killed. They did accuse him of stealing copper cabels. The text did not say the were white, or that he was white",
+        "revisit": 0
+    },
+    {
+        "entry": 210,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they did name him, they are not 100% sure it is him, but they named him",
+        "revisit": 0
+    },
+    {
+        "entry": 211,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 212,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 213,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it is just in time for his final, so he is in the final",
+        "revisit": 0
+    },
+    {
+        "entry": 214,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 215,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 216,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the are set to go (at least it can be infered), but the problem is about centeral Norfolk",
+        "revisit": 0
+    },
+    {
+        "entry": 217,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it will surpess the top, so it will be the biggest",
+        "revisit": 0
+    },
+    {
+        "entry": 218,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 219,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 220,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 221,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not in english",
+        "revisit": 0
+    },
+    {
+        "entry": 222,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they did show involvment",
+        "revisit": 0
+    },
+    {
+        "entry": 223,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they could be banned entirely as now they are banned on TV, and those are new rules",
+        "revisit": 0
+    },
+    {
+        "entry": 224,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 225,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "she has been trying to treat the pain for 12 months, so at least a year. the implant was meant to treat prolapse",
+        "revisit": 0
+    },
+    {
+        "entry": 226,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 227,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "he was sentence for life. About the stabbing, he did stab her, but not sure it was the cause of death",
+        "revisit": 1
+    },
+    {
+        "entry": 228,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the figures are new, as this is this year (know because the text mentions last year and it connects to 2015, and all the figures are from 2016, which is this tear). the attacks are on pillots in aircraft, the text said it explicitly",
+        "revisit": 0
+    },
+    {
+        "entry": 229,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they were called thieves, and they did use the JCB, which was left on the scene",
+        "revisit": 0
+    },
+    {
+        "entry": 230,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "no talk about a new bishop",
+        "revisit": 0
+    },
+    {
+        "entry": 231,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "It has been introcuded, and debaded. And B is correct is mentioned in the text",
+        "revisit": 0
+    },
+    {
+        "entry": 232,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "they said they are taking a fallow year, and that there are no plans on other location, but is it defentive enough?",
+        "revisit": 1
+    },
+    {
+        "entry": 233,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 234,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he is refered to as Mal",
+        "revisit": 0
+    },
+    {
+        "entry": 235,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "when Morgan speaks on the report, she says it did found discrimination, and that it was in the health service",
+        "revisit": 0
+    },
+    {
+        "entry": 236,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 237,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it is the new owner. If he bought them on spetember 1st, and he was not able to pay on October 28 becuase he had cash problems lat week, this is all happenning in the span of a few months, so it is new",
+        "revisit": 0
+    },
+    {
+        "entry": 238,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "factually consistent",
+        "revisit": 0
+    },
+    {
+        "entry": 239,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not clear what exact allegation did he deny, as there are a lot in the text. In addition, his first name and the group full name are not in the source",
+        "revisit": 1
+    },
+    {
+        "entry": 240,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "he did join the team, but the length of the deal is not mentioned, nor his position or first name",
+        "revisit": 1
+    },
+    {
+        "entry": 241,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he said they will meet next week as they enter a new phase in the talk, which means they will resume the talks. in addition on A, this quote is not in the text, but without quotes it can be infered",
+        "revisit": 1
+    },
+    {
+        "entry": 242,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not sure at all, in A the explanation is irrelavant, but she was the director of this place, and it is in manchaster, but not specipclly a art galler. In addition B, she took over a few things in tate, not sure if gallerys?",
+        "revisit": 1
+    },
+    {
+        "entry": 243,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it was added to the list, but the list pourpose was not in the text",
+        "revisit": 1
+    },
+    {
+        "entry": 244,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it did fell, compared to last year, not to last month, but still fell",
+        "revisit": 0
+    },
+    {
+        "entry": 245,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 246,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 247,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "A is wrong becuase he did coliade with them, and B is nonsense",
+        "revisit": 0
+    },
+    {
+        "entry": 248,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 249,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure if it is a revolt, or if they are his MPs",
+        "revisit": 1
+    },
+    {
+        "entry": 250,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it was not found of the coast of Canada, but 2000 km from Toronto, near an Island. No clue on how far from the coast of canada",
+        "revisit": 0
+    },
+    {
+        "entry": 251,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it does not say he is one of the stars, but it is very subjective. it is this year's festival",
+        "revisit": 1
+    },
+    {
+        "entry": 252,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they did not work there, they experinced one day in there, and they did not work for the specipic work. In addition, no exams mentioned. Might need to drop, as there are a lot of mistakes",
+        "revisit": 1
+    },
+    {
+        "entry": 253,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he is the chairman, so he is the leader, and it is a welsh party",
+        "revisit": 0
+    },
+    {
+        "entry": 254,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not english",
+        "revisit": 0
+    },
+    {
+        "entry": 255,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 256,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 257,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not english",
+        "revisit": 0
+    },
+    {
+        "entry": 258,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the explanation is wrong, but the text does not say where the 2 towns are",
+        "revisit": 0
+    },
+    {
+        "entry": 259,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 260,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if they are boosted by the number. They seems to rely on it, but the effect is not clear",
+        "revisit": 1
+    },
+    {
+        "entry": 261,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 262,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 263,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 264,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 265,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 266,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 267,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "the explanation of B is bad, but he faces charges, are they criminal? he can be sent to prison?",
+        "revisit": 1
+    },
+    {
+        "entry": 268,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "Authorities in Western Australia is correct becuase Western Australia Child Protection Minister Helen Morton  stated this, and they were accused, at least by the surreget",
+        "revisit": 0
+    },
+    {
+        "entry": 269,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 270,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 271,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "taken into custody means they were detained (detained does not mean taken into custody), and 40km can be near",
+        "revisit": 0
+    },
+    {
+        "entry": 272,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "they say the updates and police are from Nottinghamshire, so probably the accident is there. The man was arrested on suspicion of causing death by dangerous driving, which probably means he crashed into the motorcyclist, but not sure",
+        "revisit": 1
+    },
+    {
+        "entry": 273,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he did say he is running",
+        "revisit": 0
+    },
+    {
+        "entry": 274,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he was out once, and then he will be returned to the rail for public transport later this month",
+        "revisit": 0
+    },
+    {
+        "entry": 275,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 276,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 277,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he was not borned there, but he did grow up there, so it can still be a home town for him",
+        "revisit": 0
+    },
+    {
+        "entry": 278,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they are being used, and the name does not appear that way in the text",
+        "revisit": 0
+    },
+    {
+        "entry": 279,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it can be infered it closed, it was due to run until a certain date (impying it did not), it became \"financially impossible\" to continue, and many more",
+        "revisit": 0
+    },
+    {
+        "entry": 280,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "A and B are the same mistake. Not sure if they want to buy a major property deveopment, they bought an office building, and they want to build an hotel and residential and retail outlets. In addition never said it was in Australia, just Sydney",
+        "revisit": 1
+    },
+    {
+        "entry": 281,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 282,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 283,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 284,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if there are plans or what exacly is happening, there are a lot of officals that want to tackle the problem",
+        "revisit": 1
+    },
+    {
+        "entry": 285,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "there is a quote in the text, that says there is no defentive answer, but there is clear unease. Not sure if likely or not",
+        "revisit": 1
+    },
+    {
+        "entry": 286,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they were not closed, they were affected, and some patients had to be rescheduled",
+        "revisit": 0
+    },
+    {
+        "entry": 287,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they did share the plans, and it is in the draft bufget",
+        "revisit": 0
+    },
+    {
+        "entry": 288,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 289,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "direct quote",
+        "revisit": 0
+    },
+    {
+        "entry": 290,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "just fell short of 12, is 11",
+        "revisit": 0
+    },
+    {
+        "entry": 291,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "This is correct only if the goverment approves this",
+        "revisit": 0
+    },
+    {
+        "entry": 292,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 293,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 294,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 295,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not sure if it is even a summary",
+        "revisit": 1
+    },
+    {
+        "entry": 296,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure on \"it has emerged\"",
+        "revisit": 1
+    },
+    {
+        "entry": 297,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "he is talking to putin now, in addition it was becuase of the paris attacks",
+        "revisit": 0
+    },
+    {
+        "entry": 298,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 299,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 300,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 301,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 302,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the explanation by the dataset is good, and B is nonesense",
+        "revisit": 0
+    },
+    {
+        "entry": 303,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "C is wrong becuase it is in the text, and the summary could be read as he addmitted x, and then.... B is correct, becuase he did not admit making them all. He addmited chrages that included bomb making, but it is not clear if he made all 14. In addition,  A the problem is not the former, but the fact he might not even be a marine, he was just stationed at that base",
+        "revisit": 1
+    },
+    {
+        "entry": 304,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "the talks ended for the day, they need to reach agreement until a certain day, which means they did not?",
+        "revisit": 1
+    },
+    {
+        "entry": 305,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "the funds were for European Parliament business, not sure if it \"European Union funds\"",
+        "revisit": 1
+    },
+    {
+        "entry": 306,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 307,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he was jailed for killing his baby son. But the text said he was squeezed to deat not shaken",
+        "revisit": 0
+    },
+    {
+        "entry": 308,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 309,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "he did stab a man, but his charges are different. In addition, they fight happend after they were in a few bars, not clear if it was in a bar",
+        "revisit": 1
+    },
+    {
+        "entry": 310,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 311,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 312,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not english",
+        "revisit": 0
+    },
+    {
+        "entry": 313,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 314,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 315,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 316,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "nobody said that they were the first matches of the season, they were just the ones porponed by the strike",
+        "revisit": 0
+    },
+    {
+        "entry": 317,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the fact they reopened, and how they made their railways let to the commission, in addition they had 1.2m passaengers in the first year *alone* meaning it was active for a year",
+        "revisit": 0
+    },
+    {
+        "entry": 318,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the relations were upgraded from that level, but they were upgraded to that level in the past",
+        "revisit": 0
+    },
+    {
+        "entry": 319,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "he was almost defently a labour councilier. But no resignation mentioned",
+        "revisit": 1
+    },
+    {
+        "entry": 320,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they summary says they appealed, but the text only says they are confident they will the appeal, not that they already appealed",
+        "revisit": 0
+    },
+    {
+        "entry": 321,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 322,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "there were 4 men charged, they were not from Greater Manchester, only one address was from there. And they were charged following an operation that centered in West Lothian, not sure if it means the offences were there?",
+        "revisit": 1
+    },
+    {
+        "entry": 323,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the study was done in the undergrad of someone who finished in June. So it is still relativly new",
+        "revisit": 0
+    },
+    {
+        "entry": 324,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 325,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "special is not mentioned, but it is subjective. The team as a game in the Euro this week and it is from 2016. So it is ahead of Euro 2016 ",
+        "revisit": 1
+    },
+    {
+        "entry": 326,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 327,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "she was allowed to stay, even if temporarily",
+        "revisit": 0
+    },
+    {
+        "entry": 328,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 329,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "Not not to prosecute, but to adress it \"in a proportionate way\", but if there is explotation (even if children - implied) they still should prosecute",
+        "revisit": 1
+    },
+    {
+        "entry": 330,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "there is no way to know it was in the UK",
+        "revisit": 0
+    },
+    {
+        "entry": 331,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is the same as A, but phrased different.",
+        "revisit": 0
+    },
+    {
+        "entry": 332,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "there are 3, so there are also 2",
+        "revisit": 1
+    },
+    {
+        "entry": 333,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 334,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 335,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not sure if they won, and everyone are described as pro-independence, there are 6 of them. it is a mess",
+        "revisit": 1
+    },
+    {
+        "entry": 336,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure.There is interest, and the owner wants a change. But he can simply close it down/",
+        "revisit": 1
+    },
+    {
+        "entry": 337,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B are the same, they produce a movie on the old series, not a new series",
+        "revisit": 0
+    },
+    {
+        "entry": 338,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "A and B are the same, the text says in the end \"another incident in 2011\" so it can imply this incident was in 2011 as well",
+        "revisit": 1
+    },
+    {
+        "entry": 339,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 340,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 341,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 342,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 343,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 344,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they did agree to a preliminary deal, just what they agreed on is not correct",
+        "revisit": 0
+    },
+    {
+        "entry": 345,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 346,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 347,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 348,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 349,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the photo was of the library not the man",
+        "revisit": 0
+    },
+    {
+        "entry": 350,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B are the same, it can be a change, not neccacrly is a change",
+        "revisit": 0
+    },
+    {
+        "entry": 351,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "no mention it as expeired, but the new seems to add and revise a lot of things, does it means the old one was replaced?",
+        "revisit": 1
+    },
+    {
+        "entry": 352,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they talk about the former head coach, and then about his appoitment, in addition to him leading the team.",
+        "revisit": 0
+    },
+    {
+        "entry": 353,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B are the same, he did not annonce they will leave, it was one of his election pledges",
+        "revisit": 0
+    },
+    {
+        "entry": 354,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 355,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 356,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 357,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the text says the request to annual the elections was last month, not the elections themselves. B is correct",
+        "revisit": 0
+    },
+    {
+        "entry": 358,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it is an unknown subbstance, as they still try to figure out what is it, but it is not a direct quote",
+        "revisit": 1
+    },
+    {
+        "entry": 359,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "It is in London, and the biggest in europe, therfore in the UK, but this is extrenal?",
+        "revisit": 1
+    },
+    {
+        "entry": 360,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 361,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the summary has a grammer mistkae, becuase it is not their, but the. need to remove",
+        "revisit": 1
+    },
+    {
+        "entry": 362,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "court was not mentioned, but how else? in A, the verdict was given, it will be appealed. In C, an offical said it on TV",
+        "revisit": 1
+    },
+    {
+        "entry": 363,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 364,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 365,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the investigation is on if the substence was in the building, it is not certain",
+        "revisit": 0
+    },
+    {
+        "entry": 366,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "couple of days is usually 2 days. And the coffee owner did say she was an amazing. But she is never said to be the owner",
+        "revisit": 1
+    },
+    {
+        "entry": 367,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "that it was a long time comping, does not mean it did reopen",
+        "revisit": 0
+    },
+    {
+        "entry": 368,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "he was near his temple, did not say he worked there. And there were a sereis of attacks against minorties linked to this ",
+        "revisit": 0
+    },
+    {
+        "entry": 369,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure if failed? He could not at that time, and was given some more time",
+        "revisit": 1
+    },
+    {
+        "entry": 370,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "nato did not reject the call for investigation, it just refused to acknowledge the deaths in the strikes, and claims it did investigate (other things). The leading is made up. they do call for investigation",
+        "revisit": 1
+    }
+]

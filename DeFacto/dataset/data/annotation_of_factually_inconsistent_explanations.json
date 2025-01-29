@@ -1,0 +1,8649 @@
+[
+    {
+        "entry": 1,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 2,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 3,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 4,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 5,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 6,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 7,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 8,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 9,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 10,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 11,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 12,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 13,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 14,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 15,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 16,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 17,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 18,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 19,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 20,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the llm united 2 facts",
+        "revisit": 0
+    },
+    {
+        "entry": 21,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 22,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 23,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 24,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 25,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if A or B are good, need to return",
+        "revisit": 1
+    },
+    {
+        "entry": 26,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 27,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 28,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 29,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 30,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 31,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 32,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 33,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 34,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "not sure if he detected a new one which is good? bad? or maybe the same?",
+        "revisit": 1
+    },
+    {
+        "entry": 35,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 36,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 37,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 38,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 39,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 40,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 41,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 42,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 43,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 44,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 45,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 46,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 47,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 48,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 49,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 50,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 51,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to remove entry",
+        "revisit": 1
+    },
+    {
+        "entry": 52,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 53,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 54,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 55,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 56,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to remove the 3-0, and also might need to split the first fact",
+        "revisit": 1
+    },
+    {
+        "entry": 57,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 58,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 59,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 60,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 61,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 62,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 63,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 64,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe need to change the gt ",
+        "revisit": 1
+    },
+    {
+        "entry": 65,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 66,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 67,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 68,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "need to decide if left or not",
+        "revisit": 1
+    },
+    {
+        "entry": 69,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 70,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 71,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 72,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 73,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 74,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 75,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 76,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 77,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 78,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 79,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 80,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 81,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 82,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 83,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "maybe change gt",
+        "revisit": 1
+    },
+    {
+        "entry": 84,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 85,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 86,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 87,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 88,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 89,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 90,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 91,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 92,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 93,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 94,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 95,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 96,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 97,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 98,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 99,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 100,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the ground truth might need to be changed the Gwynedd school part",
+        "revisit": 1
+    },
+    {
+        "entry": 101,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 102,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "need to see which (gt or llm) is better on the six nations",
+        "revisit": 1
+    },
+    {
+        "entry": 103,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "He simply resigned, from all politics as it seems",
+        "revisit": 0
+    },
+    {
+        "entry": 104,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 105,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 106,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "need to add/unite the 2014 and Fifa",
+        "revisit": 1
+    },
+    {
+        "entry": 107,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 108,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 109,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 110,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "the text speaks on the post of one man to change the way those things are handled",
+        "revisit": 1
+    },
+    {
+        "entry": 111,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The road remaind close for the risk of more explotions, meaning there was an explotion, and then the road was closed",
+        "revisit": 0
+    },
+    {
+        "entry": 112,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "very vauge, but maybe true",
+        "revisit": 1
+    },
+    {
+        "entry": 113,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 114,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 115,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 116,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 117,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 118,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 119,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 120,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 121,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 122,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "He is the winner of the contest, not a world champion",
+        "revisit": 0
+    },
+    {
+        "entry": 123,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 124,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 125,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not clear if they were sumitted or will be",
+        "revisit": 1
+    },
+    {
+        "entry": 126,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "The girl is in the 15 of the model",
+        "revisit": 1
+    },
+    {
+        "entry": 127,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "problem with gt, he was the former captain",
+        "revisit": 1
+    },
+    {
+        "entry": 128,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 129,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 130,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 131,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 132,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 133,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 134,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "Need to remove, no connection between the text and the summary",
+        "revisit": 1
+    },
+    {
+        "entry": 135,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 136,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 137,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "B too vauge",
+        "revisit": 1
+    },
+    {
+        "entry": 138,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "The summary mistakes can be addressed in multiple ways, maybe should remove",
+        "revisit": 1
+    },
+    {
+        "entry": 139,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 140,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 141,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 142,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to split gt",
+        "revisit": 1
+    },
+    {
+        "entry": 143,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 144,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "In the first sentence, it is said he would succeed a certain judge, if he is confirmed, which means he was nominated (maybe). And it said in the text it will cement trumps prompise to nominate someone like him",
+        "revisit": 1
+    },
+    {
+        "entry": 145,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 146,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 147,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 148,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe gt is wrong",
+        "revisit": 1
+    },
+    {
+        "entry": 149,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 150,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "He did not admit, but apologised, we might need to change things?",
+        "revisit": 1
+    },
+    {
+        "entry": 151,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 152,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 153,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 154,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 155,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "C",
+            "D"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 156,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 157,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 158,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 159,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 160,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 161,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 162,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe split gt?",
+        "revisit": 1
+    },
+    {
+        "entry": 163,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it was near(800m) a runway, does it mean an airport?",
+        "revisit": 1
+    },
+    {
+        "entry": 164,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 165,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to split gt",
+        "revisit": 1
+    },
+    {
+        "entry": 166,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "The win was for a medal, and it was after another voctory, but was the other victory for a medal?",
+        "revisit": 1
+    },
+    {
+        "entry": 167,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 168,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 169,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 170,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 171,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 172,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 173,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 174,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is just irrelevant",
+        "revisit": 0
+    },
+    {
+        "entry": 175,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The score mistake, the explanation should be that this is a score of another match, not this one.  He is wrong on the semi final becuase the text said \"the other semi final",
+        "revisit": 0
+    },
+    {
+        "entry": 176,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 177,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "An omission, beacuse the illigal activities are correct",
+        "revisit": 0
+    },
+    {
+        "entry": 178,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 179,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 180,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 181,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 182,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 183,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 184,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 185,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe B explanation needs work",
+        "revisit": 1
+    },
+    {
+        "entry": 186,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the text says they approved the plans, but more decsitions will be made",
+        "revisit": 0
+    },
+    {
+        "entry": 187,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 188,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 189,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 190,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "Maybe it should not be included, it is not really a summary",
+        "revisit": 1
+    },
+    {
+        "entry": 191,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "The street and Elgin, might need to be split.",
+        "revisit": 1
+    },
+    {
+        "entry": 192,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "He did run unopposed, and there were lines to vote for him, but the final result was never described. But the elections were for president, because was reelcted and he was apresident",
+        "revisit": 1
+    },
+    {
+        "entry": 193,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 194,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 195,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 196,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "The investigation stated there was no sign of miscunduct, not clear if they were cleared of wrongdoing",
+        "revisit": 1
+    },
+    {
+        "entry": 197,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 198,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "needs to split the explantion probably, or add",
+        "revisit": 0
+    },
+    {
+        "entry": 199,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 200,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it was all done in under 48 hours, so 2 days",
+        "revisit": 0
+    },
+    {
+        "entry": 201,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 202,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 203,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to split the took a career-best 7-58",
+        "revisit": 1
+    },
+    {
+        "entry": 204,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "It is not said Ireland will host those games. They have other home games, but for this the dates and venues were not descided",
+        "revisit": 0
+    },
+    {
+        "entry": 205,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is becuase of the wrong name",
+        "revisit": 0
+    },
+    {
+        "entry": 206,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "They are not being investigated, they are being monitored to ensure the levels of gas is ok, and if they are found not to be then an action will begin",
+        "revisit": 0
+    },
+    {
+        "entry": 207,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 208,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "used in the few shot",
+        "revisit": 0
+    },
+    {
+        "entry": 209,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 210,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "Need to change the explanation of the coacine, not to mention the festival",
+        "revisit": 1
+    },
+    {
+        "entry": 211,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "The teams are revesed (thunder and lightning). This is know becuase thunder won and also Lancashire did, so they are the same). In addition, it was not a last ball win, only it swang last time then. could have been thorows after that, might want to restructure the explanations",
+        "revisit": 1
+    },
+    {
+        "entry": 212,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change the explanation to description of the name.",
+        "revisit": 1
+    },
+    {
+        "entry": 213,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 214,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is a repeat of A with a different span",
+        "revisit": 0
+    },
+    {
+        "entry": 215,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "Change the hindu goddess explanation",
+        "revisit": 0
+    },
+    {
+        "entry": 216,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "she was not cleared, there were not enough evidence to move the case forward",
+        "revisit": 1
+    },
+    {
+        "entry": 217,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the party is divided, which can mean they are split",
+        "revisit": 0
+    },
+    {
+        "entry": 218,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 219,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 220,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 221,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "There is a repeat between A and B",
+        "revisit": 1
+    },
+    {
+        "entry": 222,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 223,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it was not the home secretary but her shadow",
+        "revisit": 0
+    },
+    {
+        "entry": 224,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "all is wrong basiclly. might want to remove",
+        "revisit": 1
+    },
+    {
+        "entry": 225,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "need to change explanation. He is a unite union offical, as he is secretery, but he is not senior, and about B I am not sure",
+        "revisit": 1
+    },
+    {
+        "entry": 226,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 227,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "mistake in one of mine as he did won the prize for his work. it is this year becuase it is given on wednsday,and it is set on an island *owned* by lennon, dont care it might not be when it happended",
+        "revisit": 1
+    },
+    {
+        "entry": 228,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "They say he will get to the league, and he will get in and that he is brilliant, but he does not menion how he will preforme there",
+        "revisit": 0
+    },
+    {
+        "entry": 229,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 230,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 231,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "It is true there was no announcement in the text, but the project will be, so does it mean he was announced?",
+        "revisit": 1
+    },
+    {
+        "entry": 232,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 233,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 234,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to rewrite the explanation",
+        "revisit": 0
+    },
+    {
+        "entry": 235,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need to split the honad and florida",
+        "revisit": 1
+    },
+    {
+        "entry": 236,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he admited some charge, and he did the deed, but did he admit the deed?",
+        "revisit": 1
+    },
+    {
+        "entry": 237,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 238,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 239,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 240,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 241,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 242,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 243,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "They were sent to certain atthletes, which I am not sure if are russian. In addition the kits are not anti doping kits, they are kits containg food and such but in things that look like doping stuff",
+        "revisit": 1
+    },
+    {
+        "entry": 244,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "There were 12 injured, one died. So 11 injured and one dead makes sense",
+        "revisit": 0
+    },
+    {
+        "entry": 245,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 246,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 247,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "C is the same as B",
+        "revisit": 0
+    },
+    {
+        "entry": 248,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they wanted to use satelitiy to view the location of the earthquake, and they viewed central italy, so it was there",
+        "revisit": 0
+    },
+    {
+        "entry": 249,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 250,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 251,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 252,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 253,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 254,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 255,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need better explanation for A",
+        "revisit": 0
+    },
+    {
+        "entry": 256,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "change the explanation?",
+        "revisit": 0
+    },
+    {
+        "entry": 257,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 258,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "sample from prompt",
+        "revisit": 0
+    },
+    {
+        "entry": 259,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is sort of a repeat of A",
+        "revisit": 0
+    },
+    {
+        "entry": 260,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 261,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 262,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 263,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it is not a referee and no firing, just a player recived a yellow card",
+        "revisit": 0
+    },
+    {
+        "entry": 264,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 265,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 266,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [
+            "B",
+            "D"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change the steven to thier explanation. Need to also change the team name explanation, becuase they do menation Town.",
+        "revisit": 1
+    },
+    {
+        "entry": 267,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 268,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 269,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 270,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "A includes 2 things, one is wrong on is right",
+        "revisit": 0
+    },
+    {
+        "entry": 271,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "Those are the qualifiers for the world cup, just the year is not clear. They are prepering for the 2017 euros, and the world cup will be 2 years after, but this mean 2019 as well. it was also in 2019 in real life, but need to change their explanation",
+        "revisit": 0
+    },
+    {
+        "entry": 272,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "he did announce he will join? this is his england debuat, in the regular team. The text clearly said that ireland might *also* bring a debuter, meaning he is one",
+        "revisit": 0
+    },
+    {
+        "entry": 273,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 274,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 275,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is part of an explanation?",
+        "revisit": 1
+    },
+    {
+        "entry": 276,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 277,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "A is very vauge",
+        "revisit": 0
+    },
+    {
+        "entry": 278,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "there was an exchange",
+        "revisit": 0
+    },
+    {
+        "entry": 279,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he is the captain, he is named skipper, which is identical",
+        "revisit": 0
+    },
+    {
+        "entry": 280,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 281,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 282,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 283,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "D"
+        ],
+        "notes": "not sure what it means, kinda vauge. no day one for sure",
+        "revisit": 1
+    },
+    {
+        "entry": 284,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "their explanation is better for the for life",
+        "revisit": 1
+    },
+    {
+        "entry": 285,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 286,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "he joined the club, so he did sign. The name is not will",
+        "revisit": 0
+    },
+    {
+        "entry": 287,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The delay is also part of the weekend",
+        "revisit": 0
+    },
+    {
+        "entry": 288,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "it is not taking place, it will take place",
+        "revisit": 0
+    },
+    {
+        "entry": 289,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it will encourge migration, but it is not certain according to the report",
+        "revisit": 0
+    },
+    {
+        "entry": 290,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "The gold annotation is wrong, they are firefighters. In addition the 30 stones is on the strechers, the dummies weigh 28 stones. ",
+        "revisit": 0
+    },
+    {
+        "entry": 291,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 292,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [
+            "D"
+        ],
+        "notes": "The text said someone said it looks like it was in the 50th floor",
+        "revisit": 1
+    },
+    {
+        "entry": 293,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 294,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 295,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "he is the foregin minister, becuase the text states the prime minster chosen not to stand with his foregin minster.",
+        "revisit": 0
+    },
+    {
+        "entry": 296,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 297,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "it was becuase of the scandal, dont know if only it. In addition gt is not true, the text said it is a chraity, just not of children and not a leading one, need to change",
+        "revisit": 1
+    },
+    {
+        "entry": 298,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 299,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 300,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 301,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not clear. There was one round, and they said they only begun, but the future activites are not clear",
+        "revisit": 1
+    },
+    {
+        "entry": 302,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 303,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the human was wrong, as the score is expresed by numbering the goals.",
+        "revisit": 1
+    },
+    {
+        "entry": 304,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 305,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 306,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 307,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "The text says there was a budget in 2015/2016 and it will be dropped in 2016/2017, which indicates next year, but might not?",
+        "revisit": 1
+    },
+    {
+        "entry": 308,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "kind of scary is scary. She said she would marry him. I think that means she wanted too.",
+        "revisit": 1
+    },
+    {
+        "entry": 309,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 310,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change the explanation of the 50000. It is not almost. They said 53024 people visited, 29% were appropriate, so 71% were not, that mean 37647 inappropriate visits",
+        "revisit": 0
+    },
+    {
+        "entry": 311,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 312,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 313,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 314,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 315,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "denied the offence is not the same as plead not gulity, as the trial is yet to begin",
+        "revisit": 0
+    },
+    {
+        "entry": 316,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 317,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 318,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "their explanation is better",
+        "revisit": 1
+    },
+    {
+        "entry": 319,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "my explanation is problamatic, the real issue is that the summary say three women who were assulted are seeking compensation, while there is one of those 3, and also one male",
+        "revisit": 1
+    },
+    {
+        "entry": 320,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 321,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 322,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 323,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 324,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "repeat",
+        "revisit": 0
+    },
+    {
+        "entry": 325,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "mistake in gt, it is a record, becuase it is the higest ever",
+        "revisit": 1
+    },
+    {
+        "entry": 326,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 327,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the explanation is correct. He did not say the uk can remanin in the EU custom union, but can select what to enforce. He said it is not a binary thing like staying ot not staying",
+        "revisit": 0
+    },
+    {
+        "entry": 328,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 329,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 330,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "might need to change explanation. They did finish with the house, not in general maybe",
+        "revisit": 1
+    },
+    {
+        "entry": 331,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 332,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "The Temperance Fair not sure if in Newcastle. The text says it is the antidote to another Newcastle thing, but does it mean it is in Newcastle?",
+        "revisit": 1
+    },
+    {
+        "entry": 333,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 334,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe change explanation?",
+        "revisit": 1
+    },
+    {
+        "entry": 335,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "the gt is not correct, the text says the court is in portland organ, not the attck, and no one says where is the court",
+        "revisit": 1
+    },
+    {
+        "entry": 336,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 337,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 338,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 339,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 340,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "maybe change gt explanation on 25",
+        "revisit": 1
+    },
+    {
+        "entry": 341,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 342,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "too many mistkaes, might need to remove",
+        "revisit": 1
+    },
+    {
+        "entry": 343,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 344,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "c"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 345,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 346,
+        "both_identified": [
+            "B",
+            "C"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 347,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 348,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 349,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 350,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 351,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 352,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "might need to change the gt",
+        "revisit": 1
+    },
+    {
+        "entry": 353,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 354,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 355,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "their explanation is better for the brexit.",
+        "revisit": 0
+    },
+    {
+        "entry": 356,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 357,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "they won more than a seat but still they also won a seat",
+        "revisit": 0
+    },
+    {
+        "entry": 358,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 359,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "they broke their licence agreement, which can be the law according to the text, but not sure",
+        "revisit": 1
+    },
+    {
+        "entry": 360,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 361,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 362,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 363,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 364,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 365,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 366,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe change the explanation a bit",
+        "revisit": 0
+    },
+    {
+        "entry": 367,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 368,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 369,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it could be a record, it could not be, they submitted a record application",
+        "revisit": 1
+    },
+    {
+        "entry": 370,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 371,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "it appears the summary is consistent. There is an operation to catch smugglers between north ireland and Italy, the drugs came from Italy. And in the operation a total of 1.2m were seized, 800,000 of them in those searches",
+        "revisit": 1
+    },
+    {
+        "entry": 372,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe slight change to explanation needed",
+        "revisit": 0
+    },
+    {
+        "entry": 373,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "split gt",
+        "revisit": 1
+    },
+    {
+        "entry": 374,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 375,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 376,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "replace gt with A",
+        "revisit": 1
+    },
+    {
+        "entry": 377,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 378,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 379,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the text says he has a passion for the founding vision, not that he was a founder",
+        "revisit": 0
+    },
+    {
+        "entry": 380,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 381,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 382,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 383,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "Not clear if aproved at all. There is someone who hopes it will start early next year, not sure what is the status of the plans",
+        "revisit": 0
+    },
+    {
+        "entry": 384,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "D"
+        ],
+        "notes": "the bloggers want to expose the history of the village through the stories of the residents, which is their lives too",
+        "revisit": 1
+    },
+    {
+        "entry": 385,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 386,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "he was in a certain vilage, but part of country armagh Fair, not sure if it means the incident also happend there",
+        "revisit": 1
+    },
+    {
+        "entry": 387,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B are basically the same",
+        "revisit": 0
+    },
+    {
+        "entry": 388,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 389,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need to change gt",
+        "revisit": 0
+    },
+    {
+        "entry": 390,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 391,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 392,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 393,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 394,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "They were there 2 times, and the first was a year ago. So it is mostly true? need to change gt",
+        "revisit": 1
+    },
+    {
+        "entry": 395,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 396,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe remove summary, all is wrong",
+        "revisit": 1
+    },
+    {
+        "entry": 397,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 398,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 399,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 400,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "C is A, might need to change the explanation",
+        "revisit": 1
+    },
+    {
+        "entry": 401,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 402,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 403,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 404,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 405,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need to change gt on the yongest",
+        "revisit": 1
+    },
+    {
+        "entry": 406,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to split",
+        "revisit": 1
+    },
+    {
+        "entry": 407,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "no jury to show pictures to, only that there are pictures. It should be in the explanations",
+        "revisit": 0
+    },
+    {
+        "entry": 408,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 409,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 410,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 411,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the text says that first reports said someone was killed, but later they said only injured",
+        "revisit": 0
+    },
+    {
+        "entry": 412,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 413,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 414,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 415,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "One says he did, the other does not, it means you can not verify this",
+        "revisit": 0
+    },
+    {
+        "entry": 416,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 417,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it is clear he did, but it is not stated clearly",
+        "revisit": 1
+    },
+    {
+        "entry": 418,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The text speaks of new hand, therefore there could only be 2, not more not less",
+        "revisit": 0
+    },
+    {
+        "entry": 419,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 420,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 421,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he did not deny, but said he did not hear anything. B is in A",
+        "revisit": 1
+    },
+    {
+        "entry": 422,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "they criticised the implementation, not the policy",
+        "revisit": 1
+    },
+    {
+        "entry": 423,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they talked about the global season, not on the moving of the six flags",
+        "revisit": 0
+    },
+    {
+        "entry": 424,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 425,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "the text says the investigation has nothing on him, and that he plans to visit the US. Maybe connected?",
+        "revisit": 1
+    },
+    {
+        "entry": 426,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 427,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 428,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 429,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "a court did release him, he was arrested in Egypt, and the bail was in Egypt currency, so it is true",
+        "revisit": 0
+    },
+    {
+        "entry": 430,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "GT is wrong as well, he did won ",
+        "revisit": 1
+    },
+    {
+        "entry": 431,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 432,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 433,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "0",
+        "revisit": 0
+    },
+    {
+        "entry": 434,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "B is too vauge",
+        "revisit": 0
+    },
+    {
+        "entry": 435,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 436,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 437,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The man who killed him was Chechen, even if there were more men, he killed him, and he was found guily, so he was found guilty of murder.",
+        "revisit": 0
+    },
+    {
+        "entry": 438,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 439,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 440,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "not sure about confirm, Turkey only expressed an opinion, also saudi arabia will attednd, turkey no idea",
+        "revisit": 1
+    },
+    {
+        "entry": 441,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the explanation is wrong. they collideted on sunday, on monday the club updated, and he was annonced to be released 24 hours after.",
+        "revisit": 0
+    },
+    {
+        "entry": 442,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 443,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 444,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 445,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "the reasoning in A should be modified",
+        "revisit": 0
+    },
+    {
+        "entry": 446,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 447,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 448,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 449,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 450,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 451,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 452,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 453,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "in addition no mention it was an international law firm, maybe need to remove the summary",
+        "revisit": 1
+    },
+    {
+        "entry": 454,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "might want to change the gt, becuase he was headed into a factory  in Irkutsk , but not clear where the military unit was. is a unit a base?",
+        "revisit": 1
+    },
+    {
+        "entry": 455,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 456,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 457,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 458,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "it was annonced, it can be called as set up?",
+        "revisit": 1
+    },
+    {
+        "entry": 459,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 460,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 461,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 462,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "access will be granted, not now. almost all the summary is false, might need to remove",
+        "revisit": 1
+    },
+    {
+        "entry": 463,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 464,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 465,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 466,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to replace one of the gt, the northen",
+        "revisit": 1
+    },
+    {
+        "entry": 467,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 468,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 469,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 470,
+        "both_identified": [
+            "B",
+            "C",
+            "D"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 471,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 472,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 473,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 474,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 475,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 476,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 477,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 478,
+        "both_identified": [
+            "A",
+            "D"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "C is vauge",
+        "revisit": 1
+    },
+    {
+        "entry": 479,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 480,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "senoir journlist is not sure, he is an editor, no idea if it means he is a journlist or not? and he said the media got it wrong, not in the past",
+        "revisit": 1
+    },
+    {
+        "entry": 481,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 482,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 483,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is vauge. Abu Dhabi was in the gt and model, but it might be infered from the text.in addition, combine 2016 and the name of the tornment.",
+        "revisit": 1
+    },
+    {
+        "entry": 484,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 485,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 486,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 487,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe change to thier explanation",
+        "revisit": 1
+    },
+    {
+        "entry": 488,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "this kind of mass indicates funeral, but i do not know",
+        "revisit": 1
+    },
+    {
+        "entry": 489,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A",
+            "C",
+            "D"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 490,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 491,
+        "both_identified": [
+            "B",
+            "C"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 492,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "he was a coach before. But how to split B and C",
+        "revisit": 1
+    },
+    {
+        "entry": 493,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 494,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 495,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 496,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 497,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is a repeat of A",
+        "revisit": 0
+    },
+    {
+        "entry": 498,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 499,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 500,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 501,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 502,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 503,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 504,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is a repeat of A",
+        "revisit": 0
+    },
+    {
+        "entry": 505,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 506,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 507,
+        "both_identified": [
+            "B",
+            "A"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change C explanation",
+        "revisit": 1
+    },
+    {
+        "entry": 508,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 509,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 510,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "no idea, need to think",
+        "revisit": 1
+    },
+    {
+        "entry": 511,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 512,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 513,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 514,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 515,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 516,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 517,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 518,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 519,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he said a lot of types of distraction, but this was not a specipic one, but he did mention tweets, and that england gave guildline for this one",
+        "revisit": 1
+    },
+    {
+        "entry": 520,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 521,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 522,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it can be read correctly, even if incorrectly is most likely.",
+        "revisit": 1
+    },
+    {
+        "entry": 523,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 524,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 525,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 526,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 527,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 528,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 529,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 530,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "The text states how many people returned sinse Friday, which can be infered as the date of the attack",
+        "revisit": 1
+    },
+    {
+        "entry": 531,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 532,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 533,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A is more correct than gt. There was no contract, so obiously no 4 years one.",
+        "revisit": 1
+    },
+    {
+        "entry": 534,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 535,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 536,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 537,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 538,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe change the gt explanation",
+        "revisit": 0
+    },
+    {
+        "entry": 539,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 540,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 541,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 542,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 543,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 544,
+        "both_identified": [
+            "A",
+            "b"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 545,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 546,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not sure, maybe it was 2015, but the description in the text is vauge",
+        "revisit": 1
+    },
+    {
+        "entry": 547,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A is vauge",
+        "revisit": 0
+    },
+    {
+        "entry": 548,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "There were portestes there, it might be where the attack happen",
+        "revisit": 1
+    },
+    {
+        "entry": 549,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe gt on the silver is wrong,as they did come second, and won a medal in another competition in the series, which might indicate tehy get medals?",
+        "revisit": 0
+    },
+    {
+        "entry": 550,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 551,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 552,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 553,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "change explanations in gt",
+        "revisit": 1
+    },
+    {
+        "entry": 554,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "A could be splitted",
+        "revisit": 0
+    },
+    {
+        "entry": 555,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "need to see how to split and if becuase she won in atheans a bronze, so she is not a champion, maybe not olympic, and the 1500m is not true as well",
+        "revisit": 1
+    },
+    {
+        "entry": 556,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "becuase of a terrorist attack. In addition A and B are the same mistake in different ways? one is on who cancled, the other is if it was canccled?",
+        "revisit": 1
+    },
+    {
+        "entry": 557,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 558,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 559,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 560,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B",
+            "B"
+        ],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "B contains 2 facts",
+        "revisit": 0
+    },
+    {
+        "entry": 561,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "C",
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change C as it should be on all the span",
+        "revisit": 0
+    },
+    {
+        "entry": 562,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 563,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B should be combied. in the letter he said it could be seen as if they are trying",
+        "revisit": 0
+    },
+    {
+        "entry": 564,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 565,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 566,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 567,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 568,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 569,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A captures part of the problem, which is the location, but also grand prix was not mentioned",
+        "revisit": 0
+    },
+    {
+        "entry": 570,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 571,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 572,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 573,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "Remove the annual from the gt",
+        "revisit": 1
+    },
+    {
+        "entry": 574,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 575,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 576,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 577,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 578,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 579,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 580,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure, becuase who else could fire him",
+        "revisit": 1
+    },
+    {
+        "entry": 581,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 582,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "change janitors explanation",
+        "revisit": 0
+    },
+    {
+        "entry": 583,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure about B, it looks new?",
+        "revisit": 1
+    },
+    {
+        "entry": 584,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 585,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "the injuries were consistent with shaking, does it mean it was shaking?",
+        "revisit": 1
+    },
+    {
+        "entry": 586,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "It might be, but the line on the 3% makes it unclear. but it can be infered",
+        "revisit": 1
+    },
+    {
+        "entry": 587,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 588,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The explantion is better by the llm",
+        "revisit": 0
+    },
+    {
+        "entry": 589,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "",
+        "revisit": 1
+    },
+    {
+        "entry": 590,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 591,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 592,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 593,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 594,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 595,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 596,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 597,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 598,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 599,
+        "both_identified": [
+            "A",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they used the word lived, meaning he no longer lives",
+        "revisit": 0
+    },
+    {
+        "entry": 600,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "they did something already, not sure if it part of 200,000 plan, but something was done",
+        "revisit": 0
+    },
+    {
+        "entry": 601,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 602,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "notes": "they are all the same, and I still do not know if it was a mistake in the air drop, or was it just bad luck",
+        "revisit": 1
+    },
+    {
+        "entry": 603,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 604,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 605,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 606,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "maybe split the countries?",
+        "revisit": 1
+    },
+    {
+        "entry": 607,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 608,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 609,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 610,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 611,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 612,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 613,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and the gt agree, but it might be wrong, as the factory is in Wirral and the company makes biscuits, maybe not there?",
+        "revisit": 1
+    },
+    {
+        "entry": 614,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 615,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "he is on a loan, does it mean release?",
+        "revisit": 1
+    },
+    {
+        "entry": 616,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 617,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 618,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is sub of A",
+        "revisit": 0
+    },
+    {
+        "entry": 619,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 620,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "C",
+            "D"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 621,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "B is subset of A",
+        "revisit": 0
+    },
+    {
+        "entry": 622,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 623,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 624,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 625,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 626,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 627,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 628,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 629,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 630,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to change the gt",
+        "revisit": 1
+    },
+    {
+        "entry": 631,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 632,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 633,
+        "both_identified": [
+            "B",
+            "C",
+            "D"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 634,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 635,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to split gt",
+        "revisit": 1
+    },
+    {
+        "entry": 636,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 637,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 638,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "D is wrong, but they did say Irish",
+        "revisit": 0
+    },
+    {
+        "entry": 639,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 640,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 641,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 642,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they do live next to it, becuase Marcelo Freixo said he prefers to see the Museum next to the stadium, instead of a car lot, meaning it is next to the stadium",
+        "revisit": 0
+    },
+    {
+        "entry": 643,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 644,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 645,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 646,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "the description is too vauge",
+        "revisit": 0
+    },
+    {
+        "entry": 647,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need to change the explanation for unbeaten half century",
+        "revisit": 1
+    },
+    {
+        "entry": 648,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 649,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 650,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 651,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 652,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 653,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 654,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 655,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 656,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 657,
+        "both_identified": [
+            "A",
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "0",
+        "revisit": 0
+    },
+    {
+        "entry": 658,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 659,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 660,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 661,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "need to split the Pakistani schoolgirl",
+        "revisit": 1
+    },
+    {
+        "entry": 662,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if reigning, becuase she did win in 2012, but knowing there was nothing between there and rio is external knowledge",
+        "revisit": 1
+    },
+    {
+        "entry": 663,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 664,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 665,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "if he denies mansluadther, it means he accused of killing",
+        "revisit": 0
+    },
+    {
+        "entry": 666,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 667,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 668,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 669,
+        "both_identified": [
+            "B",
+            "C"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 670,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 671,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 672,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 673,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 674,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A should be split",
+        "revisit": 0
+    },
+    {
+        "entry": 675,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 676,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 677,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 678,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 679,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 680,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 681,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 682,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 683,
+        "both_identified": [
+            "C"
+        ],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 684,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 685,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 686,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 687,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 688,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 689,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 690,
+        "both_identified": [
+            "B"
+        ],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 691,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 692,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 693,
+        "both_identified": [
+            "A",
+            "B"
+        ],
+        "correct_llm": [
+            "C"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 694,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if the latest is correct",
+        "revisit": 1
+    },
+    {
+        "entry": 695,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "C"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the gt is wrong",
+        "revisit": 1
+    },
+    {
+        "entry": 696,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "found hanged means suiside?",
+        "revisit": 1
+    },
+    {
+        "entry": 697,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "someone approved, not sure if he represents the scotish govermnet?",
+        "revisit": 1
+    },
+    {
+        "entry": 698,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 699,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 700,
+        "both_identified": [
+            "A"
+        ],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    }
+]
