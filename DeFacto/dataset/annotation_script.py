@@ -1,11 +1,16 @@
-import json
-import os
 
 import json
 import os
+
+import pandas as pd
+
+import textwrap
+import argparse
+
 def wrap_text(text, width=120):
     """Wrap text to a specified width."""
-    return '\n'.join([text[i:i+width] for i in range(0, len(text), width)])
+    return '\n'.join(textwrap.wrap(text, width=width))
+
 
 def show_comparison_interface(texts, summaries, llm_explanations, human_explanations, output_file):
     # Load existing results if any
@@ -23,7 +28,7 @@ def show_comparison_interface(texts, summaries, llm_explanations, human_explanat
     human_explanations = human_explanations[start_index:]
 
     for i, (text, summary, llm_output, human_output) in enumerate(
-        zip(texts, summaries, llm_explanations, human_explanations), start=start_index
+            zip(texts, summaries, llm_explanations, human_explanations), start=start_index
     ):
         print("=" * 50)
         print(f"Entry {i + 1}:")
@@ -74,32 +79,63 @@ def show_comparison_interface(texts, summaries, llm_explanations, human_explanat
         if stop == "yes":
             print("Annotation stopped. You can resume later.")
             break
+
+def parse_args_for_annotation():
+    args = argparse.ArgumentParser()
+    args.add_argument('-output_path')
+    args.add_argument("-llm_output_path", type=str)
+    args.add_argument("-data_path", type=str)
+    args = args.parse_args()
+    return args
 def annotate():
-    import pandas as pd
-    df_llm = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt4/results_gpt_4o_all_processed_dataset.csv",index_col=0)
+    args = parse_args_for_annotation()
+    # df_llm = pd.read_csv(
+    #     "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv",
+    #     index_col=0)
+    df_llm = pd.read_csv(args.llm_output_path)
     llm_outputs = df_llm['output'].tolist()
-    df_human = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_fact_span_explanation_format.csv",index_col=0)
-    human_annotation = df_human['explanation'].tolist()
-    texts = df_human['text'].tolist()
-    summaries = df_human['model_summary'].tolist()
-    output_file = "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/annotation_of_factually_inconsistent_explanations.json"
-    show_comparison_interface(texts, summaries, llm_outputs, human_annotation, output_file)
+    texts = df_llm['text'].tolist()
+    summaries = df_llm['model_summary'].tolist()
+    # df_human = pd.read_csv(
+    #     "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_fact_span_explanation_format.csv",
+    #     index_col=0)
+    if args.data_path is not None:
+        df_human = pd.read_csv(args.data_path)
+        human_annotation = df_human['explanation'].tolist()
+    else:
+        human_annotation = [None]*len(texts)
+        # texts = df_human['text'].tolist()
+        # summaries = df_human['model_summary'].tolist()
+    #output_file = "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/annotation_of_factually_inconsistent_explanations.json"
+    show_comparison_interface(texts, summaries, llm_outputs, human_annotation, args.output_path)
+
+
 def create_final_version():
     import pandas as pd
-    df = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset.csv")
-    with open("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/annotation_of_factually_inconsistent_explanations.json", "r") as f:
+    df = pd.read_csv(
+        "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset.csv")
+    with open(
+            "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/annotation_of_factually_inconsistent_explanations.json",
+            "r") as f:
         results = json.load(f)
     grouped_df = (
         df.groupby(["text", "model_summary"], sort=False)["explanation"]
         .apply(list)
         .reset_index()
     )
-    full_llm_outputs = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt4/results_gpt_4o_all_processed_dataset.csv",index_col=0)
+    full_llm_outputs = pd.read_csv(
+        "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv",
+        index_col=0)
     texts = grouped_df["text"].tolist()
     summaries = grouped_df["model_summary"].tolist()
     explanations = grouped_df["explanation"].tolist()
     final_dataset = []
-    for i in range(50):
+    if os.path.exists("data/final_dataset_50_samples.csv"):
+        final_df = pd.read_csv("data/final_dataset_50_samples.csv")
+        final_dataset = final_df.to_dict("records")
+    else:
+        final_dataset =[]
+    for i in range(len(final_dataset),50):
         text = texts[i]
         summary = summaries[i]
         explanation = explanations[i]
@@ -115,7 +151,8 @@ def create_final_version():
         if change_all_explanations == "yes":
             explanation = []
         while True:
-            are_there_more_explanations = input("Are there more explanations for this entry? (yes or no): ").strip().lower()
+            are_there_more_explanations = input(
+                "Are there more explanations for this entry? (yes or no): ").strip().lower()
             if are_there_more_explanations == "yes":
                 new_explanation = input("Enter the new explanation: ")
                 added_explanations.append(new_explanation)
@@ -129,10 +166,48 @@ def create_final_version():
                 "explanations": explanation,
             }
         )
-    final_df = pd.DataFrame(final_dataset)
-    final_df.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/final_dataset_50_samples.csv", index=False)
+        final_df = pd.DataFrame(final_dataset)
+        final_df.to_csv("data/final_dataset_50_samples.csv", index=False)
+
+
+def num_to_uppercase_letter(num):
+    if 0 <= num <= 25:
+        return chr(num + ord('A'))
+    else:
+        raise ValueError("Number must be between 0 and 25")
+
+
+def create_description_format():
+    import ast
+    df = pd.read_csv("data/final_dataset_50_samples.csv")
+    data = []
+    for i in range(len(df)):
+        text = df.loc[i, "text"]
+        summary = df.loc[i, "model_summary"]
+        explanations = df.loc[i, "explanations"]
+        explanations = ast.literal_eval(explanations)
+        descriptions = ""
+        for i, explanation in enumerate(explanations):
+            descriptions += f"{num_to_uppercase_letter(i)}.\nDescription: {explanation}\n"
+
+        data.append(
+            {
+                "text": text,
+                "model_summary": summary,
+                "descriptions": descriptions,
+            }
+        )
+    final_df = pd.DataFrame(data)
+    final_df.to_csv("data/final_dataset_50_samples_description_format.csv", index=False)
 
 
 
 
-create_final_version()
+def main():
+    annotate()
+    #create_final_version()
+    #create_description_format()
+
+
+if __name__ == "__main__":
+    main()
