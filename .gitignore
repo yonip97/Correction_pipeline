@@ -2,7 +2,6 @@
 *.nlp18
 *.csv
 *.txt
-*.json
 experiments/ablations/better_summaries/temp.py
 experiments/ablations/ctrl/temp.py
 experiments/baseline_model/sandbox.py
