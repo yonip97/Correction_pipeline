@@ -41,3 +41,5 @@ DeFacto/dataset/sandbox.py
 DeFacto/dataset/zorik.py
 credentials.env
 DeFacto/dataset/llama_api.py
+/DeFacto/dataset/data/qa_for_factual_consistency
+/DeFacto/dataset/data/ragtruth
