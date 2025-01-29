@@ -100,7 +100,7 @@ class OpenAICaller:
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, input, timeout=60, max_new_tokens=1000, **kwargs):
+    def call(self, input, timeout=60, max_new_tokens=2000, **kwargs):
         try:
             message = [{
                 "role": "user",
