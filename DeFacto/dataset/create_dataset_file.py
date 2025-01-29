@@ -59,10 +59,10 @@ def format_enumerated_descriptions(df):
 def main():
     path = "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset.csv"
     df = annotated_dataset(path)
-    # df1 = format_of_fact_span_explanation(df.copy(deep=True))
-    # df1.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_fact_span_explanation_format.csv",encoding='utf-8')
-    # df2 = format_of_only_explanation(df.copy(deep=True))
-    # df2.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_only_explanation_format.csv",encoding='utf-8')
+    df1 = format_of_fact_span_explanation(df.copy(deep=True))
+    df1.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_fact_span_explanation_format.csv",encoding='utf-8')
+    df2 = format_of_only_explanation(df.copy(deep=True))
+    df2.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_only_explanation_format.csv",encoding='utf-8')
     df3 = format_enumerated_descriptions(df.copy(deep=True))
     df3.to_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/2_possible_annotation_almost_final_dataset_enumerated_descriptions_format.csv",encoding='utf-8')
 
