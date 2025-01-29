@@ -42,3 +42,12 @@ credentials.env
 DeFacto/dataset/llama_api.py
 /DeFacto/dataset/data/qa_for_factual_consistency
 /DeFacto/dataset/data/ragtruth
+experiments/refinement/data/filter_revised_filter_unrevised_upsample_revised/individual_logs.json
+experiments/refinement/data/no_revised/logs.json
+experiments/refinement/data/nothing/logs.json
+experiments/refinement/data/revised_and_unrevised/individual_logs.json
+experiments/revision/data/base_model_50000_documents/args.json
+experiments/revision/data/base_model_50000_documents/test/args.json
+experiments/revision/data/prompts/revision_examples.json
+experiments/revision/data/prompts/revision_prompts/revision_examples.json
+experiments/revision/data/base_model_50000_documents/dev_set/args.json
