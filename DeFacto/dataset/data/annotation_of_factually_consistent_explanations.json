@@ -4358,5 +4358,373 @@
         ],
         "notes": "nato did not reject the call for investigation, it just refused to acknowledge the deaths in the strikes, and claims it did investigate (other things). The leading is made up. they do call for investigation",
         "revisit": 1
+    },
+    {
+        "entry": 371,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 372,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 373,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 374,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 375,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 376,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 377,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "might need to remove",
+        "revisit": 1
+    },
+    {
+        "entry": 378,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 379,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 380,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 381,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "need to work on the split of the facts, there was a law, that becuase of it the building are not safe it led to closure, and it was followed, but it had reprocusions",
+        "revisit": 0
+    },
+    {
+        "entry": 382,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 383,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 384,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure becuase some of it will not be affected",
+        "revisit": 1
+    },
+    {
+        "entry": 385,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 386,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 387,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 388,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 389,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 390,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "what is being trialed is not single rail fairs, but making pricing clearer to commuters",
+        "revisit": 0
+    },
+    {
+        "entry": 391,
+        "both_identified": [],
+        "correct_llm": [
+            "B",
+            "C"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 392,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 393,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 394,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 395,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 396,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A",
+            "B"
+        ],
+        "notes": "not sure if they are still searching, becuase on one hand they say it was on Wednesday and Thursday, and on the other he said dont underestimate the area they are searching. About B the destination is not speicpied but might be infered?",
+        "revisit": 1
+    },
+    {
+        "entry": 397,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 398,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 399,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "it said another was the only welsh. does it indicate he is also welsh?",
+        "revisit": 1
+    },
+    {
+        "entry": 400,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 401,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
     }
 ]
