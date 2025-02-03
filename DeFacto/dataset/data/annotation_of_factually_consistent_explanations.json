@@ -4726,5 +4726,228 @@
         "maybe_llm": [],
         "notes": "",
         "revisit": 0
+    },
+    {
+        "entry": 402,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 403,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 404,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "they do plan to shred becuase in the end they said it will soon be rubbish",
+        "revisit": 0
+    },
+    {
+        "entry": 405,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "need to remove summary",
+        "revisit": 1
+    },
+    {
+        "entry": 406,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "The problem is what was confirmed, and that is the transfer to humans",
+        "revisit": 0
+    },
+    {
+        "entry": 407,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "need to remove summary",
+        "revisit": 1
+    },
+    {
+        "entry": 408,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [
+            "B"
+        ],
+        "notes": "not sure if there is more, it is about the dual candidacy, does it mean more?",
+        "revisit": 1
+    },
+    {
+        "entry": 409,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 410,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [
+            "B"
+        ],
+        "maybe_llm": [
+            "C"
+        ],
+        "notes": "not sure what they wanted to discuss is related to Stormont",
+        "revisit": 1
+    },
+    {
+        "entry": 411,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 412,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 413,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "the project was finished so back to normal is correct, and even south wales is good, becuase one person that was affected could not get to south wales, meaning some of the work at least was there",
+        "revisit": 0
+    },
+    {
+        "entry": 414,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "remove summary",
+        "revisit": 1
+    },
+    {
+        "entry": 415,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 416,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 417,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure, he did lose the lead according to the pool, but it is in the error margin",
+        "revisit": 1
+    },
+    {
+        "entry": 418,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "It was under a concrete terrace which was part of stand but football was never mentioned",
+        "revisit": 1
+    },
+    {
+        "entry": 419,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 420,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
     }
 ]
