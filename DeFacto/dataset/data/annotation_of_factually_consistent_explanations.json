@@ -5761,5 +5761,144 @@
         "maybe_llm": [],
         "notes": "",
         "revisit": 0
+    },
+    {
+        "entry": 489,
+        "both_identified": [],
+        "correct_llm": [
+            "A",
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "they did not call for rethink, but they warned on the affects of the law. In addition it is not plans to ban, but a law that allows them to ban",
+        "revisit": 0
+    },
+    {
+        "entry": 490,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 491,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 492,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 493,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 494,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 495,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 496,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [
+            "A",
+            "B"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 497,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [
+            "A",
+            "C"
+        ],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
+    },
+    {
+        "entry": 498,
+        "both_identified": [],
+        "correct_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": [
+            "A"
+        ],
+        "notes": "not sure",
+        "revisit": 1
+    },
+    {
+        "entry": 499,
+        "both_identified": [],
+        "correct_llm": [
+            "B"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "A and B are the same",
+        "revisit": 0
+    },
+    {
+        "entry": 500,
+        "both_identified": [],
+        "correct_llm": [
+            "A"
+        ],
+        "wrong_llm": [],
+        "maybe_llm": [],
+        "notes": "",
+        "revisit": 0
     }
 ]
