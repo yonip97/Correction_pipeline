@@ -1,6 +1,7 @@
 
 *.nlp18
 *.csv
+!data/factually_inconsistent_samples_final.csv
 *.txt
 experiments/ablations/better_summaries/temp.py
 experiments/ablations/ctrl/temp.py
