@@ -7742,8 +7742,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "need to change the gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 630,
@@ -7909,14 +7909,14 @@
     {
         "entry": 643,
         "both_identified": [
-            "A"
+           
         ],
         "correct_llm": [],
         "wrong_llm": [
-            "B"
+           "A", "B"
         ],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "A too vauge",
         "revisit": 0
     },
     {
@@ -8186,10 +8186,9 @@
         "entry": 665,
         "both_identified": [],
         "correct_llm": [
-            "A",
             "B"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [],
         "notes": "",
         "revisit": 0
@@ -8249,12 +8248,11 @@
             "C"
         ],
         "correct_llm": [
-            "A",
-            "B"
+            "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "B is too vauge, not clear what the mistake is",
         "revisit": 0
     },
     {
@@ -8471,10 +8469,10 @@
     {
         "entry": 688,
         "both_identified": [
-            "A"
+            "B"
         ],
         "correct_llm": [
-            "B"
+            "A"
         ],
         "wrong_llm": [],
         "maybe_llm": [],
@@ -8528,11 +8526,10 @@
             "B"
         ],
         "correct_llm": [
-            "C"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["C"],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "C is either too vauge or wrong, becuase there was a defeat by england, the other details are problematic",
         "revisit": 0
     },
     {
@@ -8559,7 +8556,7 @@
             "B"
         ],
         "maybe_llm": [],
-        "notes": "the gt is wrong",
+        "notes": "A is more accurate then gt",
         "revisit": 1
     },
     {
@@ -8623,8 +8620,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "llm is better than gt",
+        "revisit": 1
     },
     {
         "entry": 700,
@@ -8661,8 +8658,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "maybe change the description of A",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 703,
@@ -8828,13 +8825,13 @@
             "B"
         ],
         "correct_llm": [
-            "A",
-            "C"
+            "A"
+           
         ],
         "wrong_llm": [],
-        "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "maybe_llm": ["C"],
+        "notes": "he did not treat him properly becuase he was an 'effeminate man', and the couple was gay, not sure if it enough",
+        "revisit": 1
     },
     {
         "entry": 717,
@@ -9034,8 +9031,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "maybe improve description",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 734,
@@ -9200,7 +9197,7 @@
             "A"
         ],
         "maybe_llm": [],
-        "notes": "maybe also need to remove A from gt",
+        "notes": "need to remove gt about the second half",
         "revisit": 1
     },
     {
@@ -9539,8 +9536,8 @@
             "A"
         ],
         "maybe_llm": [],
-        "notes": "but need to adjust GT",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 774,
@@ -9652,11 +9649,11 @@
     },
     {
         "entry": 783,
-        "both_identified": [],
+        "both_identified": ["A"],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
-        "notes": "this is a mess. The player said moving to the club from internashional duty can help him with his goal drought. Need to see how to mark mistakes",
+        "notes": "Need to change gt to be a bit more clear",
         "revisit": 1
     },
     {
@@ -9741,8 +9738,8 @@
             "A"
         ],
         "maybe_llm": [],
-        "notes": "maybe need to change gt to be more clear",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 791,
@@ -9779,7 +9776,7 @@
             "B"
         ],
         "maybe_llm": [],
-        "notes": "need to fix C and D in the GT, beause it is vauge. The problem in C is Norwich, and in D is FA cup, the semi final is currect",
+        "notes": "need to fix C and D in the GT, beause it is vauge. The problem in C is Norwich, and in D is FA cup, the semi final is correct",
         "revisit": 1
     },
     {
