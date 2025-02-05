@@ -10071,15 +10071,15 @@
     {
         "entry": 817,
         "both_identified": [],
-        "correct_llm": [],
+        "correct_llm": ["A"],
         "wrong_llm": [
             "B"
         ],
         "maybe_llm": [
-            "A"
+           
         ],
         "notes": "she will succeed him as a deputy first minister, not Northern Ireland's first minister.",
-        "revisit": 1
+        "revisit": 0
     },
     {
         "entry": 818,
@@ -10135,13 +10135,12 @@
         "entry": 822,
         "both_identified": [
             "A",
-            "B",
             "C"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
-        "notes": "Need to change gt A.",
+        "notes": "Need to change gt A.B in llm is wrong becuase he did sign, just duration is not given",
         "revisit": 1
     },
     {
@@ -10213,13 +10212,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "B"
+            "A","B"
         ],
         "maybe_llm": [
-            "A"
         ],
-        "notes": "He is said to be a founder, and he has stake in Facebook. not sure",
-        "revisit": 1
+        "notes": "He is said to be a founder, and that he want to avoid taxes on his shares. The shares are Facebook shares. so it can be infered he is the founder of facebook",
+        "revisit": 0
     },
     {
         "entry": 829,
@@ -10772,12 +10770,11 @@
             "A"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "",
-        "revisit": 1
+        "notes": "B is a wrong split of the summary",
+        "revisit": 0
     },
     {
         "entry": 875,
@@ -10895,10 +10892,10 @@
             "A"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
-        "notes": "maybe refine gt, the revised summary is great",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 885,
@@ -11036,7 +11033,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "fix gt, and also in A it is not a \"Bank\" anything, but is a holiday and weekend",
+        "notes": "In A it is not a \"Bank\" anything, but is a holiday and weekend",
         "revisit": 1
     },
     {
@@ -11202,8 +11199,8 @@
             "A"
         ],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "need to change gt",
+        "revisit": 1
     },
     {
         "entry": 909,
@@ -11846,8 +11843,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "change gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 962,
@@ -11882,8 +11879,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "maybe refine gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 965,
@@ -11893,8 +11890,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "refine gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 966,
@@ -11906,8 +11903,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "they will play 2 matches in the tornument it seems, need to check how to split mistakes",
-        "revisit": 1
+        "notes": "they will play 2 matches in the tornument it seems",
+        "revisit": 0
     },
     {
         "entry": 967,
@@ -12022,12 +12019,12 @@
         "entry": 976,
         "both_identified": [],
         "correct_llm": [
-            "A"
+           
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [],
-        "notes": "look at A again, this is correct becuase it is not a quote, but the statment is true",
-        "revisit": 1
+        "notes": "A is wrong, even if the quote does not appear",
+        "revisit": 0
     },
     {
         "entry": 977,
@@ -12185,8 +12182,8 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "maybe change gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 990,
@@ -12416,7 +12413,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "A is a bit vauge, but they do say something will be hard (probably qalifing) not the game against israel",
+        "notes": "They do say something will be hard (probably qualifying) not the game against israel",
         "revisit": 1
     },
     {
