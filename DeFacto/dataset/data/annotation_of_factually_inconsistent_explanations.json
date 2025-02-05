@@ -907,9 +907,8 @@
             "B"
         ],
         "correct_llm": [
-            "C"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["C"],
         "maybe_llm": [],
         "notes": "",
         "revisit": 0
@@ -1281,16 +1280,16 @@
     },
     {
         "entry": 105,
-        "both_identified": [],
+        "both_identified": ["B"],
         "correct_llm": [
-            "B"
+           
         ],
         "wrong_llm": [
             "A"
         ],
         "maybe_llm": [],
-        "notes": "need to add/unite the 2014 and Fifa",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 106,
@@ -1359,12 +1358,12 @@
         "entry": 111,
         "both_identified": [],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [
-            "A"
+            
         ],
-        "notes": "very vauge, but maybe true",
-        "revisit": 1
+        "notes": "very vauge",
+        "revisit": 0
     },
     {
         "entry": 112,
@@ -1659,12 +1658,12 @@
         "correct_llm": [
             "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
-            "B"
+           
         ],
         "notes": "B too vauge",
-        "revisit": 1
+        "revisit": 0
     },
     {
         "entry": 137,
@@ -1788,10 +1787,9 @@
         "entry": 147,
         "both_identified": [],
         "correct_llm": [
-            "A",
             "B"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [],
         "notes": "maybe gt is wrong",
         "revisit": 1
@@ -1909,15 +1907,14 @@
     {
         "entry": 157,
         "both_identified": [
-            "A"
         ],
         "correct_llm": [
-            "B"
+            "A","B"
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "change gt",
+        "revisit": 1
     },
     {
         "entry": 158,
@@ -2010,8 +2007,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "need to split gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 165,
@@ -2370,8 +2367,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "B contains 2 facts, and needs some explanation adjustment becuase the first name is not mentioned at all",
+        "revisit": 1
     },
     {
         "entry": 194,
@@ -2601,8 +2598,8 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "B",
-            "C"
+            "A",
+            "B"
         ],
         "maybe_llm": [],
         "notes": "",
@@ -2700,7 +2697,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "There is a repeat between A and B",
+        "notes": "There is a repeat between A and B. gt needs to be changed",
         "revisit": 1
     },
     {
@@ -2742,11 +2739,10 @@
             "A"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "need to change explanation. He is a unite union offical, as he is secretery, but he is not senior, and about B I am not sure",
+        "notes": "need to change explanation. He is a unite union offical, as he is secretery, but he is not senior, and about B If he already launched is campagin then he did announce he is running am not sure",
         "revisit": 1
     },
     {
@@ -2821,7 +2817,7 @@
         "maybe_llm": [
             "B"
         ],
-        "notes": "It is true there was no announcement in the text, but the project will be, so does it mean he was announced?",
+        "notes": "It is true there was no announcement in the text, but the project will be, so does it mean he was announced? In addition both south Wales and Welsh goverment are mentioned, both mistake as the country is not mentioned, but need to change gt to reflect both mistakes",
         "revisit": 1
     },
     {
@@ -2875,12 +2871,12 @@
     {
         "entry": 235,
         "both_identified": [
-            "B"
+            "A"
         ],
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [
-            "A"
+            "B"
         ],
         "notes": "he admited some charge, and he did the deed, but did he admit the deed?",
         "revisit": 1
@@ -3135,10 +3131,10 @@
     {
         "entry": 256,
         "both_identified": [
-            "C"
+            "B","C"
         ],
         "correct_llm": [
-            "B"
+
         ],
         "wrong_llm": [
             "A"
@@ -3465,12 +3461,11 @@
         "correct_llm": [
             "B"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["D"],
         "maybe_llm": [
-            "D"
         ],
-        "notes": "not sure what it means, kinda vauge. no day one for sure",
-        "revisit": 1
+        "notes": "not sure what it means in D, kinda vauge. no day one for sure, but need to skip it",
+        "revisit": 0
     },
     {
         "entry": 283,
@@ -3579,15 +3574,15 @@
             "A",
             "B"
         ],
-        "correct_llm": [],
+        "correct_llm": ["D"],
         "wrong_llm": [
             "C"
         ],
         "maybe_llm": [
-            "D"
+      
         ],
         "notes": "The text said someone said it looks like it was in the 50th floor",
-        "revisit": 1
+        "revisit": 0
     },
     {
         "entry": 292,
@@ -3642,15 +3637,14 @@
     {
         "entry": 296,
         "both_identified": [
-            "A"
         ],
         "correct_llm": [],
         "wrong_llm": [
-            "B"
+            "A","B"
         ],
         "maybe_llm": [],
-        "notes": "it was becuase of the scandal, dont know if only it. In addition gt is not true, the text said it is a chraity, just not of children and not a leading one, need to change",
-        "revisit": 1
+        "notes": "it was becuase of the scandal, dont know if only it. ",
+        "revisit": 0
     },
     {
         "entry": 297,
@@ -3907,16 +3901,15 @@
     {
         "entry": 318,
         "both_identified": [
-            "A",
-            "B"
+            "A"
         ],
         "correct_llm": [],
         "wrong_llm": [
-            "C"
+            "B","C"
         ],
         "maybe_llm": [],
-        "notes": "my explanation is problamatic, the real issue is that the summary say three women who were assulted are seeking compensation, while there is one of those 3, and also one male",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 319,
@@ -4258,8 +4251,8 @@
             "C"
         ],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "change gt to be more clear",
+        "revisit": 1
     },
     {
         "entry": 347,
@@ -4319,8 +4312,8 @@
             "B"
         ],
         "maybe_llm": [],
-        "notes": "might need to change the gt",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 352,
@@ -4530,14 +4523,14 @@
         "entry": 369,
         "both_identified": [
             "A",
+            "B",
             "C"
         ],
         "correct_llm": [
-            "B"
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "GT seems wrong, as the text does not tell of any deaths. Need to combine B and C, becuase if no one died, than no one died at age 47",
         "revisit": 0
     },
     {
@@ -4595,8 +4588,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "need to remove fish from gt",
+        "revisit": 1
     },
     {
         "entry": 375,
@@ -4820,13 +4813,13 @@
     },
     {
         "entry": 393,
-        "both_identified": [],
+        "both_identified": ["A"],
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [
-            "A"
+           
         ],
-        "notes": "They were there 2 times, and the first was a year ago. So it is mostly true? need to change gt",
+        "notes": "They were there 2 times,the first time ended a year ago, so it was twice in 2 years, like the original annotator fixed, need to change gt as it is not clear",
         "revisit": 1
     },
     {
@@ -4861,8 +4854,8 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "B",
-            "C"
+            "A",
+            "B"
         ],
         "maybe_llm": [],
         "notes": "",
@@ -4905,7 +4898,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "C is A, might need to change the explanation",
+        "notes": "C is A, might need to change the explanation.change gt",
         "revisit": 1
     },
     {
@@ -4960,13 +4953,12 @@
     {
         "entry": 404,
         "both_identified": [
-            "A",
-            "B"
+            "A"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
-        "notes": "might need to change gt on the yongest",
+        "notes": "need to change gt on the yongest, she broke the age record(not sure on participation or winning) but then she won, so she defently broke the age record on winning",
         "revisit": 1
     },
     {
@@ -5217,14 +5209,14 @@
     {
         "entry": 425,
         "both_identified": [
-            "A"
+            "B"
         ],
         "correct_llm": [
-            "B"
+            "A"
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "change gt to llm, it is more clear",
         "revisit": 0
     },
     {
@@ -5394,11 +5386,10 @@
         "correct_llm": [
             "B"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["C"],
         "maybe_llm": [
-            "C"
         ],
-        "notes": "not sure about confirm, Turkey only expressed an opinion, also saudi arabia will attednd, turkey no idea",
+        "notes": "C is too vauge, becuase some did and some did not, about B it is half right becuase Turkey did not, but Saudi Arabia did",
         "revisit": 1
     },
     {
@@ -5770,7 +5761,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "A needs some clarification, it is the world which is the problem, it was also removed in the edits of the original dataset",
         "revisit": 0
     },
     {
@@ -5934,7 +5925,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "B is vauge. Abu Dhabi was in the gt and model, but it might be infered from the text.in addition, combine 2016 and the name of the tornment.",
+        "notes": "B is vauge. Abu Dhabi was in the gt and model, but it can be infered from the text.It talks about a race in Abu Dhabi, where she finished first",
         "revisit": 1
     },
     {
@@ -6021,8 +6012,8 @@
             "B"
         ],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "replace gt with tier explanation, it is clearer",
+        "revisit": 1
     },
     {
         "entry": 490,
@@ -6207,8 +6198,8 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "",
-        "revisit": 0
+        "notes": "need to change gt",
+        "revisit": 1
     },
     {
         "entry": 505,
@@ -6266,12 +6257,11 @@
             "A"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "no idea, need to think",
-        "revisit": 1
+        "notes": "B is too vauge, can be infered has he was not on trial, only felt he was on trial, can be infered the trail was not for the tour but for Wales selection.",
+        "revisit": 0
     },
     {
         "entry": 510,
@@ -6679,7 +6669,7 @@
         "entry": 543,
         "both_identified": [
             "A",
-            "b"
+            "B"
         ],
         "correct_llm": [],
         "wrong_llm": [
@@ -6722,7 +6712,7 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "A is vauge",
+        "notes": "A is vauge. In addition it is not part of the Uk, so need to change gt. They were not the first to do so, and they are not part of the UK",
         "revisit": 0
     },
     {
@@ -6748,7 +6738,7 @@
         "correct_llm": [],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "maybe gt on the silver is wrong,as they did come second, and won a medal in another competition in the series, which might indicate tehy get medals?",
+        "notes": "gt on the silver is wrong,as they did come second, and won a medal in another competition in the series, which indicate they get medals. In addition it was the second round, becuase it was after the first. Need to also change the Beijing explanation",
         "revisit": 0
     },
     {
@@ -6830,7 +6820,7 @@
             "B"
         ],
         "maybe_llm": [],
-        "notes": "need to see how to split and if becuase she won in atheans a bronze, so she is not a champion, maybe not olympic, and the 1500m is not true as well",
+        "notes": "need to see how to split and if becuase she won in atheans a bronze, so she is not a champion, and the 1500m is not true as well",
         "revisit": 1
     },
     {
@@ -7544,9 +7534,9 @@
             "B"
         ],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [],
-        "notes": "A and the gt agree, but it might be wrong, as the factory is in Wirral and the company makes biscuits, maybe not there?",
+        "notes": "A is vauge. In addition the factury can be infered to be in Wirral, so the gt needs to change",
         "revisit": 1
     },
     {
@@ -7564,13 +7554,12 @@
     {
         "entry": 614,
         "both_identified": [],
-        "correct_llm": [],
+        "correct_llm": ["A"],
         "wrong_llm": [],
         "maybe_llm": [
-            "A"
         ],
-        "notes": "he is on a loan, does it mean release?",
-        "revisit": 1
+        "notes": "he is on a loan, not released",
+        "revisit": 0
     },
     {
         "entry": 615,
@@ -7601,10 +7590,10 @@
         "both_identified": [
             "A"
         ],
-        "correct_llm": [],
+        "correct_llm": ["B"],
         "wrong_llm": [],
         "maybe_llm": [],
-        "notes": "B is sub of A",
+        "notes": "A is the combination of the gt and B",
         "revisit": 0
     },
     {
