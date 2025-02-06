@@ -5,7 +5,7 @@
         "correct_llm": [
             "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [],
         "notes": "",
         "revisit": 0
@@ -210,9 +210,9 @@
         ],
         "wrong_llm": [],
         "maybe_llm": [
-            "B sure if Indian supreme court"
+            "B"
         ],
-        "notes": "",
+        "notes": "sure if Indian supreme court",
         "revisit": 1
     },
     {
@@ -353,9 +353,8 @@
         "entry": 30,
         "both_identified": [],
         "correct_llm": [
-            "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [
             "B"
         ],
@@ -862,10 +861,8 @@
         "entry": 74,
         "both_identified": [],
         "correct_llm": [],
-        "wrong_llm": [
-            "A"
-        ],
-        "maybe_llm": [],
+        "wrong_llm": [],
+        "maybe_llm": ["A"],
         "notes": "the text actually tals as he took a victory. but not sure about a victory in the election, was it a victory?",
         "revisit": 1
     },
@@ -944,13 +941,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "A"
+            "A","B"
         ],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "many people donated in his name, and many women said on social media they did, but does it mean many women donated in his name? And are they from the US?",
-        "revisit": 1
+        "notes": "B is not a factual inconsistency",
+        "revisit": 0
     },
     {
         "entry": 82,
@@ -1443,14 +1439,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "A"
+            "A","B","C"
         ],
         "maybe_llm": [
-            "B",
-            "C"
         ],
-        "notes": "they are a series. But the text talks about companies, and that gabon already attracted investors which were companies, but not sure on the connection. and the text spoke on diversipication, but not sure if it is the economy?",
-        "revisit": 1
+        "notes": "they are a series.In addition the companies are asian and are investing. Also C is not really a mistake.",
+        "revisit": 0
     },
     {
         "entry": 124,
@@ -1559,13 +1553,12 @@
         "entry": 133,
         "both_identified": [],
         "correct_llm": [
-            "A"
+            "A","B"
         ],
         "wrong_llm": [],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "no one said the tiger caused the traffic, only that it passed heavy traffic. In addition, it did happen in Doha, and it might be infered that it was in qatar, but no one said it was the capital",
+        "notes": "no one said the tiger caused the traffic, only that it passed heavy traffic. In addition, it did happen on Doha express way, not in Doha(there is a difference-I checked)",
         "revisit": 1
     },
     {
@@ -1804,12 +1797,11 @@
             "C"
         ],
         "wrong_llm": [
-            "A"
+            "A","B"
         ],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "in this context, worst can also mean greatest. But the images were not said to be in display for the first time, only that they were being put on display. About the WW-1, they mention it was in 1917, and that it was shown in the anniversary to the WW-1. but is it enough? in additon, it is said it was the worst at its time, but the war was not finished",
+        "notes": "in this context, worst can also mean greatest. But the images were not said to be in display for the first time, only that they were being put on display. About the WW-1, they mention it was in 1917, and that it was shown in the anniversary to the WW-1. in additon, it is said it was the worst at its time, but the war was not finished",
         "revisit": 1
     },
     {
@@ -1909,10 +1901,9 @@
     {
         "entry": 162,
         "both_identified": [],
-        "correct_llm": [],
+        "correct_llm": ["A"],
         "wrong_llm": [],
         "maybe_llm": [
-            "A"
         ],
         "notes": "there are more than 100, but the includes 18 which were schools and nurseries. So it might be less. In addition, not clear if it is in scotland or more places?",
         "revisit": 1
@@ -2016,9 +2007,8 @@
         "entry": 171,
         "both_identified": [],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [
-            "A"
         ],
         "notes": " it is not a charity, but an Initiative set up by five charitable trusts. They did the report and made the claim, but I dont think they are a charity",
         "revisit": 1
@@ -2367,13 +2357,12 @@
         "entry": 201,
         "both_identified": [],
         "correct_llm": [
-            "A"
+            "A","B"
         ],
         "wrong_llm": [],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "it is not is childhood home, he only played there as a child. About the is to be, they aim to, and start a campign, but is it definetive?",
+        "notes": "it is not is childhood home, he only played there as a child. About the is to be, they aim to, and start a campign, but it is not definitive",
         "revisit": 0
     },
     {
@@ -2414,11 +2403,10 @@
         "entry": 205,
         "both_identified": [],
         "correct_llm": [
-            "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["A"],
         "maybe_llm": [],
-        "notes": "you do not know he returns, becuase in the text we can not infer he was in any other film",
+        "notes": "too vauge",
         "revisit": 0
     },
     {
@@ -2847,13 +2835,11 @@
         "entry": 242,
         "both_identified": [],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["A","B"],
         "maybe_llm": [
-            "A",
-            "B"
         ],
-        "notes": "not sure at all, in A the explanation is irrelavant, but she was the director of this place, and it is in manchaster, but not specipclly a art galler. In addition B, she took over a few things in tate, not sure if gallerys?",
-        "revisit": 1
+        "notes": "A and B are omissions more the factual inconsistencies",
+        "revisit": 0
     },
     {
         "entry": 243,
