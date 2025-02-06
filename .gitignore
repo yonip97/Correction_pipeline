@@ -2,6 +2,7 @@
 *.nlp18
 *.csv
 !DeFacto/dataset/data/factually_inconsistent_samples_final.csv
+!DeFacto/dataset/data/factually_consistent_samples_final.csv
 *.txt
 experiments/ablations/better_summaries/temp.py
 experiments/ablations/ctrl/temp.py
