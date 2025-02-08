@@ -3118,13 +3118,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "A"
+            "A","B"
         ],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "the explanation of B is bad, but he faces charges, are they criminal? he can be sent to prison?",
-        "revisit": 1
+        "notes": "According to B, the problem was were the charges filed, but it does not matter becuase the text says he faces charges and so does the summary",
+        "revisit": 0
     },
     {
         "entry": 268,
@@ -3455,12 +3454,11 @@
         "correct_llm": [
             "A"
         ],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
-            "B"
         ],
-        "notes": "not sure on \"it has emerged\"",
-        "revisit": 1
+        "notes": "it has emerged, at some point, the explanation in B infers things which are not there",
+        "revisit": 0
     },
     {
         "entry": 297,
@@ -3538,7 +3536,7 @@
         "entry": 303,
         "both_identified": [],
         "correct_llm": [
-            "B"
+            "A","B"
         ],
         "wrong_llm": [
             "C"
@@ -3800,13 +3798,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "B"
+            "A","B"
         ],
         "maybe_llm": [
-            "A"
         ],
-        "notes": "special is not mentioned, but it is subjective. The team as a game in the Euro this week and it is from 2016. So it is ahead of Euro 2016 ",
-        "revisit": 1
+        "notes": "special is not mentioned, but it is subjective, so it can be infered. The team as a game in the Euro this week and it is from 2016. So it is ahead of Euro 2016 ",
+        "revisit": 0
     },
     {
         "entry": 326,
@@ -4192,13 +4189,12 @@
         "both_identified": [],
         "correct_llm": [],
         "wrong_llm": [
-            "B"
+            "A","B"
         ],
         "maybe_llm": [
-            "A"
         ],
-        "notes": "it is an unknown subbstance, as they still try to figure out what is it, but it is not a direct quote",
-        "revisit": 1
+        "notes": "it is an unknown subbstance, as they still try to figure out what is it",
+        "revisit": 0
     },
     {
         "entry": 359,
@@ -4524,13 +4520,12 @@
         "entry": 386,
         "both_identified": [],
         "correct_llm": [
-            "B"
         ],
         "wrong_llm": [
-            "A"
+            "A","B"
         ],
         "maybe_llm": [],
-        "notes": "",
+        "notes": "It is filmed in their studio, and also it will follow their antics, so comandy makes sense",
         "revisit": 0
     },
     {
@@ -5467,7 +5462,7 @@
         "entry": 465,
         "both_identified": [],
         "correct_llm": [],
-        "wrong_llm": [],
+        "wrong_llm": ["B"],
         "maybe_llm": [
             "A"
         ],
@@ -5722,8 +5717,8 @@
             "A"
         ],
         "maybe_llm": [],
-        "notes": "not sure if we can infer they are all welsh",
-        "revisit": 1
+        "notes": "",
+        "revisit": 0
     },
     {
         "entry": 487,
@@ -5786,10 +5781,9 @@
         "entry": 492,
         "both_identified": [],
         "correct_llm": [
-            "B"
         ],
         "wrong_llm": [
-            "A"
+            "A", "B"
         ],
         "maybe_llm": [],
         "notes": "",
