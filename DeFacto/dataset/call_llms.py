@@ -1,4 +1,7 @@
 import google.generativeai as genai
+from google.api_core import retry
+from google.generativeai.types import RequestOptions
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from google.generativeai.types import GenerationConfig
 from openai import AzureOpenAI, OpenAI
 import openai
@@ -6,7 +9,6 @@ import os
 import time
 import anthropic
 from ibm_watsonx_ai.foundation_models import ModelInference
-from llamaapi import LlamaAPI
 import csv
 from transformers import AutoTokenizer, pipeline
 from dotenv import load_dotenv
@@ -49,9 +51,11 @@ class GeminiCaller:
 
     def call(self, input, max_new_tokens):
         gen_config = GenerationConfig(max_output_tokens=max_new_tokens, temperature=0)
-        # gen_config = {'max_new_tokens': max_new_tokens, 'temperature': 0}
         try:
-            response = self.model.generate_content(input, generation_config=gen_config)
+            response = self.model.generate_content(input, generation_config=gen_config,
+                                                   request_options=RequestOptions(
+                                                       retry=retry.Retry(initial=10, multiplier=2, maximum=60,
+                                                                         timeout=300)))
             if len(response.candidates) == 0:
                 self.api_rules_error += 1
                 self.logger.write(
@@ -70,6 +74,7 @@ class GeminiCaller:
                 return None, response.candidates[0].finish_reason.name, price
             self.backup.writerow([response.candidates[0].content, None, None, price])
             return response.text, None, price
+
         except Exception as e:
             self.other_errors += 1
             self.logger.write(f"Error occurred: {e}")
@@ -93,7 +98,7 @@ class OpenAICaller:
         self.other_errors = 0
         if temp_save_dir is not None:
             self.logger, self.backup = create_backup(temp_save_dir, model)
-            self.backup.writerow(["output", "error", "price"])
+            self.backup.writerow(["input", "output", "error", "price"])
         else:
             self.logger = None
             self.backup = None
@@ -101,36 +106,45 @@ class OpenAICaller:
         self.output_price = output_price
 
     def call(self, input, timeout=60, max_new_tokens=2000, **kwargs):
-        try:
-            message = [{
-                "role": "user",
-                "content": input,
-            }]
+        max_tries = 8
+        wait_time = 10
+        for i in range(max_tries):
+            try:
+                message = [{
+                    "role": "user",
+                    "content": input,
+                }]
 
-            response = self.client.chat.completions.create(model=self.model,
-                                                           messages=message,
-                                                           temperature=0,
-                                                           max_tokens=max_new_tokens, timeout=timeout, **kwargs)
+                response = self.client.chat.completions.create(model=self.model,
+                                                               messages=message,
+                                                               temperature=0,
+                                                               max_tokens=max_new_tokens, timeout=timeout, **kwargs)
 
-            price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
-                               self.input_price, self.output_price)
-            if self.backup is not None:
-                self.backup.writerow([response.choices[0].message.content, None, price])
-            return response.choices[0].message.content, None, price
-        except openai.OpenAIError as e:
-            print(f"Error occurred: {e}")
-            if self.logger is not None:
-                self.logger.write(f"Error occurred: {e}")
-                self.backup.writerow([None, f"{e}", 0])
-            self.api_rules_error += 1
-            return None, f"{e}", 0
-        except Exception as e:
-            print(f"Error in output occurred: {e}")
-            self.other_errors += 1
-            if self.logger is not None:
-                self.logger.write(f"Error occurred: {e}")
-                self.backup.writerow([None, f"{e}", 0])
-            return None, f"{e}", 0
+                price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
+                                   self.input_price, self.output_price)
+                if self.backup is not None:
+                    self.backup.writerow([input, response.choices[0].message.content, None, price])
+                return response.choices[0].message.content, None, price
+            except openai.RateLimitError:  # Catch the overuse error (429)
+                print(f"Rate limit exceeded. Waiting {wait_time} seconds before retrying...")
+                time.sleep(wait_time)  # Wait before retrying
+                wait_time *= 2
+            except openai.OpenAIError as e:
+                print(f"Error occurred: {e}")
+                if self.logger is not None:
+                    self.logger.write(f"Error occurred: {e}")
+                    self.backup.writerow([None, f"{e}", 0])
+                self.api_rules_error += 1
+                return None, f"{e}", 0
+            except Exception as e:
+                print(f"Error in output occurred: {e}")
+                self.other_errors += 1
+                if self.logger is not None:
+                    self.logger.write(f"Error occurred: {e}")
+                    self.backup.writerow([None, f"{e}", 0])
+                return None, f"{e}", 0
+
+        return None, f"{e}", 0
 
 
 class WatsonCaller:
@@ -171,60 +185,75 @@ class WatsonCaller:
 
 
 class LlamaApiCaller:
-    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
+    def __init__(self, model, temp_save_dir, input_price=0.0, output_price=0.0):
         api_key = os.getenv('LLAMA_API_KEY')
-        hf_token = os.getenv('HF_TOKEN')
         self.client = OpenAI(
             api_key=api_key,
             base_url="https://api.llama-api.com"
         )
-        if '405' in model:
-
-            self.tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-405B-Instruct" ,token = hf_token)
-        elif '70' in model:
-            self.tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-70B-Instruct" ,token = hf_token)
-        else:
-            raise ValueError(f"Model {model} is not supported")
         self.model = model.lower()
         self.api_rules_error = 0
         self.other_errors = 0
         self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["output", "error", "price"])
+        self.backup.writerow(["input", "output", "error", "price"])
         self.input_price = input_price
         self.output_price = output_price
 
     def call(self, input, max_new_tokens):
-        # request = { "model": self.model,
-        #     "messages": [
-        # {"role": "user", "content": input},
-        #         ]
-        #
-        # }
-        message = [{
-            "role": "user",
-            "content": input,
-        }]
-        # message = self.tokenizer.apply_chat_template(
-        #     [[{
-        #         "role": "user",
-        #         "content": input,
-        #     }]],
-        #     add_generation_prompt=True, tokenize=False
-        # )
-        # message = [{
-        #     "role": "user",
-        #     "content": message[0],
-        # }]
-        response = self.client.chat.completions.create(model=self.model,
-                                                       messages=message,
-                                                       max_tokens=max_new_tokens, temperature=0)
-        price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
-                           self.input_price, self.output_price)
-        # response = response.json()
-        # usage = response['usage']
-        # price = calc_price(usage['prompt_tokens'], usage['completion_tokens'], self.input_price, self.output_price)
-        # output = response['choices'][0]['message']['content']
-        return response.choices[0].message.content, None, price
+        message = [{"role": "user", "content": input}]
+        max_retries = 8
+        retry_count = 0
+        while retry_count <= max_retries:
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=message,
+                    max_tokens=max_new_tokens,
+                    temperature=0
+                )
+
+                price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
+                                   self.input_price, self.output_price)
+
+                output_text = response.choices[0].message.content
+
+                if self.backup is not None:
+                    self.backup.writerow([input, output_text, None, price])
+
+                return output_text, None, price
+
+            except Exception as e:
+                error_message = str(e)
+
+                if "429" in error_message:  # Rate limit error
+                    wait_time = 2 ** retry_count  # Exponential backoff (2^retry_count)
+                    time.sleep(wait_time)
+                    retry_count += 1
+                else:
+                    self.logger.write(f"API call failed: {error_message}")
+                    if self.backup is not None:
+                        self.backup.writerow([input, None, error_message, None])
+                    return None, error_message, None
+
+        # If max retries exceeded, log error and return failure
+        self.logger.write("Max retries exceeded. API call failed.")
+        return None, "Max retries exceeded", None
+
+    # def call(self, input, max_new_tokens):
+    #
+    #     message = [{
+    #         "role": "user",
+    #         "content": input,
+    #     }]
+    #     response = self.client.chat.completions.create(model=self.model,
+    #                                                    messages=message,
+    #                                                    max_tokens=max_new_tokens, temperature=0)
+    #     price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
+    #                        self.input_price, self.output_price)
+    #
+    #     if self.backup is not None:
+    #         self.backup.writerow([input,response.choices[0].message.content, None, price])
+    #     return response.choices[0].message.content, None, price
 
 
 class AnthropicCaller:
@@ -235,22 +264,41 @@ class AnthropicCaller:
         self.other_errors = 0
         self.model = model
         self.logger, self.backup = create_backup(temp_save_dir, model)
+        self.backup.writerow(["input", "output", "error", "price"])
         self.input_price = input_price
         self.output_price = output_price
 
     def call(self, input, max_new_tokens):
-        # TODO: complete logger and exceptions handling
-        message = {"role": "user", "content": input}
-        message = self.client.messages.create(
-            model=self.model,
-            max_tokens=max_new_tokens,
-            temperature=0,
-            messages=[message]
-        )
-        return message.content[0].text, None, 0
+        max_tries = 8
+        wait_time = 10
+        for i in range(max_tries):
+            try:
+                message = {"role": "user", "content": input}
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=max_new_tokens,
+                    temperature=0,
+                    messages=[message]
+                )
+                price = calc_price(response.usage.input_tokens, response.usage.output_tokens,
+                                   self.input_price, self.output_price)
+                if self.backup is not None:
+                    self.backup.writerow([input, response.content[0].text, None, price])
+                return response.content[0].text, None, price
+            except anthropic.RateLimitError as e:
+                print(f"Rate limit exceeded. Waiting {wait_time} seconds before retrying...")
+                time.sleep(wait_time)  # Wait before retrying
+                wait_time *= 2
+            except Exception as e:
+                print(f"Error in output occurred: {e}")
+                self.other_errors += 1
+                if self.logger is not None:
+                    self.logger.write(f"Error occurred: {e}")
+                    self.backup.writerow([None, f"{e}", 0])
+                return None, f"{e}", 0
 
 
-class ModelCaller:
+class ModelCallerPipeline:
     def __init__(self, model_id, device_map, torch_dtype):
         hf_token = os.getenv('HF_TOKEN')
         self.pipeline = pipeline(
@@ -263,11 +311,39 @@ class ModelCaller:
 
     def call(self, input, max_new_tokens):
         messages = [
-            {"role": "user", "content": input},
+            {"role": "user", "content": input[0]},
         ]
         outputs = self.pipeline(
             messages,
-            max_new_tokens=max_new_tokens,
-        )
+            max_new_tokens=max_new_tokens)
         output = outputs[0]['generated_text'][-1]['content']
         return output, None, 0
+
+
+class ModelCallerAutoModel:
+    def __init__(self,model_id, device_map, torch_dtype):
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            torch_dtype=torch_dtype,
+            device_map=device_map
+        )
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        self.model = model
+        self.tokenizer = tokenizer
+
+    def call(self, inputs,max_length):
+        message_batch =[[{"role": "user", "content": inputs[i]}] for i in range(len(inputs))]
+        text_batch = self.tokenizer.apply_chat_template(
+            message_batch,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+        model_inputs_batch = self.tokenizer(text_batch, return_tensors="pt", padding=True).to("cuda")
+        generated_ids_batch = self.model.generate(
+            **model_inputs_batch,
+            max_new_tokens=max_length,
+        )
+        generated_ids_batch = generated_ids_batch[:, model_inputs_batch.input_ids.shape[1]:]
+        response_batch = self.tokenizer.batch_decode(generated_ids_batch, skip_special_tokens=True)
+        return response_batch, [None]*len(response_batch), [0]*len(response_batch)
+
