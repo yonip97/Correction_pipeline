@@ -175,19 +175,66 @@ def llm_output_to_metrics():
     est_results = calculate_precision_recall_f1(precision_dicts, recall_dicts)
     print(est_results)
 
+def preprocess_llm_output(judgement_outputs):
+    matching_dicts = []
+    discard = []
+    for i in range(len(judgement_outputs)):
+        # Sometimes, the llm as a judge does not format the data properly. In such cases, we discard the sample.
+        try:
+            matching_dicts.append(proccess_llm_output(judgement_outputs[i]))
+        except:
+            matching_dicts.append(None)
+            discard.append(i)
+    return matching_dicts, discard
 
-def llm_judgment_to_precision_recall_matching(judgement_outputs, raw_descriptions):
-    # This functions takes the llm judgment, which is for every key of adescription in the evaluated output , we have the matched keys in the ground truth
-    # From this we can get the precision (which is the mathcing itslef, every key which has a match in the gt is true positive, those who dont are false positives
-    # For the recall we flip the matching dict. Every key becomes value and vise versa. So now we have all the keys in the gt which were matched to the predictions.
-    # We add all missing gt keys using the ground truth explanations.
-    precision_dicts = [proccess_llm_output(x) for x in judgement_outputs]
+def transform_matching_to_recall_precision(matching_dicts, raw_descriptions,discard):
     recall_dicts = [{num_to_uppercase_letter(key): [] for key in range(len(raw_descriptions[i]))} for i in
                     range(len(raw_descriptions))]
     #Sometimes, the llm as a judge will make up some keys which are not in the ground truth.
     #If such keys exist in any sample, the sample will be discarded.
+    for i in range(len(matching_dicts)):
+        if i in discard:
+            continue
+        for key, value_list in matching_dicts[i].items():
+            if any([x not in recall_dicts[i].keys() for x in value_list]):
+                discard.append(i)
+                break
+            for value in value_list:
+                recall_dicts[i][value].append(key)
+    precision_dicts = [matching_dicts[i] for i in range(len(matching_dicts)) if i not in discard]
+    recall_dicts = [recall_dicts[i] for i in range(len(recall_dicts)) if i not in discard]
+    return precision_dicts, recall_dicts,discard
+
+def transform_precision_recall(precision_dicts, recall_dicts):
+    for x in precision_dicts:
+        for key in x:
+            x[key] = 1 if len(x[key]) > 0 else 0
+    for x in recall_dicts:
+        for key in x:
+            x[key] = 1 if len(x[key]) > 0 else 0
+    return precision_dicts, recall_dicts
+def llm_judgment_to_precision_recall(judgement_outputs, raw_descriptions):
+    # This functions takes the llm judgment, which is for every key of adescription in the evaluated output , we have the matched keys in the ground truth
+    # From this we can get the precision (which is the mathcing itslef, every key which has a match in the gt is true positive, those who dont are false positives
+    # For the recall we flip the matching dict. Every key becomes value and vise versa. So now we have all the keys in the gt which were matched to the predictions.
+    # We add all missing gt keys using the ground truth explanations.
+    precision_dicts = []
     discard = []
+    for i in range(len(judgement_outputs)):
+        # Sometimes, the llm as a judge does not format the data properly. In such cases, we discard the sample.
+        try:
+            precision_dicts.append(proccess_llm_output(judgement_outputs[i]))
+        except:
+            precision_dicts.append(None)
+            discard.append(i)
+
+    recall_dicts = [{num_to_uppercase_letter(key): [] for key in range(len(raw_descriptions[i]))} for i in
+                    range(len(raw_descriptions))]
+    #Sometimes, the llm as a judge will make up some keys which are not in the ground truth.
+    #If such keys exist in any sample, the sample will be discarded.
     for i in range(len(precision_dicts)):
+        if i in discard:
+            continue
         for key, value_list in precision_dicts[i].items():
             if any([x not in recall_dicts[i].keys() for x in value_list]):
                 discard.append(i)
@@ -204,6 +251,19 @@ def llm_judgment_to_precision_recall_matching(judgement_outputs, raw_description
         for key in x:
             x[key] = 1 if len(x[key]) > 0 else 0
     return precision_dicts, recall_dicts,discard
+def impute_dicts(precision_dicts, recall_dicts, discarded_samples):
+    new_precision_dicts = []
+    new_recall_dicts = []
+    values_idx = 0
+    for i in range(len(discarded_samples)+len(precision_dicts)):
+        if i in discarded_samples:
+            new_precision_dicts.append(None)
+            new_recall_dicts.append(None)
+        else:
+            new_precision_dicts.append(precision_dicts[values_idx])
+            new_recall_dicts.append(recall_dicts[values_idx])
+            values_idx += 1
+    return new_precision_dicts, new_recall_dicts
 
 
 def compute_metrics(precision_dicts, recall_dicts):
@@ -224,7 +284,12 @@ def compute_metrics(precision_dicts, recall_dicts):
         precision_dicts_when_gt_does_not_have_samples) if len(precision_dicts_when_gt_does_not_have_samples) > 0 else 0
     metrics['wrong_predictions_per_consistent_summary'] = wrong_predictions_per_consistent_summary
     return metrics
-
+def compute_only_overall_metrics(precision_dicts, recall_dicts):
+    overall_precision = sum([sum(x.values()) for x in precision_dicts]) / sum([len(x.keys()) for x in precision_dicts])
+    overall_recall = sum([sum(x.values()) for x in recall_dicts]) / sum([len(x.keys()) for x in recall_dicts])
+    overall_f1 = 2 * overall_recall * overall_precision / (overall_recall + overall_precision)
+    metrics = {"overall_prec": overall_precision, "overall_rec": overall_recall, "overall_f1": overall_f1}
+    return metrics
 
 
 #
