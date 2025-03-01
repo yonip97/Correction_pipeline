@@ -56,3 +56,4 @@ experiments/revision/data/base_model_50000_documents/test/args.json
 experiments/revision/data/prompts/revision_examples.json
 experiments/revision/data/prompts/revision_prompts/revision_examples.json
 experiments/revision/data/base_model_50000_documents/dev_set/args.json
+/DeFacto/dataset/figs
