@@ -1,5 +1,3 @@
-
-import json
 import os
 
 import pandas as pd
@@ -7,12 +5,31 @@ import pandas as pd
 import textwrap
 import argparse
 import ast
+import re
+import json
+from inference_utils import transform_to_enumerated_descriptions
+import random
+from  collections import Counter
+
 def wrap_text(text, width=120):
     """Wrap text to a specified width."""
     return '\n'.join(textwrap.wrap(text, width=width))
 
 
 def show_comparison_interface(texts, summaries, llm_explanations, human_explanations, output_file):
+    # write a documentation for this function
+    """
+    texts: list of strings, the input texts
+    summaries: list of strings, the model summaries
+    llm_explanations: list of strings, the LLM explanations
+    human_explanations: list of strings, the human explanations
+    output_file: str, the path to the output file
+    the function will show the comparison interface for the annotation of the dataset. There will be the text,the summary,
+    the human annotations and the llm outputs.
+    The outputs of the llm will be labeled if they already exist, and if not ,if they are correct or not.
+     The interface will ask questions, and record the answers in the output file
+    """
+
     # Load existing results if any
     if os.path.exists(output_file):
         with open(output_file, "r") as f:
@@ -80,6 +97,7 @@ def show_comparison_interface(texts, summaries, llm_explanations, human_explanat
             print("Annotation stopped. You can resume later.")
             break
 
+
 def parse_args_for_initial_annotation():
     args = argparse.ArgumentParser()
     args.add_argument('-output_path')
@@ -87,7 +105,12 @@ def parse_args_for_initial_annotation():
     args.add_argument("-data_path", type=str)
     args = args.parse_args()
     return args
+
+
 def annotate():
+    """
+    Annotate the dataset with the LLM outputs and the human explanations
+    """
     args = parse_args_for_initial_annotation()
     df_llm = pd.read_csv(args.llm_output_path)
     llm_outputs = df_llm['output'].tolist()
@@ -97,8 +120,9 @@ def annotate():
         df_human = pd.read_csv(args.data_path)
         human_annotation = df_human['explanation'].tolist()
     else:
-        human_annotation = [None]*len(texts)
+        human_annotation = [None] * len(texts)
     show_comparison_interface(texts, summaries, llm_outputs, human_annotation, args.output_path)
+
 
 def args_for_final_annotation():
     args = argparse.ArgumentParser()
@@ -108,7 +132,14 @@ def args_for_final_annotation():
     args.add_argument("-annotation_path", type=str)
     args = args.parse_args()
     return args
+
+
 def create_final_version_inconsistent():
+    """
+    Create the final version of the dataset with inconsistent samples.
+    Parse the raw annotations, and the notes, and then add the correct llm outputs which were not found by humans into the dataset.
+    In addition, add needed correction (rewrite a human description, rewrite llm description, and so on)
+    """
     args = args_for_final_annotation()
     df = pd.read_csv(
         args.data_path)
@@ -131,8 +162,8 @@ def create_final_version_inconsistent():
         final_df = pd.read_csv(args.output_path)
         final_dataset = final_df.to_dict("records")
     else:
-        final_dataset =[]
-    for i in range(len(final_dataset),len(results)):
+        final_dataset = []
+    for i in range(len(final_dataset), len(results)):
         text = texts[i]
         summary = summaries[i]
         explanation = explanations[i]
@@ -154,8 +185,8 @@ def create_final_version_inconsistent():
                     "text": text,
                     "model_summary": summary,
                     "explanations": explanation,
-                    "maybe":maybe,
-                    "remove":1
+                    "maybe": maybe,
+                    "remove": 1
                 }
             )
             final_df = pd.DataFrame(final_dataset)
@@ -167,8 +198,8 @@ def create_final_version_inconsistent():
                     "text": text,
                     "model_summary": summary,
                     "explanations": explanation,
-                    "maybe":maybe,
-                    "remove":0
+                    "maybe": maybe,
+                    "remove": 0
                 }
             )
             final_df = pd.DataFrame(final_dataset)
@@ -200,13 +231,19 @@ def create_final_version_inconsistent():
                 "model_summary": summary,
                 "explanations": explanation,
                 "maybe": maybe,
-                "remove":0
+                "remove": 0
             }
         )
         final_df = pd.DataFrame(final_dataset)
         final_df.to_csv(args.output_path, index=False)
 
+
 def create_final_version_consistent():
+    """
+    Create the final version of the dataset with consistent samples.
+    Parse the raw annotations, and the notes, and then add the correct llm outputs which were not found by humans into the dataset.
+    In addition, add needed correction (rewrite llm description, and so on)
+    """
     args = args_for_final_annotation()
     df = pd.read_csv(
         args.data_path)
@@ -229,7 +266,7 @@ def create_final_version_consistent():
         final_dataset = final_df.to_dict("records")
     else:
         final_dataset = []
-    for i in range(len(final_dataset),len(results)):
+    for i in range(len(final_dataset), len(results)):
         text = texts[i]
         summary = summaries[i]
         explanation = []
@@ -251,8 +288,8 @@ def create_final_version_consistent():
                     "text": text,
                     "model_summary": summary,
                     "explanations": explanation,
-                    "maybe":maybe,
-                    "remove":1
+                    "maybe": maybe,
+                    "remove": 1
                 }
             )
             final_df = pd.DataFrame(final_dataset)
@@ -264,8 +301,8 @@ def create_final_version_consistent():
                     "text": text,
                     "model_summary": summary,
                     "explanations": explanation,
-                    "maybe":maybe,
-                    "remove":0
+                    "maybe": maybe,
+                    "remove": 0
                 }
             )
             final_df = pd.DataFrame(final_dataset)
@@ -294,190 +331,39 @@ def create_final_version_consistent():
                 "model_summary": summary,
                 "explanations": explanation,
                 "maybe": maybe,
-                "remove":0
+                "remove": 0
             }
         )
         final_df = pd.DataFrame(final_dataset)
         final_df.to_csv(args.output_path, index=False)
-def num_to_uppercase_letter(num):
-    if 0 <= num <= 25:
-        return chr(num + ord('A'))
-    else:
-        raise ValueError("Number must be between 0 and 25")
-
 
 
 def reduce_to_description(output):
     outputs = output.split("Fact:")[1:]
     final = []
     for sample in outputs:
-        sample = sample.split("Description:")[1].split('\n\n')[0].replace("```","").strip()
+        sample = sample.split("Description:")[1].split('\n\n')[0].replace("```", "").strip()
         final.append(sample)
     return final
 
-# def check_how_many_samples_were_modified():
-#     # This shows how many samples were modified, it separates llm facts that were added,
-#     # facts which were missing and added, and facts which were improved
-#
-#     final_data_consistent = pd.read_csv("data/factually_consistent_samples_final.csv")
-#     consistent_texts = final_data_consistent['text'].tolist()
-#     final_data_consistent = final_data_consistent[final_data_consistent["remove"] == 0]
-#     import ast
-#     final_data_consistent['maybe'] = final_data_consistent['maybe'].apply(lambda x: ast.literal_eval(x))
-#     final_data_inconsistent = pd.read_csv("data/factually_inconsistent_samples_final.csv")
-#     inconsistent_texts = final_data_inconsistent['text'].tolist()
-#     final_data_inconsistent = final_data_inconsistent[final_data_inconsistent["remove"] == 0]
-#     final_data_inconsistent['maybe'] = final_data_inconsistent['maybe'].apply(lambda x: '[]' if pd.isna(x) else x)
-#     final_data_inconsistent['maybe'] = final_data_inconsistent['maybe'].apply(lambda x: ast.literal_eval(x))
-#     final_data_inconsistent =  final_data_inconsistent[final_data_inconsistent['maybe'].apply(len) == 0]
-#     final_data_consistent = final_data_consistent[final_data_consistent['maybe'].apply(len) == 0]
-#     original_dataset_explanations = pd.read_csv("data/Dataset_construction_initial_data_for_annotation_from_drive.csv")
-#     original_dataset_explanations = original_dataset_explanations[original_dataset_explanations['text'].isin(inconsistent_texts)]
-#     llm_inconsistent_output = pd.read_csv("data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv")
-#     llm_inconsistent_output = llm_inconsistent_output[llm_inconsistent_output['text'].isin(inconsistent_texts)]
-#     llm_consistent_output = pd.read_csv("data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_factually_consistent_summaries.csv")
-#     llm_consistent_output = llm_consistent_output[llm_consistent_output['text'].isin(consistent_texts)]
-#     original_dataset = original_dataset_explanations['explanation human annotation'].tolist()
-#     adjusted = original_dataset_explanations['alternative explanation'].tolist()
-#     original_dataset = [str(x).strip() for x in original_dataset ]
-#     llm_inconsistent_output = llm_inconsistent_output['output'].tolist()
-#     llm_inconsistent_output = [x.strip() for x in llm_inconsistent_output]
-#     llm_inconsistent_output= [reduce_to_description(x) for x in llm_inconsistent_output]
-#     llm_inconsistent_output = [x for sublist in llm_inconsistent_output for x in sublist]
-#     llm_consistent_output = llm_consistent_output['output'].tolist()
-#     llm_consistent_output = [x.strip() for x in llm_consistent_output]
-#     llm_consistent_output = [reduce_to_description(x) for x in llm_consistent_output]
-#     llm_consistent_output = [x for sublist in llm_consistent_output for x in sublist]
-#     counter = 0
-#     other = 0
-#     total = []
-#     import evaluate
-#     rouge = evaluate.load('rouge')
-#     for x in final_data_consistent['explanations']:
-#         x = ast.literal_eval(x)
-#         total.append(len(x))
-#         for sample in x:
-#             sample = sample.strip()
-#             if sample in llm_consistent_output:
-#                 counter += 1
-#             else:
-#                 other += 1
-#                 scores = rouge.compute(predictions=[sample]*len(llm_consistent_output), references=llm_consistent_output,rouge_types =['rougeL'], use_aggregator=False)
-#                 if max(scores['rougeL']) > 0.9:
-#                     index = scores['rougeL'].index(max(scores['rougeL']))
-#                     print(max(scores['rougeL']))
-#                     print(llm_consistent_output[index])
-#                     print(sample)
-#                     print()
-#                     print("-------------------------------------------------")
-#     import matplotlib.pyplot as plt
-#     plt.hist(total, bins=20)
-#     plt.show()
-#     print("For the consistent summaries:")
-#     print("Amount of samples:",len(final_data_consistent))
-#     print("Amount of factually consistent summaries:",sum([1 for x in final_data_consistent['explanations'] if len(ast.literal_eval(x)) == 0]))
-#     print("Amount of factually inconsistent summaries:",sum([1 for x in final_data_consistent['explanations'] if len(ast.literal_eval(x)) > 0]))
-#     print("Amount of factuality mistakes:",sum(total))
-#     print("Amount of factuality mistakes that were adjusted:",other)
-#     counter_original = 0
-#     counter_llm = 0
-#     other = 0
-#     adjusted_before = 0
-#     total = []
-#     for x in final_data_inconsistent['explanations']:
-#         x = ast.literal_eval(x)
-#         total.append(len(x))
-#         for sample in x:
-#             sample = sample.strip()
-#             if sample in llm_inconsistent_output:
-#                 counter_llm += 1
-#             elif sample in original_dataset:
-#                 counter_original += 1
-#             elif sample in adjusted:
-#                 adjusted_before +=1
-#             else:
-#                 other += 1
-#     import matplotlib.pyplot as plt
-#     plt.hist(total, bins=20)
-#     plt.show()
-#     print("For the inconsistent summaries:")
-#     print("Amount of samples:",len(final_data_inconsistent))
-#     print("Amount of factuality mistakes:",sum(total))
-#     print("Amount of factuality mistakes that were in the original dataset:",counter_original)
-#     print("Amount of factuality mistakes that were in the llm output:",counter_llm)
-#     print("Amount of factuality mistakes that were adjusted before:",adjusted_before)
-#     print("Amount of factuality mistakes that were adjusted:",other)
-
-# def parse_inconsistent_to_separate_llm_and_human():
-#     df = pd.read_csv("data/factually_inconsistent_samples_final.csv")
-#     df['maybe'] = df['maybe'].apply(lambda x: ast.literal_eval(x))
-#     df = df[df['maybe'].apply(len) == 0]
-#     df = df[df['remove'] == 0]
-#     original_df = pd.read_csv("data/Dataset_construction_initial_data_for_annotation_from_drive.csv")
-#     original_df_explanations = [str(x).strip() for x in original_df['explanation human annotation'].tolist()]
-#     altered_explanations = [str(x).strip() for x in original_df['alternative explanation'].tolist()]
-#     llm_output = pd.read_csv("data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv")
-#     llm_explanations = llm_output['output'].tolist()
-#     llm_explanations = [reduce_to_description(x) for x in llm_explanations]
-#     llm_explanations = [x.strip() for sublist in llm_explanations for x in sublist]
-#     in_llm = []
-#     in_original = []
-#     in_altered = []
-#     other = []
-#     import evaluate
-#     overall_llm_samples=[]
-#     overall_dataset_samples=[]
-#     rouge = evaluate.load('rouge')
-#     for x in df['explanations']:
-#         x = ast.literal_eval(x)
-#         llm_samples=[]
-#         dataset_samples=[]
-#         for sample in x:
-#             sample = sample.strip()
-#             if sample in llm_explanations:
-#                 in_llm.append(sample)
-#                 llm_samples.append(sample)
-#             elif sample in original_df_explanations:
-#                 in_original.append(sample)
-#                 dataset_samples.append(sample)
-#             elif sample in altered_explanations:
-#                 in_altered.append(sample)
-#                 dataset_samples.append(sample)
-#             else:
-#                 llm_scores = rouge.compute(predictions=[sample]*len(llm_explanations), references=llm_explanations,rouge_types =['rougeL'], use_aggregator=False)
-#                 dataset_scores = rouge.compute(predictions=[sample]*len(original_df_explanations+altered_explanations), references=original_df_explanations+altered_explanations,rouge_types =['rougeL'], use_aggregator=False)
-#                 if max(llm_scores['rougeL']) > max(dataset_scores['rougeL']):
-#                     in_llm.append(sample)
-#                     llm_samples.append(sample)
-#                 else:
-#                     in_original.append(sample)
-#                     dataset_samples.append(sample)
-#
-#         overall_llm_samples.append(llm_samples)
-#         overall_dataset_samples.append(dataset_samples)
-#     df['llm_samples'] = overall_llm_samples
-#     df['dataset_samples'] = overall_dataset_samples
-#     df.to_csv("data/factually_inconsistent_samples_final_separated.csv", index=False)
-#
-#     print("Amount of samples in llm:",len(in_llm))
-#     print("Amount of samples in original dataset:",len(in_original))
-#     print("Amount of samples in altered dataset:",len(in_altered))
-#     print("Amount of samples in other:",len(other))
 
 def unite():
     # Takes the inconsistent and consistent final versions and unites them,
     # while removing all those needed to be removed, and also those with maybes
-    df_consistent = pd.read_csv("data/all_finalized_data/post_llm_annotation/Factually_consistent_samples_final_annotation.csv")
+    # It also groups together the samples used for few shot, for development and for test.
+    df_consistent = pd.read_csv(
+        "data/all_finalized_data/post_llm_annotation/Factually_consistent_samples_final_annotation.csv")
     df_consistent.rename(columns={'explanations': "descriptions"}, inplace=True)
-    df_inconsistent = pd.read_csv("data/all_finalized_data/post_llm_annotation/Factually_inconsistent_samples_final_annotation.csv")
+    df_inconsistent = pd.read_csv(
+        "data/all_finalized_data/post_llm_annotation/Factually_inconsistent_samples_final_annotation.csv")
     df_inconsistent.rename(columns={'explanations': "descriptions"}, inplace=True)
     df_inconsistent['set'] = 'test'
     df_consistent['set'] = 'test'
-    df_inconsistent.loc[:49,'set'] = 'dev'
-    df_inconsistent.loc[206,'set'] = 'few_shot'
-    df_inconsistent.loc[256,'set'] = 'few_shot'
-    df_consistent.loc[500:,'set'] = 'dev'
-    df_consistent.loc[530,"set"] ="few_shot"
+    df_inconsistent.loc[:49, 'set'] = 'dev'
+    df_inconsistent.loc[206, 'set'] = 'few_shot'
+    df_inconsistent.loc[256, 'set'] = 'few_shot'
+    df_consistent.loc[500:, 'set'] = 'dev'
+    df_consistent.loc[530, "set"] = "few_shot"
     df_inconsistent['maybe'] = df_inconsistent['maybe'].apply(lambda x: ast.literal_eval(x))
     df_consistent['maybe'] = df_consistent['maybe'].apply(lambda x: ast.literal_eval(x))
     df_inconsistent = df_inconsistent[df_inconsistent['remove'] == 0]
@@ -488,27 +374,35 @@ def unite():
     df_consistent['original_label'] = 'consistent'
     df = pd.concat([df_consistent, df_inconsistent])
     df = df.drop(columns=['remove', 'maybe'])
-    df.reset_index(inplace=True,drop=True)
+    df.reset_index(inplace=True, drop=True)
     df.to_csv("data/all_finalized_data/final/final_dataset.csv", index=False)
     dev = df[df['set'] == 'dev']
-    dev.reset_index(inplace=True,drop=True)
+    dev.reset_index(inplace=True, drop=True)
     test = df[df['set'] == 'test']
-    test.reset_index(inplace=True,drop=True)
+    test.reset_index(inplace=True, drop=True)
     few_shot = df[df['set'] == 'few_shot']
     few_shot.reset_index(drop=True, inplace=True)
     dev.to_csv("data/all_finalized_data/final/final_dataset_dev.csv", index=False)
     test.to_csv("data/all_finalized_data/final/final_dataset_test.csv", index=False)
     few_shot.to_csv("data/all_finalized_data/final/final_dataset_few_shot.csv")
-def annotation_of_dataset_augmentation(path_original_data,llm_outputs,output_file):
+
+
+def annotation_of_dataset_augmentation(path_original_data, llm_outputs, output_file):
+    """
+    The function goes over the development set outputs for an llm outputs, and marks all the additional inconsistencies
+    that the model found, which are not in the dataset.
+    This function is different from the other annotation function has it records what are the inconsistencies that the model found,
+    not just the identifier, so we can see the intersection between different models.
+    """
     df_original_dataset = pd.read_csv(path_original_data)
     df_original_dataset = (df_original_dataset.groupby(["text", "model_summary"], sort=False)["explanation"]
-        .apply(list).reset_index())
+                           .apply(list).reset_index())
     df_llm = pd.read_csv(llm_outputs)
     llm_outputs = df_llm['output'].tolist()
     descriptions = df_original_dataset["explanation"].tolist()
     texts = df_original_dataset["text"].tolist()
     summaries = df_original_dataset["model_summary"].tolist()
-    results =[]
+    results = []
     for i in range(len(texts)):
         print("=" * 50)
         print(f"Entry {i + 1}:")
@@ -521,15 +415,13 @@ def annotation_of_dataset_augmentation(path_original_data,llm_outputs,output_fil
         print("\nHuman descriptions:")
         print(descriptions[i])
         print("=" * 50)
-        llm_augmentation_correct = input("What did the model identify which is not in the dataset?, please separate by commas: ")
+        llm_augmentation_correct = input(
+            "What did the model identify which is not in the dataset?, please separate by commas: ")
         results.append(llm_augmentation_correct)
-        df = pd.DataFrame({"text":texts[:len(results)],"model_summary":summaries[:len(results)],"Correct_llm_answers":results})
-        df.to_csv(output_file,index=False)
+        df = pd.DataFrame(
+            {"text": texts[:len(results)], "model_summary": summaries[:len(results)], "Correct_llm_answers": results})
+        df.to_csv(output_file, index=False)
 
-
-
-import re
-import json
 
 def split_labeled_list(text):
     # Regex to match labels (e.g., "A.", "B.", etc.) and the corresponding text
@@ -549,60 +441,182 @@ def transform(description):
     description = split_labeled_list(description)
     return description
 
-def should_be_added_to_human_verification():
-    #Some samples are removed, some samples have repeat of the same information twice, and some include irrelevant information
-    #The removed samples should not be annotated, and the remaining samples should not be annotated because it increases the task complexity and the guidelines complexity with no benefit.
-    #It is also very little data (30 removed, 50 with some noise). Therefore, we will not give our annotators to annotate them.
-    # Should I put in removed samples because of maybe?
-    df_inconsistent = pd.read_csv(
-        "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv")
-    df_consistent = pd.read_csv(
-        "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_factually_consistent_summaries.csv")
-    possible_ids_inconsistent = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/post_llm_annotation/Factually_inconsistent_samples_final_annotation.csv")['remove'].tolist()
-    possible_ids_inconsistent = [i for i in range(len(possible_ids_inconsistent)) if possible_ids_inconsistent[i] == 0]
-    possible_ids_consistent = pd.read_csv("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/post_llm_annotation/Factually_consistent_samples_final_annotation.csv")['remove'].tolist()
-    possible_ids_consistent = [i for i in range(len(possible_ids_consistent)) if possible_ids_consistent[i] == 0]
-    inconsistent_outputs = df_inconsistent['output'].tolist()
-    inconsistent_outputs = [transform(x) for x in inconsistent_outputs]
-    consistent_outputs = df_consistent['output'].tolist()
-    consistent_outputs = [transform(x) for x in consistent_outputs]
+
+def stratified_sample(data, sample_size=100, label_key='original_label', seed=42):
+    random.seed(seed)  # Fix the seed for reproducibility
+
+    # Count occurrences of each label
+    label_counts = Counter(d[label_key] for d in data)
+
+    # Compute how many samples to take from each label group
+    total_samples = sum(label_counts.values())
+    label_sample_sizes = {
+        label: round((count / total_samples) * sample_size)
+        for label, count in label_counts.items()
+    }
+
+    # Ensure the total is exactly 100 by adjusting the largest group
+    total_assigned = sum(label_sample_sizes.values())
+    if total_assigned != sample_size:
+        max_label = max(label_sample_sizes, key=lambda k: label_sample_sizes[k])
+        label_sample_sizes[max_label] += (sample_size - total_assigned)
+
+    # Group data by label
+    grouped_data = {label: [] for label in label_counts}
+    for item in data:
+        grouped_data[item[label_key]].append(item)
+
+    # Sample from each group
+    sampled_data = []
+    for label, count in label_sample_sizes.items():
+        sampled_data.extend(random.sample(grouped_data[label], min(count, len(grouped_data[label]))))
+
+    return sampled_data
+def prepare_for_human_verification():
+    rel_cols = ['text', 'model_summary', 'human_description', 'llm_output', 'entry', "original_label"]
+    df_human_inconsistent = pd.read_csv(
+        "data/all_finalized_data/manual_annotation/Manual_dataset_list_format_with_sets.csv")
+
+    df_human_inconsistent['human_description'] = ["\n\n".join(eval(x)) for x in
+                                                  df_human_inconsistent['explanation'].tolist()]
+    df_llm_inconsistent = pd.read_csv(
+        "data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv")
+
+    df_human_consistent = pd.read_csv("data/all_finalized_data/raw_data/initial_data_consistent.csv")
+    df_llm_consistent = pd.read_csv(
+        "data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_factually_consistent_summaries.csv")
+    df_human_consistent['human_description'] = ""
+    llm_inconsistent_outputs = df_llm_inconsistent['output'].tolist()
+    llm_inconsistent_outputs = [transform(x) for x in llm_inconsistent_outputs]
+    llm_inconsistent_outputs = transform_to_enumerated_descriptions(llm_inconsistent_outputs)
+    df_human_inconsistent['llm_output'] = llm_inconsistent_outputs
+    df_human_inconsistent['entry'] = [i + 1 for i in range(len(df_human_inconsistent))]
+    df_human_inconsistent['original_label'] = 'inconsistent'
+    df_human_inconsistent = df_human_inconsistent[rel_cols]
+
+    llm_consistent_outputs = df_llm_consistent['output'].tolist()
+    llm_consistent_outputs = [transform(x) for x in llm_consistent_outputs]
+    llm_consistent_outputs = transform_to_enumerated_descriptions(llm_consistent_outputs)
+    df_human_consistent['llm_output'] = llm_consistent_outputs
+    df_human_consistent['original_label'] = 'consistent'
+    df_human_consistent['entry'] = [i + 1 for i in range(len(df_human_consistent))]
+    df_human_consistent = df_human_consistent[rel_cols]
+    all_data = pd.concat([df_human_inconsistent, df_human_consistent])
+    df_final_test = pd.read_csv("data/all_finalized_data/final/final_dataset_test.csv")
+    all_data = all_data[(all_data['text'].isin(df_final_test['text'].tolist())) & (
+        all_data['model_summary'].isin(df_final_test['model_summary'].tolist()))]
+
+    records = all_data.to_dict("records")
+    with open("data/all_finalized_data/human_annotation_of_llm_outputs/data_for_human_verification.json", "w") as f:
+        json.dump(records, f)
+    sample = stratified_sample(records)
+    with open("data/all_finalized_data/human_annotation_of_llm_outputs/sample_for_human_verification.json", "w") as f:
+        json.dump(sample, f)
 
 
-    import json
-    with open("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/human_annotation_of_llm_outputs/annotation_of_factually_inconsistent_explanations.json","r") as f:
-        inconsistent = json.load(f)
-    with open("/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/human_annotation_of_llm_outputs/annotation_of_factually_consistent_explanations.json","r") as f:
-        consistent = json.load(f)
-    for i in range(len(inconsistent)):
-        sample = inconsistent[i]
-        output = inconsistent_outputs[i]
-        num_of_annotated = len(sample['both_identified']) + len(sample['correct_llm']) + len(sample['wrong_llm'])+len(sample['maybe_llm'])
-        if len(output) != num_of_annotated or i not in possible_ids_inconsistent:
-            sample['for_human_verification'] = "No"
-        elif len(sample['maybe_llm']) > 0:
-            sample['for_human_verification'] = "Maybe"
-        else:
-            sample['for_human_verification'] = "Yes"
-    for i in range(len(consistent)):
-        sample = consistent[i]
-        output = consistent_outputs[i]
-        num_of_annotated = len(sample['both_identified']) + len(sample['correct_llm']) + len(sample['wrong_llm'])+len(sample['maybe_llm'])
-        if len(output) != num_of_annotated or i not in possible_ids_consistent:
-            sample['for_human_verification'] = "No"
-        elif len(sample['maybe_llm']) > 0:
-            sample['for_human_verification'] = "Maybe"
-        else:
-            sample['for_human_verification'] = "Yes"
+
+
+
+    # This dict is good, it contains all the text, summaries and descriptions by human and llm outputs. it also has entry number.
+    # Need to upload this, sample 10 things, and even randomly mark them. And then when i take it from the label studio, ican see if it matches in the number of annoations and so on.
+    # with open("data/all_finalized_data/human_annotation_of_llm_outputs/data_for_human_verification.json", "w") as f:
+    #     json.dump(records, f)
+
+    # df_human.rename(columns={'explanation': 'human_description'}, inplace=True)
+    # df_human['llm_description'] = llms_outputs
+    # # df_human.to_csv("data/all_finalized_data/human_annotation_of_llm_outputs/dummy_inconsistent.csv",index=False)
+    # x = json.loads(df_human.to_json(orient="records"))
+    # for i, y in enumerate(x):
+    #     y['enrty'] = i
+    # print(y.keys())
+    # x = [{"data":y} for y in x]
+    # with open("data/all_finalized_data/human_annotation_of_llm_outputs/dummy_inconsistent.json",'w') as f:
+    #     json.dump(x,f)
+
+
+# def split_labeled_list(text):
+#     # Regex to match labels (e.g., "A.", "B.", etc.) and the corresponding text
+#     pattern = r'([A-Z]\.)\s*(.*?)\s*(?=[A-Z]\.|$)'
+#     matches = re.findall(pattern, text)
+#
+#     # Convert to dictionary or list format
+#     result = [item.strip() for label, item in matches]
+#     result = [item for item in result if "Description:" in item]
+#     result = [item.split('Description:')[1].replace('```', "").strip() for item in result]
+#
+#     return result
+#
+#
+# def transform(description):
+#     description = description.replace('\n', " ")
+#     description = split_labeled_list(description)
+#     return description
+
+
+# def should_be_added_to_human_verification():
+#     # Some samples are removed, some samples have repeat of the same information twice, and some include irrelevant information
+#     # The removed samples should not be annotated, and the remaining samples should not be annotated because it increases the task complexity and the guidelines complexity with no benefit.
+#     # It is also very little data (30 removed, 50 with some noise). Therefore, we will not give our annotators to annotate them.
+#     # Should I put in removed samples because of maybe?
+#     df_inconsistent = pd.read_csv(
+#         "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_all_processed_dataset.csv")
+#     df_consistent = pd.read_csv(
+#         "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_gpt_4o_factually_consistent_summaries.csv")
+#     possible_ids_inconsistent = pd.read_csv(
+#         "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/post_llm_annotation/Factually_inconsistent_samples_final_annotation.csv")[
+#         'remove'].tolist()
+#     possible_ids_inconsistent = [i for i in range(len(possible_ids_inconsistent)) if possible_ids_inconsistent[i] == 0]
+#     possible_ids_consistent = pd.read_csv(
+#         "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/post_llm_annotation/Factually_consistent_samples_final_annotation.csv")[
+#         'remove'].tolist()
+#     possible_ids_consistent = [i for i in range(len(possible_ids_consistent)) if possible_ids_consistent[i] == 0]
+#     inconsistent_outputs = df_inconsistent['output'].tolist()
+#     inconsistent_outputs = [transform(x) for x in inconsistent_outputs]
+#     consistent_outputs = df_consistent['output'].tolist()
+#     consistent_outputs = [transform(x) for x in consistent_outputs]
+#     with open(
+#             "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/human_annotation_of_llm_outputs/annotation_of_factually_inconsistent_explanations.json",
+#             "r") as f:
+#         inconsistent = json.load(f)
+#     with open(
+#             "/data/home/yehonatan-pe/Correction_pipeline/DeFacto/dataset/data/all_finalized_data/human_annotation_of_llm_outputs/annotation_of_factually_consistent_explanations.json",
+#             "r") as f:
+#         consistent = json.load(f)
+#     for i in range(len(inconsistent)):
+#         sample = inconsistent[i]
+#         output = inconsistent_outputs[i]
+#         num_of_annotated = len(sample['both_identified']) + len(sample['correct_llm']) + len(sample['wrong_llm']) + len(
+#             sample['maybe_llm'])
+#         if len(output) != num_of_annotated or i not in possible_ids_inconsistent:
+#             sample['for_human_verification'] = "No"
+#         elif len(sample['maybe_llm']) > 0:
+#             sample['for_human_verification'] = "Maybe"
+#         else:
+#             sample['for_human_verification'] = "Yes"
+#     for i in range(len(consistent)):
+#         sample = consistent[i]
+#         output = consistent_outputs[i]
+#         num_of_annotated = len(sample['both_identified']) + len(sample['correct_llm']) + len(sample['wrong_llm']) + len(
+#             sample['maybe_llm'])
+#         if len(output) != num_of_annotated or i not in possible_ids_consistent:
+#             print("hey")
+#             sample['for_human_verification'] = "No"
+#         elif len(sample['maybe_llm']) > 0:
+#             print("ok")
+#             sample['for_human_verification'] = "Maybe"
+#         else:
+#             sample['for_human_verification'] = "Yes"
 
 
 def main():
-    #annotate()
-    #create_final_version_consistent()
-    #create_description_format()
-    #check_how_many_samples_were_modified()
-    unite()
-    #parse_inconsistent_to_separate_llm_and_human()
-    #annotation_of_dataset_augmentation("data/all_finalized_data/Final_manual_dataset.csv","data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_llama_3.1_405_dev.csv","data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_llama_3.1_405_dev_annotated.csv")
+    # annotate()
+    # create_final_version_consistent()
+    # create_description_format()
+    # check_how_many_samples_were_modified()
+    # unite()
+    # parse_inconsistent_to_separate_llm_and_human()
+    # annotation_of_dataset_augmentation("data/all_finalized_data/Final_manual_dataset.csv","data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_llama_3.1_405_dev.csv","data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6/results_llama_3.1_405_dev_annotated.csv")
+    prepare_for_human_verification()
 
 
 if __name__ == "__main__":
