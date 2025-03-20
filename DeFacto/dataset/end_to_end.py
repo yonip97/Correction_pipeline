@@ -123,7 +123,8 @@ def get_data(args):
     if 'detection_output' in df.columns:
         outputs = df['detection_output'].tolist()
         if args.inference_delimiter is not None:
-            outputs = [x.split(args.inference_delimiter)[-1].strip() for x in outputs]
+            outputs  = ["" if not isinstance(x, str) else x.split(args.inference_delimiter)[-1].strip() for x in outputs]
+
     else:
         outputs = None
     if 'judgment_output' in df.columns:

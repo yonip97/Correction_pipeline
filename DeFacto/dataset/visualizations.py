@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import json
 from matplotlib.patches import PathPatch
 import numpy as np
-import matplotlib.patches as mpatches  # For manual legend handles
-import matplotlib.colors as mcolors
+import matplotlib.ticker as mticker
+
 def plot_sorted_dict_of_dicts(data, model_name):
     """
     Takes a dictionary of dictionaries with numerical values and plots a bar chart.
@@ -32,7 +32,7 @@ def plot_sorted_dict_of_dicts(data, model_name):
     plt.legend()
     plt.ylim(0, 1)
     plt.xticks(rotation=0)
-
+    plt.tight_layout()
     # Show plot
     plt.show()
 
@@ -81,7 +81,7 @@ def compare_results_per_model(path,set_name,prompt_says_inconsistent = False):
         plot_sorted_dict_of_dicts(sorted_data, model)
 
 
-def compare_results_per_prompt(path,set_name,only_prompt_type=False,prompt_says_inconsistent = False):
+def compare_results_per_prompt(path,set_name,only_prompt_type=False,prompt_says_inconsistent = False,best_prompt_variation = False):
     by_prompt_results = {}
     for model in os.listdir(path):
         new_path = os.path.join(path, model)
@@ -102,6 +102,19 @@ def compare_results_per_prompt(path,set_name,only_prompt_type=False,prompt_says_
                         by_prompt_results[prompt] = {}
                         by_prompt_results[prompt][model] = {}
                     by_prompt_results[prompt][model] = data
+    if best_prompt_variation:
+        final = {}
+        for prompt in by_prompt_results:
+            new_prompt = "_".join(prompt.split('_')[:-1])
+            if new_prompt not in final:
+                final[new_prompt] = {}
+            for model in by_prompt_results[prompt]:
+                if model not in final[new_prompt]:
+                    final[new_prompt][model] = by_prompt_results[prompt][model]
+                else:
+                    if final[new_prompt][model]['overall_f1'] < by_prompt_results[prompt][model]['overall_f1']:
+                        final[new_prompt][model] = by_prompt_results[prompt][model]
+        by_prompt_results = final
     relevant_metrics = ["overall_prec","overall_rec", "overall_f1"]
     for prompt in by_prompt_results:
         data = {
@@ -232,9 +245,7 @@ def amount_of_unique_descriptions_per_amount_of_models(path_gpt, path_gemini, pa
     # Write a code which gets the biggest set, then find the union of 2 sets which results in the biggest set
     # Then find the union of the 3 sets which results in the biggest set
     # Then find the union of all 4 sets
-    biggest_2_union = None
     len_biggest_2_union = 0
-    biggest_3_union = None
     len_biggest_3_union = 0
 
     for i in range(len(names)):
@@ -251,19 +262,23 @@ def amount_of_unique_descriptions_per_amount_of_models(path_gpt, path_gemini, pa
                     biggest_3_union = curr_union
                     len_biggest_3_union = len(curr_union)
     all_4_union = set(gpt).union(set(gemini)).union(set(claude)).union(set(llama))
-    plt.bar(['Best model', 'Best 2 union', 'Best 3 union', 'All 4 union'],
-            [len(sets[names[0]]) / base_dataset_descriptions_amount,
-             len_biggest_2_union / base_dataset_descriptions_amount,
-             len_biggest_3_union / base_dataset_descriptions_amount,
-             len(all_4_union) / base_dataset_descriptions_amount])
+    plt.figure(figsize=(8, 6))
+    plt.bar(["Original",'+Best model', '+Best 2 union', '+Best 3 union', '+All 4 union'],
+            [1,1+len(sets[names[0]]) / base_dataset_descriptions_amount,
+             1+len_biggest_2_union / base_dataset_descriptions_amount,
+             1+len_biggest_3_union / base_dataset_descriptions_amount,
+             1+len(all_4_union) / base_dataset_descriptions_amount],width=0.7)
     plt.title("Improvement in Coverage")
-    plt.xlabel("Model combinations")
-    plt.ylabel("Percentage Improvement in Samples Found")
+    plt.gca().yaxis.set_major_formatter(mticker.PercentFormatter(1))
+    plt.ylabel("Percentage of Improvement")
+    plt.tight_layout()
     plt.savefig("figs/Improvement in Coverage.png")
 
     plt.show()
 def amount_of_inconsistencies_in_each_summary():
-    df = pd.read_csv("data/all_finalized_data/final/final_dataset.csv")
+    df = pd.read_csv("data/all_finalized_data/final/final_dataset_dev.csv")
+    df2 = pd.read_csv("data/all_finalized_data/final/final_dataset_test.csv")
+    df = pd.concat([df, df2])
     descriptions = df['descriptions'].tolist()
     descriptions = [eval(x) for x in descriptions]
     descriptions_len = [len(x) for x in descriptions]
@@ -389,6 +404,8 @@ def gt_to_pred_llm_judgment(gt_dir, pred_dir):
         mean_results_per_model[new_key] = {}
         for key2 in results_per_model[key]:
             mean_results_per_model[new_key][key2] = sum(results_per_model[key][key2]) / len(results_per_model[key][key2])
+    dict_order = ["Claude sonnet 3.5", "GPT 4o", "Gemini 1.5 pro", "Llama 3.1 405B"]
+    mean_results_per_model = {k: mean_results_per_model[k] for k in dict_order}
     plot_recall_precision(mean_results_per_model,metric_colors_plot,"Predicted vs Ground Truth automatic judgment per model")
     # legend_patches = [mpatches.Patch(color=mcolors.to_rgba(color, 0.7), label="Predicted_"+ metric)for metric, color in colors.items()]
     # legend_patches += [mpatches.Patch(color=mcolors.to_rgba(color, 1.0), label="GT_"+ metric)for metric, color in colors.items()]
@@ -405,6 +422,8 @@ def gt_to_pred_llm_judgment(gt_dir, pred_dir):
         mean_results_per_prompt[new_key] = {}
         for key2 in results_per_prompt[key]:
             mean_results_per_prompt[new_key][key2] = sum(results_per_prompt[key][key2]) / len(results_per_prompt[key][key2])
+    prompts_order = ["Zero shot", "Few shot", "CoT"]
+    mean_results_per_prompt = {k: mean_results_per_prompt[k] for k in prompts_order}
     plot_recall_precision(mean_results_per_prompt, metric_colors_plot,
                           "Predicted vs Ground Truth automatic judgment per prompt")
     #
@@ -445,10 +464,10 @@ def plot_recall_precision(data,metric_colors,save_path):
 
 
 def main():
-    amount_of_inconsistencies_in_each_summary()
+    #amount_of_inconsistencies_in_each_summary()
     #compare_results_per_model('data/results',"dev")
-    #compare_results_per_prompt('data/results',"dev",only_prompt_type=True,prompt_says_inconsistent = False)
-    #main_annotation_path = "data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6"
+    compare_results_per_prompt('data/results',"dev",only_prompt_type=True,prompt_says_inconsistent = False,best_prompt_variation = True)
+    # main_annotation_path = "data/llm_inference/fine_grain_classification/spans_and_explanations/prompt6"
     # amount_of_unique_descriptions_per_amount_of_models(os.path.join(main_annotation_path, "results_gpt-4o_dev_annotated.csv"),
     #                                                    os.path.join(main_annotation_path,
     #                                                                 "results_gemini-1.5-pro_dev_annotated.csv"),
@@ -456,7 +475,7 @@ def main():
     #                                                                 "results_claude-sonnet-3.5_dev_annotated.csv"),
     #                                                    os.path.join(main_annotation_path,
     #                                                                 "results_llama_3.1_405_dev_annotated.csv"),
-    #                                                    "data/all_finalized_data/Final_manual_dataset.csv")
+    #                                                    "data/all_finalized_data/manual_annotation/Final_manual_dataset.csv")
     #gt_to_pred_llm_judgment("data/gt_for_judgment","data/results")
 
 

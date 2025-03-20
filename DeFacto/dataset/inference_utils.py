@@ -2,7 +2,7 @@ from call_llms import ModelCallerPipeline, OpenAICaller, AnthropicCaller, LlamaA
 from constants import MODEL_PRICE_MAP as model_price_map, DTYPE_MAP as dtype_map
 
 
-def chose_model(model_name, temp_save_dir, llamaapi, azure=False, dtype=None, device_map=None,pipline =True):
+def chose_model(model_name, temp_save_dir, llamaapi, azure=False, dtype=None, device_map=None,pipline =False):
     if model_name in model_price_map:
         input_price = model_price_map[model_name]['input']
         output_price = model_price_map[model_name]['output']
@@ -53,17 +53,3 @@ def transform_to_enumerated_descriptions(descriptions):
             final_sample += f"{num_to_uppercase_letter(i)}.\nDescription: {explanation}\n"
         samples.append(final_sample)
     return samples
-def try_another_option(descriptions):
-    samples = []
-    for sample_descriptions in descriptions:
-        final_sample = ""
-        if len(sample_descriptions) == 0:
-            samples.append(final_sample)
-            continue
-        for i, explanation in enumerate(sample_descriptions):
-            final_sample += f"{num_to_uppercase_letter(i)}.\nDescription: {explanation}\n"
-        if final_sample == "":
-            final_sample = "None"
-        samples.append(final_sample)
-    return samples
-
