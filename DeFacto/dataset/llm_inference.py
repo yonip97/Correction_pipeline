@@ -6,6 +6,7 @@ import os
 from inference_utils import chose_model
 import concurrent.futures
 
+
 def create_dir_run(split, directory, inference_model, inference_prompt_path):
     if not os.path.isdir(directory):
         raise ValueError(f"Directory {directory} does not exist.")
@@ -64,7 +65,7 @@ def parse_args():
             args.past_text_prompt = args.past_text_prompt.strip()
     else:
         args.past_text_prompt = ''
-    args.output_dir = create_dir_run(args.split, args.output_dir, args.model,args.prompt_path)
+    args.output_dir = create_dir_run(args.split, args.output_dir, args.model, args.prompt_path)
     args.output_path = os.path.join(args.output_dir, 'results.csv')
     if args.output_path is not None:
         args.temp_save_dir = os.path.dirname(args.output_path)
@@ -75,20 +76,23 @@ def parse_args():
 
 def get_data(args):
     df = pd.read_csv(args.data_path)
-    texts = df['text'].tolist()
-    df = df[['text', 'model_summary']]
+    df = df[['text', 'model_summary', "descriptions"]]
     df.drop_duplicates(inplace=True)
     if args.num_of_samples is not None:
         df = df[:args.num_of_samples]
+    texts = df['text'].tolist()
     summaries = df['model_summary'].tolist()
-    return texts, summaries
+    descriptions = df['descriptions'].tolist()
+    descriptions = [eval(x) for x in descriptions]
+    return texts, summaries, descriptions
 
 
 def get_sample(args):
-    texts, summaries = get_data(args)
+    texts, summaries, descriptions = get_data(args)
     text = texts[args.sample_id]
     summary = summaries[args.sample_id]
-    return text, summary
+    description = descriptions[args.sample_id]
+    return text, summary, description
 
 
 def call(args, model, texts, summaries):
@@ -106,7 +110,9 @@ def call(args, model, texts, summaries):
         errors.append(error)
         prices.append(price)
     return inputs, outputs, errors, prices
-def call_batches(args, model, texts, summaries):
+
+
+def call_batches(args, model, contents):
     outputs = []
     errors = []
     prices = []
@@ -115,8 +121,8 @@ def call_batches(args, model, texts, summaries):
     past_text_prompt = args.past_text_prompt
     batch_inputs = []
     batch_counter = 0
-    for text, summary in tqdm(zip(texts, summaries)):
-        input = prompt + '\n\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
+    for content in tqdm(contents):
+        input = f"{prompt}\n\n{content}\n{past_text_prompt}\n"
         batch_inputs.append(input)
         inputs.append(input)
         batch_counter += 1
@@ -135,12 +141,13 @@ def call_batches(args, model, texts, summaries):
             errors.append(error)
             prices.append(price)
     return inputs, outputs, errors, prices
-def call_parallel(args,model,texts, summaries,max_workers=10):
 
-    inputs = [None] * len(texts)  # Ensure correct indexing
-    outputs = [None] * len(texts)
-    errors = [None] * len(texts)
-    prices = [None] * len(texts)
+
+def call_parallel(args, model, contents, max_workers=10):
+    inputs = [None] * len(contents)  # Ensure correct indexing
+    outputs = [None] * len(contents)
+    errors = [None] * len(contents)
+    prices = [None] * len(contents)
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
 
@@ -150,12 +157,12 @@ def call_parallel(args,model,texts, summaries,max_workers=10):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {}
 
-        for idx, (text, summary) in enumerate(zip(texts, summaries)):
-            llm_input = f"{prompt}\n\nText:\n{text}\nSummary:\n{summary}\n{past_text_prompt}\n"
+        for idx, content in enumerate(contents):
+            llm_input = f"{prompt}\n\n{content}\n{past_text_prompt}\n"
             inputs[idx] = llm_input  # Save input immediately at correct index
             futures[executor.submit(call_model, idx, llm_input)] = idx  # Store future by index
 
-        for future in tqdm(concurrent.futures.as_completed(futures), total=len(texts)):
+        for future in tqdm(concurrent.futures.as_completed(futures), total=len(contents)):
             idx = futures[future]  # Retrieve the index
             try:
                 _, (output, error, price) = future.result()
@@ -167,20 +174,25 @@ def call_parallel(args,model,texts, summaries,max_workers=10):
             prices[idx] = price
 
     return inputs, outputs, errors, prices
-def main():
+
+
+def create_content_for_detection(texts, summaries):
+    contents = []
+    for text, summary in zip(texts, summaries):
+        contents.append(f"Text: \n{text}\nSummary: \n{summary}")
+    return contents
+
+
+def inference_for_factual_inconsistencies_detection():
     args = parse_args()
     model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=args.dtype,
-                        device_map=args.device_map,pipline=args.batch_size == 1)
-    texts, summaries = get_data(args)
+                        device_map=args.device_map, pipline=False)
+    texts, summaries, _ = get_data(args)
+    contents = create_content_for_detection(texts, summaries)
     if args.parallel:
-        inputs, outputs, errors, prices = call_parallel(args, model, texts, summaries)
-    elif args.batch_size > 1:
-        inputs, outputs, errors, prices = call_batches(args, model, texts, summaries)
+        inputs, outputs, errors, prices = call_parallel(args, model, contents)
     else:
-        inputs, outputs, errors, prices = call(args, model, texts, summaries)
-    # inputs, outputs, errors, prices = call(args, model, texts, summaries)
-    # inputs, outputs, errors, prices = call_parallel(args, model, texts, summaries)
-
+        inputs, outputs, errors, prices = call_batches(args, model, contents)
 
     df = pd.DataFrame({'text': texts, 'model_summary': summaries, 'input': inputs, 'output': outputs, 'error': errors,
                        'price': prices})
@@ -189,8 +201,8 @@ def main():
 
 def send_sample():
     args = parse_args()
-    model = chose_model(args.model,args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=None, device_map=None)
-    text, summary = get_sample(args)
+    model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=None, device_map=None)
+    text, summary, _ = get_sample(args)
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
     input = prompt + '\n\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
@@ -199,6 +211,73 @@ def send_sample():
     print(price)
 
 
+def create_content_for_classification(summaries, descriptions):
+    contents = []
+    for summary, description in zip(summaries, descriptions):
+        content = f"Summary: \n{summary}\n Factual inconsistency description:\n {description}"
+        contents.append(content)
+    return contents
+
+
+def inference_for_factual_inconsistencies_classification():
+    args = parse_args()
+    model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=args.dtype,
+                        device_map=args.device_map, pipline=False)
+    texts, summaries, descriptions = get_data(args)
+    texts = [[text for i in range(len(description))] for text, description in zip(texts, descriptions)]
+    texts = [item for sublist in texts for item in sublist]
+    summaries = [[summary for i in range(len(description))] for summary, description in zip(summaries, descriptions)]
+    summaries = [item for sublist in summaries for item in sublist]
+    descriptions = [item for sublist in descriptions for item in sublist]
+    contents = create_content_for_classification(summaries, descriptions)
+    if args.parallel:
+        inputs, outputs, errors, prices = call_parallel(args, model, contents)
+    else:
+        inputs, outputs, errors, prices = call_batches(args, model, contents)
+
+    df = pd.DataFrame(
+        {'text': texts, 'model_summary': summaries, "factual_inconsistency_descriptions": descriptions, 'input': inputs,
+         'output': outputs, 'error': errors,
+         'price': prices})
+    df.to_csv(args.output_path)
+
+
+def send_together():
+    args = parse_args()
+    model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=args.dtype,
+                        device_map=args.device_map, pipline=False)
+    texts, summaries, descriptions = get_data(args)
+
+    summaries = [[summary for i in range(len(description))] for summary, description in zip(summaries, descriptions)]
+    summaries = [item for sublist in summaries for item in sublist]
+    descriptions = [item for sublist in descriptions for item in sublist]
+    summaries = summaries[:20]
+    descriptions = descriptions[:20]
+    contents = create_content_for_classification(summaries, descriptions)
+    input = args.prompt + '\n\n'
+    for i in range(len(contents)):
+        input += f"Factual inconsistency {i}:\n" + contents[i] + "\n"
+    output, error, price = model.call(input, args.max_new_tokens)
+    print(output)
+
+
+def send_sample_classification():
+    args = parse_args()
+    model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=None, device_map=None)
+    df = pd.read_csv(args.data_path)
+    raw_descriptions = df['descriptions'].tolist()
+    raw_descriptions = [eval(x) for x in raw_descriptions]
+    summaries = df['model_summary'].tolist()
+    prompt = args.prompt
+    past_text_prompt = args.past_text_prompt
+    input = prompt + '\n\n' + 'Summary: \n' + summaries[args.sample_id] + '\n' + "Factual inconsistency:\n" + \
+            raw_descriptions[args.sample_id][0] + '\n' + past_text_prompt + '\n'
+    output, error, price = model.call(input, args.max_new_tokens)
+    print(output)
+
+
 if __name__ == '__main__':
-    main()
-    #send_sample()
+    # main()
+    # send_sample()
+    inference_for_factual_inconsistencies_classification()
+    #send_together()
