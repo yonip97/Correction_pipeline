@@ -1,7 +1,6 @@
 import google.generativeai as genai
 from google.api_core import retry
 from google.generativeai.types import RequestOptions
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from google.generativeai.types import GenerationConfig
 from openai import AzureOpenAI, OpenAI
 import openai
@@ -10,7 +9,7 @@ import time
 import anthropic
 from ibm_watsonx_ai.foundation_models import ModelInference
 import csv
-from transformers import AutoTokenizer, pipeline
+from transformers import AutoTokenizer, pipeline, AutoModelForCausalLM
 from dotenv import load_dotenv
 
 load_dotenv("/data/home/yehonatan-pe/Correction_pipeline/credentials.env")
@@ -321,18 +320,27 @@ class ModelCallerPipeline:
 
 
 class ModelCallerAutoModel:
-    def __init__(self,model_id, device_map, torch_dtype):
+    def __init__(self, model_id, device_map, torch_dtype,delimiter = None):
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
             torch_dtype=torch_dtype,
             device_map=device_map
         )
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        tokenizer = AutoTokenizer.from_pretrained(model_id, padding_side="left")
         self.model = model
         self.tokenizer = tokenizer
+        self.delimiter = delimiter
 
-    def call(self, inputs,max_length):
-        message_batch =[[{"role": "user", "content": inputs[i]}] for i in range(len(inputs))]
+    def split_on_last_occurrence(self,text: str):
+        if not isinstance(text, str):
+            return text, None
+        idx = text.rfind(self.delimiter)
+        if idx == -1:
+            return text, ""
+        return text[:idx + len(self.delimiter)], text[idx + len(self.delimiter):]
+
+    def call(self, inputs, max_length):
+        message_batch = [[{"role": "user", "content": inputs[i]}] for i in range(len(inputs))]
         text_batch = self.tokenizer.apply_chat_template(
             message_batch,
             tokenize=False,
@@ -343,7 +351,7 @@ class ModelCallerAutoModel:
             **model_inputs_batch,
             max_new_tokens=max_length,
         )
-        generated_ids_batch = generated_ids_batch[:, model_inputs_batch.input_ids.shape[1]:]
         response_batch = self.tokenizer.batch_decode(generated_ids_batch, skip_special_tokens=True)
-        return response_batch, [None]*len(response_batch), [0]*len(response_batch)
-
+        if self.delimiter is not None:
+            response_batch = [self.split_on_last_occurrence(response)[1] for response in response_batch]
+        return response_batch, [None] * len(response_batch), [0] * len(response_batch)
