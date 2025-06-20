@@ -43,13 +43,17 @@ class GeminiCaller:
         genai.configure(api_key=api_key)
         self.api_rules_error = 0
         self.other_errors = 0
-        self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["output", "error_type", "error_string", "price"])
+        if temp_save_dir is not None:
+            self.logger, self.backup = create_backup(temp_save_dir, model)
+            self.backup.writerow(["input", "output", "error", "price"])
+        else:
+            self.logger = None
+            self.backup = None
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, input, max_new_tokens):
-        gen_config = GenerationConfig(max_output_tokens=max_new_tokens, temperature=0)
+    def call(self, input, max_new_tokens,temperature = 0):
+        gen_config = GenerationConfig(max_output_tokens=max_new_tokens, temperature=temperature)
         try:
             response = self.model.generate_content(input, generation_config=gen_config,
                                                    request_options=RequestOptions(
@@ -57,9 +61,11 @@ class GeminiCaller:
                                                                          timeout=300)))
             if len(response.candidates) == 0:
                 self.api_rules_error += 1
-                self.logger.write(
-                    f"Error occurred, the input was blocked because of {response.prompt_feedback.block_reason.name}")
-                self.backup.writerow([None, "Blocked", response.prompt_feedback.block_reason.name, 0])
+                if self.logger is not None:
+                    self.logger.write(
+                        f"Error occurred, the input was blocked because of {response.prompt_feedback.block_reason.name}")
+                if self.backup is not None:
+                    self.backup.writerow([None, "Blocked", response.prompt_feedback.block_reason.name, 0])
                 return None, response.prompt_feedback.block_reason.name, 0
             price = calc_price(response.usage_metadata.prompt_token_count,
                                response.usage_metadata.candidates_token_count,
@@ -67,23 +73,26 @@ class GeminiCaller:
             if response.candidates[0].finish_reason.name != 'STOP' and \
                     response.candidates[0].finish_reason.name != 'MAX_TOKENS':
                 self.api_rules_error += 1
-                self.logger.write(
-                    f"Error occurred generation was stopped because of {response.candidates[0].finish_reason.name}")
-                self.backup.writerow([None, "Stop", response.candidates[0].finish_reason.name, price])
+                if self.logger is not None:
+                    self.logger.write(
+                        f"Error occurred generation was stopped because of {response.candidates[0].finish_reason.name}")
+                if self.backup is not None:
+                    self.backup.writerow([None, "Stop", response.candidates[0].finish_reason.name, price])
                 return None, response.candidates[0].finish_reason.name, price
-            self.backup.writerow([response.candidates[0].content, None, None, price])
+            if self.backup is not None:
+                self.backup.writerow([response.candidates[0].content, None, None, price])
             return response.text, None, price
 
         except Exception as e:
             self.other_errors += 1
-            self.logger.write(f"Error occurred: {e}")
+            if self.logger is not None:
+                self.logger.write(f"Error occurred: {e}")
             return None, f"{e}", 0
 
 
 class OpenAICaller:
     def __init__(self, model, temp_save_dir, azure=False, input_price=0, output_price=0):
         self.model = model
-        print(f"model: {model}")
         api_key = os.getenv('OPENAI_API_KEY')
         if azure:
             self.client = AzureOpenAI(
@@ -104,7 +113,7 @@ class OpenAICaller:
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, input, timeout=60, max_new_tokens=2000, **kwargs):
+    def call(self, input, timeout=60, max_new_tokens=2000,temperature = 0, **kwargs):
         max_tries = 8
         wait_time = 10
         for i in range(max_tries):
@@ -116,7 +125,7 @@ class OpenAICaller:
 
                 response = self.client.chat.completions.create(model=self.model,
                                                                messages=message,
-                                                               temperature=0,
+                                                               temperature=temperature,
                                                                max_tokens=max_new_tokens, timeout=timeout, **kwargs)
 
                 price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
@@ -143,44 +152,7 @@ class OpenAICaller:
                     self.backup.writerow([None, f"{e}", 0])
                 return None, f"{e}", 0
 
-        return None, f"{e}", 0
-
-
-class WatsonCaller:
-    def __init__(self, model, temp_save_dir, input_price=0, output_price=0):
-        api_key = os.getenv('WATSON_API_KEY')
-        project_id = os.getenv('WATSON_PROJECT_ID')
-        hf_token = os.getenv('HF_TOKEN')
-        self.model = ModelInference(
-            model_id=model,
-            credentials={
-                "apikey": api_key,
-                "url": "https://eu-de.ml.cloud.ibm.com"
-            },
-            project_id=project_id
-        )
-        self.tokenizer = AutoTokenizer.from_pretrained(model, token=hf_token)
-        self.api_rules_error = 0
-        self.other_errors = 0
-        self.input_price = input_price
-        self.output_price = output_price
-        self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["output", "error", "price"])
-
-    def call(self, input, max_new_tokens):
-        # TODO: complete exceptions handling
-        messages = [{"role": "user", "content": input}]
-        message = self.tokenizer.apply_chat_template(
-            messages,
-            add_generation_prompt=True, tokenize=False
-        )
-
-        output = self.model.generate(message, params={"max_new_tokens": max_new_tokens})
-        results = output['results'][0]
-        price = calc_price(results['input_token_count'], results['generated_token_count'], self.input_price,
-                           self.output_price)
-        self.backup.writerow([results['generated_text'], None, price])
-        return results['generated_text'], None, price
+        return None, "max_tries_exceeded", 0
 
 
 class LlamaApiCaller:
@@ -193,22 +165,26 @@ class LlamaApiCaller:
         self.model = model.lower()
         self.api_rules_error = 0
         self.other_errors = 0
-        self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["input", "output", "error", "price"])
+        if temp_save_dir is not None:
+            self.logger, self.backup = create_backup(temp_save_dir, model)
+            self.backup.writerow(["input", "output", "error", "price"])
+        else:
+            self.logger = None
+            self.backup = None
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, input, max_new_tokens):
+    def call(self, input, max_new_tokens=2000,temperature = 0):
         message = [{"role": "user", "content": input}]
         max_retries = 8
-        retry_count = 0
-        while retry_count <= max_retries:
+        wait_time = 5
+        for i in range(max_retries):
             try:
                 response = self.client.chat.completions.create(
                     model=self.model,
                     messages=message,
                     max_tokens=max_new_tokens,
-                    temperature=0
+                    temperature=temperature
                 )
 
                 price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
@@ -224,10 +200,10 @@ class LlamaApiCaller:
             except Exception as e:
                 error_message = str(e)
 
-                if "429" in error_message:  # Rate limit error
-                    wait_time = 2 ** retry_count  # Exponential backoff (2^retry_count)
+                if "429" in error_message or "422" in error_message or 500 in error_message:  # Rate limit error
+                    print(f"Rate limit exceeded. Waiting {wait_time} seconds before retrying...")
+                    wait_time *= 2
                     time.sleep(wait_time)
-                    retry_count += 1
                 else:
                     self.logger.write(f"API call failed: {error_message}")
                     if self.backup is not None:
@@ -238,21 +214,6 @@ class LlamaApiCaller:
         self.logger.write("Max retries exceeded. API call failed.")
         return None, "Max retries exceeded", None
 
-    # def call(self, input, max_new_tokens):
-    #
-    #     message = [{
-    #         "role": "user",
-    #         "content": input,
-    #     }]
-    #     response = self.client.chat.completions.create(model=self.model,
-    #                                                    messages=message,
-    #                                                    max_tokens=max_new_tokens, temperature=0)
-    #     price = calc_price(response.usage.prompt_tokens, response.usage.completion_tokens,
-    #                        self.input_price, self.output_price)
-    #
-    #     if self.backup is not None:
-    #         self.backup.writerow([input,response.choices[0].message.content, None, price])
-    #     return response.choices[0].message.content, None, price
 
 
 class AnthropicCaller:
@@ -262,12 +223,16 @@ class AnthropicCaller:
         self.api_rules_error = 0
         self.other_errors = 0
         self.model = model
-        self.logger, self.backup = create_backup(temp_save_dir, model)
-        self.backup.writerow(["input", "output", "error", "price"])
+        if temp_save_dir is not None:
+            self.logger, self.backup = create_backup(temp_save_dir, model)
+            self.backup.writerow(["input", "output", "error", "price"])
+        else:
+            self.logger = None
+            self.backup = None
         self.input_price = input_price
         self.output_price = output_price
 
-    def call(self, input, max_new_tokens):
+    def call(self, input, max_new_tokens=2000,temperature = 0):
         max_tries = 8
         wait_time = 10
         for i in range(max_tries):
@@ -276,7 +241,7 @@ class AnthropicCaller:
                 response = self.client.messages.create(
                     model=self.model,
                     max_tokens=max_new_tokens,
-                    temperature=0,
+                    temperature=temperature,
                     messages=[message]
                 )
                 price = calc_price(response.usage.input_tokens, response.usage.output_tokens,
