@@ -2,7 +2,7 @@ import argparse
 import ast
 from inference_utils import chose_model, transform_to_enumerated_descriptions
 
-from results_parser import llm_judgment_to_precision_recall, compute_metrics,compute_only_overall_metrics,impute_dicts
+from results_parser import llm_judgment_to_precision_recall,compute_only_overall_metrics,impute_dicts
 import pandas as pd
 from tqdm import tqdm
 import json
@@ -134,21 +134,6 @@ def get_data(args):
     return texts, summaries, raw_descriptions, outputs, judgment_outputs
 
 
-# def call_llm_for_inference(texts, summaries, model, prompt, past_text_prompt, max_new_tokens):
-#     outputs = []
-#     errors = []
-#     prices = []
-#     inputs = []
-#     for text, summary in tqdm(zip(texts, summaries)):
-#         input = prompt + '\n\n' 'Text: \n' + text + '\n' + 'Summary: \n' + summary + '\n' + past_text_prompt + '\n'
-#         inputs.append(input)
-#         output, error, price = model.call(input, max_new_tokens)
-#         outputs.append(output)
-#         errors.append(error)
-#         prices.append(price)
-#     return inputs, outputs, errors, prices
-
-
 
 def parallel_call_llm_for_inference(texts, summaries, model, prompt, past_text_prompt, max_new_tokens, max_workers=10):
     inputs = [None] * len(texts)  # Ensure correct indexing
@@ -203,22 +188,6 @@ def llm_inference(args, texts, summaries, raw_descriptions):
     return outputs
 
 
-# def call_llm_for_judgment(summaries, formatted_descriptions, llm_outputs, model, prompt, past_text_prompt,
-#                           max_new_tokens):
-#     outputs = []
-#     errors = []
-#     prices = []
-#     inputs = []
-#     for human_description, llm_description, summary in tqdm(
-#             zip(formatted_descriptions, llm_outputs, summaries)):
-#         input = prompt + '\n\n' "Summary:\n" + summary + '\n' + "Gold label: \n" + human_description + '\n' + 'Predicted Output: \n' + llm_description + '\n' + past_text_prompt
-#         inputs.append(input)
-#         output, error, price = model.call(input, max_new_tokens)
-#         outputs.append(output)
-#         errors.append(error)
-#         prices.append(price)
-#     return outputs, errors, prices, inputs
-
 
 
 def parallel_call_llm_for_judgment(summaries, formatted_descriptions, llm_outputs, model, prompt, past_text_prompt,
@@ -264,9 +233,6 @@ def parallel_call_llm_for_judgment(summaries, formatted_descriptions, llm_output
 def judge(args, raw_descriptions, llm_outputs, texts, summaries):
     formatted_descriptions = transform_to_enumerated_descriptions(raw_descriptions)
     model = chose_model(args.model_judge, args.judgment_temp_save_dir, args.llamaapi_judgment, args.azure_judgment)
-    # outputs, errors, prices, inputs = call_llm_for_judgment(summaries, formatted_descriptions, llm_outputs, model,
-    #                                                         args.judgment_prompt,
-    #                                                         args.judgment_past_text_prompt, args.max_new_tokens)
     inputs, outputs, errors, prices = parallel_call_llm_for_judgment(summaries, formatted_descriptions, llm_outputs, model,
                                                             args.judgment_prompt,
                                                             args.judgment_past_text_prompt, args.max_new_tokens)
@@ -288,8 +254,11 @@ def judge(args, raw_descriptions, llm_outputs, texts, summaries):
 def rerun_and_edit_inference(args):
     # This function need to load a file, where some of the calls incurred errors or the model did not output anything, and run them in the model again
     # After running them, edit the data by replacing the old inputs, outputs, prices and errors with new ones, only for the samples with errors
-    df = pd.read_csv(args.data_path, index_col=0)
-    inputs = df[(df['error'].notnull()) | (df['detection_output'].isna())]['input'].tolist()
+    df = pd.read_csv(args.data_path,index_col=0)
+    inputs = df[(df['error'].notnull())]['input'].tolist()
+    if len(inputs) == 0:
+        print("No samples with errors")
+        return
     model = chose_model(args.model_tested, None, args.llamaapi_inference, args.azure_inference)
     outputs, errors, prices = [], [], []
     print("Rerunning inference for samples with errors.There are ", len(inputs), " samples with errors")
@@ -306,8 +275,11 @@ def rerun_and_edit_inference(args):
 
 
 def rerun_and_edit_judgment(args):
-    df = pd.read_csv(args.data_path, index_col=0)
+    df = pd.read_csv(args.data_path)
     inputs = df[(df['error'].notnull()) | (df['judgment_output'].isna())]['input'].tolist()
+    if len(inputs) == 0:
+        print("No samples with errors")
+        return
     model = chose_model(args.model_judge, None, args.llamaapi_judgment, args.azure_judgment)
     outputs, errors, prices = [], [], []
     print("Rerunning judgment for samples with errors.There are ", len(inputs), " samples with errors")
@@ -320,7 +292,7 @@ def rerun_and_edit_judgment(args):
         df.loc[df['input'] == input, 'judgment_output'] = outputs[i]
         df.loc[df['input'] == input, 'error'] = errors[i]
         df.loc[df['input'] == input, 'price'] = prices[i]
-    df.to_csv(args.data_path)
+    df.to_csv(args.data_path,index=False)
 
 
 def evaluate():
@@ -349,7 +321,6 @@ def evaluate():
     if args.compute:
         precision_dicts, recall_dicts, discarded_samples = llm_judgment_to_precision_recall(judgment_outputs,
                                                                                             raw_descriptions)
-        #metrics = compute_metrics(precision_dicts, recall_dicts)
         metrics = compute_only_overall_metrics(precision_dicts, recall_dicts)
         metrics['number_of_discarded_samples'] = len(discarded_samples)
         metrics['discarded_samples'] = discarded_samples

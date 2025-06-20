@@ -47,7 +47,7 @@ def transform_to_enumerated_descriptions(descriptions):
     for sample_descriptions in descriptions:
         final_sample = ""
         if len(sample_descriptions) == 0:
-            samples.append(final_sample)
+            samples.append("No inconsistencies in the summary")
             continue
         for i, explanation in enumerate(sample_descriptions):
             final_sample += f"{num_to_uppercase_letter(i)}.\nDescription: {explanation}\n"

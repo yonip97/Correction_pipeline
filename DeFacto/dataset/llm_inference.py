@@ -44,6 +44,8 @@ def parse_args():
     args.add_argument('-split', type=str)
     args.add_argument('-parallel', action='store_true')
     args.add_argument("-batch_size", type=int, default=1)
+    args.add_argument("-seed", type=int, default=42)
+    args.add_argument("-sample", action='store_true')
     args = args.parse_args()
     if args.model in model_price_map:
         args.input_price = model_price_map[args.model]['input']
@@ -79,7 +81,10 @@ def get_data(args):
     df = df[['text', 'model_summary', "descriptions"]]
     df.drop_duplicates(inplace=True)
     if args.num_of_samples is not None:
-        df = df[:args.num_of_samples]
+        if args.sample is not None:
+            df = df.sample(n=args.num_of_samples, random_state=args.seed)
+        else:
+            df = df[:args.num_of_samples]
     texts = df['text'].tolist()
     summaries = df['model_summary'].tolist()
     descriptions = df['descriptions'].tolist()
@@ -211,10 +216,10 @@ def send_sample():
     print(price)
 
 
-def create_content_for_classification(summaries, descriptions):
+def create_content_for_classification(texts,summaries, descriptions):
     contents = []
-    for summary, description in zip(summaries, descriptions):
-        content = f"Summary: \n{summary}\n Factual inconsistency description:\n {description}"
+    for text,summary, description in zip(texts,summaries, descriptions):
+        content = f"Text:\n{text}\n Summary: \n{summary}\n Factual inconsistency description:\n {description}"
         contents.append(content)
     return contents
 
@@ -229,7 +234,7 @@ def inference_for_factual_inconsistencies_classification():
     summaries = [[summary for i in range(len(description))] for summary, description in zip(summaries, descriptions)]
     summaries = [item for sublist in summaries for item in sublist]
     descriptions = [item for sublist in descriptions for item in sublist]
-    contents = create_content_for_classification(summaries, descriptions)
+    contents = create_content_for_classification(texts,summaries, descriptions)
     if args.parallel:
         inputs, outputs, errors, prices = call_parallel(args, model, contents)
     else:
@@ -251,12 +256,11 @@ def send_together():
     summaries = [[summary for i in range(len(description))] for summary, description in zip(summaries, descriptions)]
     summaries = [item for sublist in summaries for item in sublist]
     descriptions = [item for sublist in descriptions for item in sublist]
-    summaries = summaries[:20]
-    descriptions = descriptions[:20]
     contents = create_content_for_classification(summaries, descriptions)
     input = args.prompt + '\n\n'
     for i in range(len(contents)):
         input += f"Factual inconsistency {i}:\n" + contents[i] + "\n"
+    input += args.past_text_prompt + '\n'
     output, error, price = model.call(input, args.max_new_tokens)
     print(output)
 
@@ -265,12 +269,14 @@ def send_sample_classification():
     args = parse_args()
     model = chose_model(args.model, args.temp_save_dir, args.llamaapi, azure=args.azure, dtype=None, device_map=None)
     df = pd.read_csv(args.data_path)
+    texts = df['text'].tolist()
     raw_descriptions = df['descriptions'].tolist()
     raw_descriptions = [eval(x) for x in raw_descriptions]
     summaries = df['model_summary'].tolist()
     prompt = args.prompt
     past_text_prompt = args.past_text_prompt
-    input = prompt + '\n\n' + 'Summary: \n' + summaries[args.sample_id] + '\n' + "Factual inconsistency:\n" + \
+    input = prompt + '\n\n' "Text:\n" + texts[args.sample_id] + "\n" + 'Summary: \n' + summaries[
+        args.sample_id] + '\n' + "Factual inconsistency:\n" + \
             raw_descriptions[args.sample_id][0] + '\n' + past_text_prompt + '\n'
     output, error, price = model.call(input, args.max_new_tokens)
     print(output)
@@ -279,5 +285,6 @@ def send_sample_classification():
 if __name__ == '__main__':
     # main()
     # send_sample()
-    inference_for_factual_inconsistencies_classification()
-    #send_together()
+    # inference_for_factual_inconsistencies_classification()
+    # send_together()
+    #send_sample_classification()
